@@ -1,4 +1,5 @@
 import type {ScienceIssue} from "@science-studio/experiment-schema";
+import type {NarrationStepText} from "./narration";
 
 export type Locale = "en" | "zh-CN";
 
@@ -22,6 +23,21 @@ export interface WorkbenchCopy {
   };
   stage: {outputCanvas: string; format: string};
   panel: {kicker: string; parameters: string; measurements: string; scienceNotes: string};
+  narration: {
+    kicker: string;
+    steps: string;
+    stepCount: (current: number, total: number) => string;
+    title: string;
+    caption: string;
+    duration: string;
+    seconds: string;
+    scene: string;
+    holdFrame: string;
+    playMotion: string;
+    restoreDefaults: string;
+    timeline: string;
+    stepText: NarrationStepText;
+  };
   parameters: Record<string, string>;
   measurements: {
     analytical: string;
@@ -85,6 +101,42 @@ const english: WorkbenchCopy = {
     parameters: "Parameters",
     measurements: "Live measurements",
     scienceNotes: "Science notes",
+  },
+  narration: {
+    kicker: "NARRATION",
+    steps: "Lesson steps",
+    stepCount: (current, total) => `Step ${current} of ${total}`,
+    title: "Title",
+    caption: "On-screen explanation",
+    duration: "Duration",
+    seconds: "s",
+    scene: "Scene behavior",
+    holdFrame: "Hold frame",
+    playMotion: "Play motion",
+    restoreDefaults: "Restore default steps",
+    timeline: "Lesson timeline",
+    stepText: {
+      setup: {
+        title: "Set up the experiment",
+        caption: "A block rests on a 32° inclined plane.",
+      },
+      forces: {
+        title: "Identify the forces",
+        caption: "Gravity, the normal force, and friction act on the block.",
+      },
+      components: {
+        title: "Resolve gravity",
+        caption: "Resolve gravity parallel and perpendicular to the plane.",
+      },
+      equation: {
+        title: "Predict the motion",
+        caption: "The downhill component exceeds kinetic friction.",
+      },
+      result: {
+        title: "Observe the result",
+        caption: "The block accelerates down the ramp and reaches the bottom.",
+      },
+    },
   },
   parameters: {
     angleDegrees: "Incline angle",
@@ -152,6 +204,42 @@ const chinese: WorkbenchCopy = {
   },
   stage: {outputCanvas: "输出画面", format: "9:16 · 720 × 1280"},
   panel: {kicker: "EXPERIMENT", parameters: "实验参数", measurements: "实时测量", scienceNotes: "科学说明"},
+  narration: {
+    kicker: "NARRATION",
+    steps: "讲解步骤",
+    stepCount: (current, total) => `第 ${current} 步，共 ${total} 步`,
+    title: "标题",
+    caption: "画面讲解",
+    duration: "持续时间",
+    seconds: "秒",
+    scene: "画面行为",
+    holdFrame: "保持画面",
+    playMotion: "播放运动",
+    restoreDefaults: "恢复默认步骤",
+    timeline: "教学时间轴",
+    stepText: {
+      setup: {
+        title: "设置实验",
+        caption: "物体静置在 32° 的斜面上。",
+      },
+      forces: {
+        title: "识别受力",
+        caption: "物体受到重力、支持力和摩擦力。",
+      },
+      components: {
+        title: "分解重力",
+        caption: "将重力分解为沿斜面和垂直斜面的分量。",
+      },
+      equation: {
+        title: "预测运动",
+        caption: "沿斜面的重力分量大于动摩擦力。",
+      },
+      result: {
+        title: "观察结果",
+        caption: "物体沿斜面加速运动并到达底端。",
+      },
+    },
+  },
   parameters: {
     angleDegrees: "斜面角度",
     massKg: "物体质量",

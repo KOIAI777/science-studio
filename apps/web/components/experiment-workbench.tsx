@@ -8,6 +8,7 @@ import {
   type InclinedPlaneParameters,
   type InclinedPlaneState,
 } from "@science-studio/templates/inclined-plane";
+import type {NarrationStep} from "@science-studio/experiment-schema";
 import {
   AlertTriangle,
   Check,
@@ -16,6 +17,7 @@ import {
   FlaskConical,
   Info,
   Languages,
+  ListRestart,
   Pause,
   Play,
   Redo2,
@@ -31,10 +33,20 @@ import {
   type Locale,
   type WorkbenchCopy,
 } from "../lib/i18n";
+import {
+  buildNarrationSteps,
+  getNarrationDuration,
+  getNarrationStepStart,
+  resolveNarrationFrame,
+  type NarrationDurationOverrides,
+  type NarrationStepId,
+  type NarrationTextOverrides,
+} from "../lib/narration";
 
 const FPS = 30;
 
 type ParameterKey = keyof InclinedPlaneParameters;
+type EditorMode = "experiment" | "narration";
 
 interface ParameterDefinition {
   key: ParameterKey;
@@ -72,16 +84,46 @@ function formatNumber(value: number, locale: Locale, digits = 2) {
   }).format(value);
 }
 
+function wrapCaption(caption: string) {
+  const trimmed = caption.trim();
+  if (trimmed.length <= 52) return [trimmed];
+
+  if (!trimmed.includes(" ")) {
+    return [trimmed.slice(0, 26), trimmed.slice(26, 52)];
+  }
+
+  const words = trimmed.split(/\s+/);
+  const lines: string[] = [""];
+  for (const word of words) {
+    const lineIndex = lines.length - 1;
+    const candidate = `${lines[lineIndex]} ${word}`.trim();
+    if (candidate.length <= 52 || lines[lineIndex] === "") {
+      lines[lineIndex] = candidate;
+    } else if (lines.length === 1) {
+      lines.push(word);
+    } else {
+      lines[1] = `${lines[1]} ${word}`;
+    }
+  }
+  return lines.slice(0, 2);
+}
+
 function InclinedPlaneCanvas({
   parameters,
   state,
   locale,
   copy,
+  narrationStep,
+  narrationStepIndex,
+  narrationStepCount,
 }: {
   parameters: InclinedPlaneParameters;
   state: InclinedPlaneState | null;
   locale: Locale;
   copy: WorkbenchCopy;
+  narrationStep?: NarrationStep;
+  narrationStepIndex?: number;
+  narrationStepCount?: number;
 }) {
   const rampPixels = 430;
   const angleRadians = (parameters.angleDegrees * Math.PI) / 180;
@@ -155,6 +197,8 @@ function InclinedPlaneCanvas({
   };
   const nearLeftEdge = forceOrigin.x < 170;
   const nearRightEdge = forceOrigin.x > 490;
+  const narrationFocus = narrationStep?.highlights[0];
+  const captionLines = narrationStep ? wrapCaption(narrationStep.caption) : [];
 
   return (
     <div className="output-frame" aria-label={copy.canvas.ariaLabel}>
@@ -185,17 +229,32 @@ function InclinedPlaneCanvas({
         <text x="72" y="152" className={`canvas-title ${locale === "en" ? "canvas-title-en" : ""}`}>{copy.canvas.title}</text>
         <text x="72" y="188" className="canvas-subtitle">{copy.canvas.subtitle}</text>
 
-        <g transform="translate(72 238)">
-          <text className="measure-label">{copy.canvas.motionLabel}</text>
-          <text y="42" className="motion-value">
-            {state?.motion === "stationary"
-              ? copy.canvas.stationary
-              : state?.motion === "complete"
-                ? copy.canvas.complete
-                : copy.canvas.sliding}
-          </text>
-          <line x1="0" y1="64" x2="576" y2="64" stroke="#b9bdb3" />
-        </g>
+        {narrationStep ? (
+          <g className="narration-chapter" transform="translate(72 226)">
+            <text className="narration-step-number">
+              {String((narrationStepIndex ?? 0) + 1).padStart(2, "0")} / {String(narrationStepCount ?? 0).padStart(2, "0")}
+            </text>
+            <text y="45" className="narration-step-title">{narrationStep.title}</text>
+            <text y="79" className="narration-step-caption">
+              {captionLines.map((line, index) => (
+                <tspan x="0" dy={index === 0 ? 0 : 25} key={`${line}-${index}`}>{line}</tspan>
+              ))}
+            </text>
+            <line x1="0" y1="126" x2="576" y2="126" stroke="#b9bdb3" />
+          </g>
+        ) : (
+          <g transform="translate(72 238)">
+            <text className="measure-label">{copy.canvas.motionLabel}</text>
+            <text y="42" className="motion-value">
+              {state?.motion === "stationary"
+                ? copy.canvas.stationary
+                : state?.motion === "complete"
+                  ? copy.canvas.complete
+                  : copy.canvas.sliding}
+            </text>
+            <line x1="0" y1="64" x2="576" y2="64" stroke="#b9bdb3" />
+          </g>
+        )}
 
         <path
           d={`M ${rampTop.x} ${rampTop.y} L ${rampBottom.x} ${rampBottom.y} L ${rampTop.x} ${rampBottom.y} Z`}
@@ -233,7 +292,7 @@ function InclinedPlaneCanvas({
         </g>
 
         {state && weightForceN > 0 ? (
-          <g className="force-vectors">
+          <g className={`force-vectors force-primary focus-${narrationFocus ?? "all"}`}>
             <line
               x1={forceOrigin.x}
               y1={forceOrigin.y}
@@ -281,6 +340,10 @@ function InclinedPlaneCanvas({
                 {state.motion === "stationary" ? "s" : "k"}
               </tspan>
             </text>
+          </g>
+        ) : null}
+        {state && weightForceN > 0 ? (
+          <g className={`force-vectors force-components focus-${narrationFocus ?? "all"}`}>
             <line
               x1={forceOrigin.x}
               y1={forceOrigin.y}
@@ -320,7 +383,7 @@ function InclinedPlaneCanvas({
           </g>
         ) : null}
 
-        <g transform="translate(72 960)">
+        <g className={`formula-block focus-${narrationFocus ?? "all"}`} transform="translate(72 960)">
           <text className="formula-label">{copy.canvas.analyticalResult}</text>
           <text y="48" className="formula">a = g (sin θ − μₖ cos θ)</text>
           <text y="93" className="formula-result">
@@ -348,8 +411,16 @@ function InclinedPlaneCanvas({
 
 export function ExperimentWorkbench() {
   const [locale, setLocale] = useState<Locale>("en");
+  const [mode, setMode] = useState<EditorMode>("experiment");
   const [parameters, setParameters] = useState(inclinedPlaneDefaults);
   const [timeSeconds, setTimeSeconds] = useState(0);
+  const [narrationTimeSeconds, setNarrationTimeSeconds] = useState(0);
+  const [narrationTextOverrides, setNarrationTextOverrides] = useState<
+    Record<Locale, NarrationTextOverrides>
+  >({en: {}, "zh-CN": {}});
+  const [narrationDurationOverrides, setNarrationDurationOverrides] = useState<
+    NarrationDurationOverrides
+  >({});
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
   const lastFrame = useRef<number | null>(null);
@@ -367,21 +438,67 @@ export function ExperimentWorkbench() {
     () => inclinedPlaneParametersSchema.safeParse(parameters),
     [parameters],
   );
-  const state = useMemo(
-    () => parsedParameters.success
-      ? solveInclinedPlane(parsedParameters.data, timeSeconds)
-      : null,
-    [parsedParameters, timeSeconds],
-  );
   const initialState = useMemo(
     () => parsedParameters.success
       ? solveInclinedPlane(parsedParameters.data, 0)
       : null,
     [parsedParameters],
   );
-  const durationSeconds = initialState?.endTimeSeconds
+  const experimentDurationSeconds = initialState?.endTimeSeconds
     ? Math.max(4, initialState.endTimeSeconds + 0.5)
     : 5;
+  const narrationText = useMemo(() => {
+    const text = structuredClone(copy.narration.stepText);
+    if (locale === "en") {
+      text.setup.caption = `A block rests on a ${formatNumber(parameters.angleDegrees, locale, 0)}° inclined plane.`;
+      text.equation.caption = "mg sin θ exceeds μₛN, so the block begins to slide.";
+      text.result.caption = initialState
+        ? `The block accelerates at ${formatNumber(initialState.accelerationMs2, locale)} m/s² and reaches ${formatNumber(initialState.bottomVelocityMs, locale)} m/s.`
+        : copy.narration.stepText.result.caption;
+    } else {
+      text.setup.caption = `物体静置在 ${formatNumber(parameters.angleDegrees, locale, 0)}° 的斜面上。`;
+      text.equation.caption = "mg sin θ 大于 μₛN，因此物体开始滑动。";
+      text.result.caption = initialState
+        ? `物体以 ${formatNumber(initialState.accelerationMs2, locale)} m/s² 的加速度运动，底端速度为 ${formatNumber(initialState.bottomVelocityMs, locale)} m/s。`
+        : copy.narration.stepText.result.caption;
+    }
+    return text;
+  }, [copy.narration.stepText, initialState, locale, parameters.angleDegrees]);
+  const narrationSteps = useMemo(
+    () => buildNarrationSteps(
+      narrationText,
+      narrationTextOverrides[locale],
+      narrationDurationOverrides,
+    ),
+    [locale, narrationDurationOverrides, narrationText, narrationTextOverrides],
+  );
+  const narrationDurationSeconds = useMemo(
+    () => getNarrationDuration(narrationSteps),
+    [narrationSteps],
+  );
+  const narrationFrame = useMemo(
+    () => resolveNarrationFrame(
+      narrationSteps,
+      narrationTimeSeconds,
+      initialState?.endTimeSeconds ?? null,
+    ),
+    [initialState?.endTimeSeconds, narrationSteps, narrationTimeSeconds],
+  );
+  const simulationTimeSeconds = mode === "narration"
+    ? narrationFrame.simulationTimeSeconds
+    : timeSeconds;
+  const state = useMemo(
+    () => parsedParameters.success
+      ? solveInclinedPlane(parsedParameters.data, simulationTimeSeconds)
+      : null,
+    [parsedParameters, simulationTimeSeconds],
+  );
+  const durationSeconds = mode === "narration"
+    ? narrationDurationSeconds
+    : experimentDurationSeconds;
+  const playbackTimeSeconds = mode === "narration"
+    ? narrationTimeSeconds
+    : timeSeconds;
   const issues = useMemo(
     () => inspectInclinedPlane(parameters),
     [parameters],
@@ -410,7 +527,10 @@ export function ExperimentWorkbench() {
       lastFrame.current = now;
       const deltaSeconds = ((now - previous) / 1000) * speed;
 
-      setTimeSeconds((current) => {
+      const updateTime = mode === "narration"
+        ? setNarrationTimeSeconds
+        : setTimeSeconds;
+      updateTime((current) => {
         const next = current + deltaSeconds;
         if (next >= durationSeconds) {
           setIsPlaying(false);
@@ -423,25 +543,68 @@ export function ExperimentWorkbench() {
 
     animationFrame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(animationFrame);
-  }, [durationSeconds, isPlaying, speed, state]);
+  }, [durationSeconds, isPlaying, mode, speed, state]);
 
   const updateParameter = useCallback((key: ParameterKey, value: number) => {
     setParameters((current) => ({...current, [key]: value}));
     setTimeSeconds(0);
+    setNarrationTimeSeconds(0);
     setIsPlaying(false);
   }, []);
 
   const reset = useCallback(() => {
     setTimeSeconds(0);
+    setNarrationTimeSeconds(0);
     setIsPlaying(false);
   }, []);
 
   const step = useCallback((direction: -1 | 1) => {
     setIsPlaying(false);
-    setTimeSeconds((current) =>
+    const updateTime = mode === "narration"
+      ? setNarrationTimeSeconds
+      : setTimeSeconds;
+    updateTime((current) =>
       Math.min(Math.max(current + direction / FPS, 0), durationSeconds),
     );
-  }, [durationSeconds]);
+  }, [durationSeconds, mode]);
+
+  const selectNarrationStep = useCallback((index: number) => {
+    setIsPlaying(false);
+    setNarrationTimeSeconds(getNarrationStepStart(narrationSteps, index));
+  }, [narrationSteps]);
+
+  const updateNarrationText = useCallback((
+    id: NarrationStepId,
+    field: "title" | "caption",
+    value: string,
+  ) => {
+    setNarrationTextOverrides((current) => ({
+      ...current,
+      [locale]: {
+        ...current[locale],
+        [id]: {...current[locale][id], [field]: value},
+      },
+    }));
+  }, [locale]);
+
+  const updateNarrationDuration = useCallback((id: NarrationStepId, value: number) => {
+    if (!Number.isFinite(value)) return;
+    const duration = Math.min(Math.max(value, 1), 10);
+    const activeStepId = narrationFrame.step.id as NarrationStepId;
+    setNarrationDurationOverrides((current) => ({...current, [id]: duration}));
+    if (id === activeStepId) {
+      const activeStepIndex = narrationSteps.findIndex((step) => step.id === id);
+      setNarrationTimeSeconds(getNarrationStepStart(narrationSteps, activeStepIndex));
+    }
+    setIsPlaying(false);
+  }, [narrationFrame.step.id, narrationSteps]);
+
+  const restoreNarrationDefaults = useCallback(() => {
+    setNarrationTextOverrides((current) => ({...current, [locale]: {}}));
+    setNarrationDurationOverrides({});
+    setNarrationTimeSeconds(0);
+    setIsPlaying(false);
+  }, [locale]);
 
   const blockingCount = issues.filter((issue) => issue.severity === "blocking").length;
 
@@ -455,7 +618,7 @@ export function ExperimentWorkbench() {
   }, []);
 
   return (
-    <main className="workbench-shell">
+    <main className={`workbench-shell ${mode === "narration" ? "narration-mode" : ""}`}>
       <header className="topbar">
         <div className="project-identity">
           <span className="brand-mark"><FlaskConical size={17} /></span>
@@ -466,8 +629,24 @@ export function ExperimentWorkbench() {
         </div>
 
         <nav className="mode-switch" aria-label={copy.modeLabel}>
-          <button className="mode-button active" type="button">{copy.modes.experiment}</button>
-          <button className="mode-button" type="button" disabled>{copy.modes.narration}</button>
+          <button
+            className={`mode-button ${mode === "experiment" ? "active" : ""}`}
+            type="button"
+            aria-pressed={mode === "experiment"}
+            onClick={() => {
+              setMode("experiment");
+              setIsPlaying(false);
+            }}
+          >{copy.modes.experiment}</button>
+          <button
+            className={`mode-button ${mode === "narration" ? "active" : ""}`}
+            type="button"
+            aria-pressed={mode === "narration"}
+            onClick={() => {
+              setMode("narration");
+              setIsPlaying(false);
+            }}
+          >{copy.modes.narration}</button>
           <button className="mode-button" type="button" disabled>{copy.modes.export}</button>
         </nav>
 
@@ -498,22 +677,32 @@ export function ExperimentWorkbench() {
             <span>{copy.stage.outputCanvas}</span>
             <span>{copy.stage.format}</span>
           </div>
-          <InclinedPlaneCanvas parameters={parameters} state={state} locale={locale} copy={copy} />
+          <InclinedPlaneCanvas
+            parameters={parameters}
+            state={state}
+            locale={locale}
+            copy={copy}
+            narrationStep={mode === "narration" ? narrationFrame.step : undefined}
+            narrationStepIndex={mode === "narration" ? narrationFrame.index : undefined}
+            narrationStepCount={mode === "narration" ? narrationSteps.length : undefined}
+          />
         </div>
 
         <aside className="parameter-panel">
-          <div className="panel-heading">
-            <div>
-              <span className="panel-kicker">{copy.panel.kicker}</span>
-              <h1>{copy.panel.parameters}</h1>
-            </div>
-            <button className="icon-button" type="button" aria-label={copy.actions.collapseParameters} title={copy.actions.collapseParameters}>
-              <ChevronDown />
-            </button>
-          </div>
+          {mode === "experiment" ? (
+            <>
+              <div className="panel-heading">
+                <div>
+                  <span className="panel-kicker">{copy.panel.kicker}</span>
+                  <h1>{copy.panel.parameters}</h1>
+                </div>
+                <button className="icon-button" type="button" aria-label={copy.actions.collapseParameters} title={copy.actions.collapseParameters}>
+                  <ChevronDown />
+                </button>
+              </div>
 
-          <div className="parameter-list">
-            {parameterDefinitions.map((definition) => {
+              <div className="parameter-list">
+                {parameterDefinitions.map((definition) => {
               const hasError = !parsedParameters.success && parsedParameters.error.issues.some(
                 (issue) => issue.path[0] === definition.key,
               );
@@ -561,32 +750,125 @@ export function ExperimentWorkbench() {
                   {error ? <p className="field-error">{error}</p> : null}
                 </div>
               );
-            })}
-          </div>
-
-          <section className="measurement-section">
-            <div className="section-title">
-              <h2>{copy.panel.measurements}</h2>
-              <span>{state?.motion === "stationary" ? copy.measurements.staticEquilibrium : copy.measurements.analytical}</span>
-            </div>
-            <dl className="measurements">
-              <div><dt>{copy.measurements.acceleration}</dt><dd>{state ? formatNumber(state.accelerationMs2, locale) : "--"}<small>m/s²</small></dd></div>
-              <div><dt>{copy.measurements.velocity}</dt><dd>{state ? formatNumber(state.velocityMs, locale) : "--"}<small>m/s</small></dd></div>
-              <div><dt>{copy.measurements.displacement}</dt><dd>{state ? formatNumber(state.displacementM, locale) : "--"}<small>m</small></dd></div>
-              <div><dt>{copy.measurements.normalForce}</dt><dd>{state ? formatNumber(state.normalForceN, locale) : "--"}<small>N</small></dd></div>
-              <div className="end-velocity-measurement"><dt>{copy.measurements.bottomVelocity} <span className="measurement-symbol">v<sub>bottom</sub></span></dt><dd>{state ? formatNumber(state.bottomVelocityMs, locale) : "--"}<small>m/s</small></dd></div>
-            </dl>
-          </section>
-
-          <section className="science-section">
-            <div className="section-title"><h2>{copy.panel.scienceNotes}</h2></div>
-            {localizedIssues.map((issue) => (
-              <div className={`science-issue ${issue.severity}`} key={issue.id}>
-                {issue.severity === "assumption" ? <Info size={15} /> : <AlertTriangle size={15} />}
-                <div><strong>{issue.title}</strong><p>{issue.detail}</p></div>
+                })}
               </div>
-            ))}
-          </section>
+
+              <section className="measurement-section">
+                <div className="section-title">
+                  <h2>{copy.panel.measurements}</h2>
+                  <span>{state?.motion === "stationary" ? copy.measurements.staticEquilibrium : copy.measurements.analytical}</span>
+                </div>
+                <dl className="measurements">
+                  <div><dt>{copy.measurements.acceleration}</dt><dd>{state ? formatNumber(state.accelerationMs2, locale) : "--"}<small>m/s²</small></dd></div>
+                  <div><dt>{copy.measurements.velocity}</dt><dd>{state ? formatNumber(state.velocityMs, locale) : "--"}<small>m/s</small></dd></div>
+                  <div><dt>{copy.measurements.displacement}</dt><dd>{state ? formatNumber(state.displacementM, locale) : "--"}<small>m</small></dd></div>
+                  <div><dt>{copy.measurements.normalForce}</dt><dd>{state ? formatNumber(state.normalForceN, locale) : "--"}<small>N</small></dd></div>
+                  <div className="end-velocity-measurement"><dt>{copy.measurements.bottomVelocity} <span className="measurement-symbol">v<sub>bottom</sub></span></dt><dd>{state ? formatNumber(state.bottomVelocityMs, locale) : "--"}<small>m/s</small></dd></div>
+                </dl>
+              </section>
+
+              <section className="science-section">
+                <div className="section-title"><h2>{copy.panel.scienceNotes}</h2></div>
+                {localizedIssues.map((issue) => (
+                  <div className={`science-issue ${issue.severity}`} key={issue.id}>
+                    {issue.severity === "assumption" ? <Info size={15} /> : <AlertTriangle size={15} />}
+                    <div><strong>{issue.title}</strong><p>{issue.detail}</p></div>
+                  </div>
+                ))}
+              </section>
+            </>
+          ) : (
+            <>
+              <div className="panel-heading narration-panel-heading">
+                <div>
+                  <span className="panel-kicker">{copy.narration.kicker}</span>
+                  <h1>{copy.narration.steps}</h1>
+                </div>
+                <span className="narration-step-count">
+                  {copy.narration.stepCount(narrationFrame.index + 1, narrationSteps.length)}
+                </span>
+              </div>
+              <div className="narration-step-list" aria-label={copy.narration.steps}>
+                {narrationSteps.map((stepItem, index) => (
+                  <button
+                    className={`narration-step-row ${index === narrationFrame.index ? "active" : ""}`}
+                    type="button"
+                    onClick={() => selectNarrationStep(index)}
+                    key={stepItem.id}
+                  >
+                    <span className="narration-step-index">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="narration-step-summary">
+                      <strong>{stepItem.title}</strong>
+                      <small>{stepItem.durationSeconds.toFixed(1)} {copy.narration.seconds}</small>
+                    </span>
+                    <span className={`scene-mode ${stepItem.simulationMode}`}>
+                      {stepItem.simulationMode === "play" ? <Play size={12} /> : <Pause size={12} />}
+                    </span>
+                  </button>
+                ))}
+              </div>
+              <section className="narration-editor">
+                <label>
+                  <span>{copy.narration.title}</span>
+                  <input
+                    type="text"
+                    maxLength={80}
+                    value={narrationFrame.step.title}
+                    onChange={(event) => updateNarrationText(
+                      narrationFrame.step.id as NarrationStepId,
+                      "title",
+                      event.currentTarget.value,
+                    )}
+                  />
+                </label>
+                <label>
+                  <span>{copy.narration.caption}</span>
+                  <textarea
+                    maxLength={240}
+                    rows={3}
+                    value={narrationFrame.step.caption}
+                    onChange={(event) => updateNarrationText(
+                      narrationFrame.step.id as NarrationStepId,
+                      "caption",
+                      event.currentTarget.value,
+                    )}
+                  />
+                </label>
+                <div className="narration-editor-row">
+                  <label>
+                    <span>{copy.narration.duration}</span>
+                    <div className="duration-field">
+                      <input
+                        type="number"
+                        min="1"
+                        max="10"
+                        step="0.5"
+                        value={narrationFrame.step.durationSeconds}
+                        onChange={(event) => updateNarrationDuration(
+                          narrationFrame.step.id as NarrationStepId,
+                          event.currentTarget.valueAsNumber,
+                        )}
+                      />
+                      <span>{copy.narration.seconds}</span>
+                    </div>
+                  </label>
+                  <div className="scene-behavior">
+                    <span>{copy.narration.scene}</span>
+                    <strong>
+                      {narrationFrame.step.simulationMode === "play" ? <Play size={13} /> : <Pause size={13} />}
+                      {narrationFrame.step.simulationMode === "play"
+                        ? copy.narration.playMotion
+                        : copy.narration.holdFrame}
+                    </strong>
+                  </div>
+                </div>
+                <button className="restore-steps-button" type="button" onClick={restoreNarrationDefaults}>
+                  <ListRestart size={15} />
+                  {copy.narration.restoreDefaults}
+                </button>
+              </section>
+            </>
+          )}
         </aside>
       </section>
 
@@ -598,7 +880,10 @@ export function ExperimentWorkbench() {
             className="play-button"
             type="button"
             onClick={() => {
-              if (timeSeconds >= durationSeconds) setTimeSeconds(0);
+              if (playbackTimeSeconds >= durationSeconds) {
+                if (mode === "narration") setNarrationTimeSeconds(0);
+                else setTimeSeconds(0);
+              }
               setIsPlaying((current) => !current);
             }}
             disabled={!state}
@@ -610,20 +895,49 @@ export function ExperimentWorkbench() {
           <button className="icon-button" type="button" onClick={() => step(1)} aria-label={copy.actions.nextFrame} title={copy.actions.nextFrame}><SkipForward /></button>
         </div>
 
-        <span className="timecode">{formatNumber(timeSeconds, locale)} <small>/ {formatNumber(durationSeconds, locale)} s</small></span>
-        <input
-          className="timeline"
-          aria-label={locale === "en" ? "Experiment time" : "实验时间"}
-          type="range"
-          min="0"
-          max={durationSeconds}
-          step={1 / FPS}
-          value={timeSeconds}
-          onChange={(event) => {
-            setIsPlaying(false);
-            setTimeSeconds(event.currentTarget.valueAsNumber);
-          }}
-        />
+        <span className="timecode">{formatNumber(playbackTimeSeconds, locale)} <small>/ {formatNumber(durationSeconds, locale)} s</small></span>
+        {mode === "narration" ? (
+          <div className="lesson-timeline-wrap">
+            <div className="lesson-segments" aria-hidden="true">
+              {narrationSteps.map((stepItem, index) => (
+                <span
+                  className={index === narrationFrame.index ? "active" : ""}
+                  style={{flex: stepItem.durationSeconds}}
+                  key={stepItem.id}
+                >
+                  <small>{String(index + 1).padStart(2, "0")}</small>
+                </span>
+              ))}
+            </div>
+            <input
+              className="timeline lesson-timeline"
+              aria-label={copy.narration.timeline}
+              type="range"
+              min="0"
+              max={durationSeconds}
+              step={1 / FPS}
+              value={narrationTimeSeconds}
+              onInput={(event) => {
+                setIsPlaying(false);
+                setNarrationTimeSeconds(event.currentTarget.valueAsNumber);
+              }}
+            />
+          </div>
+        ) : (
+          <input
+            className="timeline"
+            aria-label={locale === "en" ? "Experiment time" : "实验时间"}
+            type="range"
+            min="0"
+            max={durationSeconds}
+            step={1 / FPS}
+            value={timeSeconds}
+            onInput={(event) => {
+              setIsPlaying(false);
+              setTimeSeconds(event.currentTarget.valueAsNumber);
+            }}
+          />
+        )}
         <label className="speed-control">
           <span>{copy.actions.speed}</span>
           <select value={speed} onChange={(event) => setSpeed(Number(event.currentTarget.value))}>

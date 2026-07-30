@@ -3,9 +3,13 @@ import {z} from "zod";
 export const narrationStepSchema = z.object({
   id: z.string().min(1),
   title: z.string().min(1).max(80),
+  caption: z.string().min(1).max(240),
   durationSeconds: z.number().positive().max(30),
-  showForces: z.boolean(),
-  showFormula: z.boolean(),
+  simulationMode: z.enum(["hold", "play"]),
+  simulationTimeSeconds: z.number().nonnegative(),
+  highlights: z.array(
+    z.enum(["setup", "forces", "components", "equation", "result"]),
+  ),
 });
 
 export const experimentProjectSchema = z.object({

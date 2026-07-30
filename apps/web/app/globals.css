@@ -37,7 +37,8 @@ body {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
   letter-spacing: 0;
 }
@@ -295,6 +296,47 @@ button:disabled {
   font-weight: 700;
 }
 
+.narration-step-number {
+  fill: var(--accent-control);
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.narration-step-title {
+  fill: var(--text-on-canvas);
+  font-size: 28px;
+  font-weight: 720;
+}
+
+.narration-step-caption {
+  fill: #5f635c;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.force-vectors,
+.formula-block {
+  transition: opacity 160ms ease;
+}
+
+.force-primary.focus-components,
+.force-primary.focus-equation,
+.force-primary.focus-setup,
+.force-primary.focus-result,
+.force-components.focus-forces,
+.force-components.focus-equation,
+.force-components.focus-setup,
+.force-components.focus-result,
+.formula-block.focus-forces,
+.formula-block.focus-components,
+.formula-block.focus-setup {
+  opacity: 0.2;
+}
+
+.formula-block.focus-result {
+  opacity: 0.52;
+}
+
 .angle-label,
 .force-label {
   paint-order: stroke;
@@ -415,6 +457,203 @@ button:disabled {
   line-height: 20px;
 }
 
+.narration-panel-heading {
+  height: 66px;
+}
+
+.narration-step-count {
+  color: var(--text-muted);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.narration-step-list {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.narration-step-row {
+  width: 100%;
+  min-height: 48px;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: #d9dbd5;
+  background: transparent;
+  text-align: left;
+}
+
+.narration-step-row:hover {
+  background: #262724;
+}
+
+.narration-step-row.active {
+  border-color: #565952;
+  background: var(--surface-raised);
+  box-shadow: inset 3px 0 var(--accent-control);
+}
+
+.narration-step-index {
+  color: #767a72;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.narration-step-row.active .narration-step-index {
+  color: var(--accent-control);
+}
+
+.narration-step-summary {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.narration-step-summary strong {
+  min-width: 0;
+  overflow: hidden;
+  color: inherit;
+  font-size: 11px;
+  font-weight: 620;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.narration-step-summary small {
+  flex: 0 0 auto;
+  color: var(--text-muted);
+  font-size: 9px;
+  font-variant-numeric: tabular-nums;
+}
+
+.scene-mode {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  color: #858981;
+  background: #1c1d1b;
+}
+
+.scene-mode.play {
+  color: #73b9ae;
+}
+
+.narration-editor {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+}
+
+.narration-editor > label,
+.narration-editor-row > label,
+.scene-behavior {
+  display: grid;
+  gap: 7px;
+}
+
+.narration-editor label > span,
+.scene-behavior > span {
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+.narration-editor input[type="text"],
+.narration-editor textarea,
+.duration-field {
+  width: 100%;
+  border: 1px solid #494b46;
+  border-radius: 6px;
+  color: var(--text-on-dark);
+  background: var(--surface-raised);
+}
+
+.narration-editor input[type="text"] {
+  height: 34px;
+  padding: 0 9px;
+}
+
+.narration-editor textarea {
+  min-height: 74px;
+  padding: 8px 9px;
+  resize: vertical;
+  line-height: 18px;
+}
+
+.narration-editor input[type="text"]:focus,
+.narration-editor textarea:focus {
+  border-color: var(--focus-ring);
+  outline: 1px solid var(--focus-ring);
+}
+
+.narration-editor-row {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.duration-field {
+  height: 34px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 27px;
+  align-items: center;
+}
+
+.duration-field input {
+  width: 100%;
+  min-width: 0;
+  height: 32px;
+  padding: 0 0 0 9px;
+  border: 0;
+  outline: 0;
+  color: var(--text-on-dark);
+  background: transparent;
+  font-variant-numeric: tabular-nums;
+}
+
+.duration-field span {
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+.scene-behavior strong {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 9px;
+  border: 1px solid #3e403c;
+  border-radius: 6px;
+  color: #bfc2ba;
+  background: #242522;
+  font-size: 11px;
+  font-weight: 550;
+}
+
+.restore-steps-button {
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid #494b46;
+  border-radius: 6px;
+  color: #c9ccc4;
+  background: transparent;
+  font-size: 11px;
+}
+
+.restore-steps-button:hover {
+  background: var(--surface-raised);
+}
+
 .parameter-list {
   padding: 2px 16px 8px;
 }
@@ -484,6 +723,49 @@ button:disabled {
   height: 18px;
   margin: 0;
   background: transparent;
+}
+
+.lesson-timeline-wrap {
+  position: relative;
+  height: 40px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.lesson-segments {
+  position: absolute;
+  inset: 0 0 13px;
+  display: flex;
+  gap: 2px;
+  pointer-events: none;
+}
+
+.lesson-segments > span {
+  min-width: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  border: 1px solid #454742;
+  border-radius: 3px 3px 0 0;
+  color: #777b73;
+  background: #262724;
+}
+
+.lesson-segments > span.active {
+  border-color: #785045;
+  color: #ffc0b1;
+  background: #3b2b27;
+}
+
+.lesson-segments small {
+  font-size: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.lesson-timeline {
+  position: relative;
+  z-index: 1;
+  width: 100%;
 }
 
 .parameter-range {
@@ -726,11 +1008,27 @@ button:disabled {
     grid-template-columns: minmax(0, 1fr) auto;
   }
 
-  .mode-switch,
   .topbar-actions .icon-button,
   .project-name,
   .topbar-divider {
     display: none;
+  }
+
+  .mode-switch {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: stretch;
+    margin: 0 8px 8px;
+  }
+
+  .mode-button {
+    flex: 1;
+  }
+
+  .topbar {
+    height: 88px;
+    grid-template-rows: 48px 40px;
+    padding: 0 6px;
   }
 
   .workspace {
@@ -763,6 +1061,12 @@ button:disabled {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0 20px;
+  }
+
+  .narration-step-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
   }
 
   .playback-bar {
@@ -802,6 +1106,14 @@ button:disabled {
 
   .parameter-list {
     display: block;
+  }
+
+  .narration-step-list {
+    display: block;
+  }
+
+  .narration-editor-row {
+    grid-template-columns: 1fr;
   }
 
   .playback-bar {
