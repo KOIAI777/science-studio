@@ -51,6 +51,10 @@ const experimentPreviewImages: Record<string, {src: string; alt: string}> = {
     src: "/experiments/forces-and-motion-diagram.png",
     alt: "Actual Science Studio free-body diagram showing normal force, weight, applied force, and friction on a sliding block.",
   },
+  "ohms-law": {
+    src: "/experiments/ohms-law-diagram.png",
+    alt: "Actual Science Studio Ohm's Law circuit output showing one source, one resistor, a switch, and current direction.",
+  },
 };
 
 function ExperimentPreview({experiment}: {experiment: ExperimentCatalogItem}) {
@@ -111,7 +115,7 @@ export function ExperimentLibrary({catalog, filters}: {catalog: CatalogPage; fil
         <div className="library-breadcrumb"><Link href="/"><ArrowLeft size={14} />Home</Link><span>/</span><span>Experiment library</span></div>
         <section className="library-heading">
           <div><span className="section-kicker">Experiment library</span><h1>One clear place for every grade level</h1></div>
-          <p>Find classroom-ready physics experiments by grade and subject. Start with three free mechanics lessons while the wider curriculum is being reviewed.</p>
+          <p>Find classroom-ready physics experiments by grade and subject. Start with four free lessons across mechanics and electricity while the wider curriculum is being reviewed.</p>
         </section>
 
         <section className="library-toolbar" aria-label="Experiment filters">

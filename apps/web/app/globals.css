@@ -2658,3 +2658,596 @@ a {
     width: 34px;
   }
 }
+
+/* Ohm's Law worksheet */
+.ohms-stage-area {
+  isolation: isolate;
+}
+
+.ohms-stage-meta {
+  z-index: 4;
+  align-items: center;
+  pointer-events: none;
+}
+
+.ohms-canvas-toolbar {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px;
+  border: 1px solid #4b4e48;
+  border-radius: 6px;
+  color: #cfd2ca;
+  background: rgb(24 25 23 / 94%);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 18%);
+  pointer-events: auto;
+}
+
+.ohms-canvas-transform {
+  position: relative;
+  height: 100%;
+  max-height: 680px;
+  aspect-ratio: 9 / 16;
+  flex: 0 1 auto;
+  transform-origin: center;
+  transition: transform 140ms ease;
+  outline: none;
+}
+
+.ohms-canvas-transform.is-landscape {
+  width: 100%;
+  height: auto;
+  max-width: 1200px;
+  max-height: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.ohms-canvas-transform.can-pan {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.ohms-canvas-transform.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.ohms-canvas-transform:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.ohms-canvas-transform .ohms-output-frame {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  aspect-ratio: inherit;
+}
+
+.ohms-output-frame.is-landscape {
+  max-width: none;
+}
+
+.ohms-law-workbench:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 68px;
+  overflow: hidden;
+}
+
+.ohms-law-workbench:fullscreen .topbar,
+.ohms-law-workbench:fullscreen .parameter-panel {
+  display: none;
+}
+
+.ohms-law-workbench:fullscreen .workspace {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.ohms-law-workbench:fullscreen .ohms-stage-area {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  order: initial;
+  display: flex;
+  padding: 54px 32px 24px;
+  background-color: var(--surface-app);
+  background-image: radial-gradient(#343631 0.8px, transparent 0.8px);
+  background-size: 16px 16px;
+}
+
+.ohms-law-workbench:fullscreen .ohms-canvas-transform {
+  max-height: calc(100vh - 146px);
+}
+
+.ohms-law-workbench:fullscreen .ohms-canvas-transform.is-landscape {
+  max-width: calc((100vh - 146px) * 16 / 9);
+}
+
+.ohms-law-workbench:fullscreen .ohms-stage-meta {
+  top: 14px;
+}
+
+.ohms-law-workbench:fullscreen .playback-bar {
+  position: relative;
+  order: initial;
+  display: grid;
+  height: 68px;
+}
+
+.ohms-section-heading,
+.ohms-section-note,
+.ohms-circuit-status,
+.ohms-component-label,
+.ohms-component-value,
+.ohms-component-note,
+.ohms-polarity,
+.ohms-no-current,
+.ohms-current-note,
+.ohms-meter-label,
+.ohms-meter-value,
+.ohms-axis-value,
+.ohms-axis-title,
+.ohms-operating-label,
+.ohms-equation-text,
+.ohms-equation-result,
+.ohms-status-pill {
+  letter-spacing: 0;
+  paint-order: stroke;
+  stroke: #f6f7f2;
+  stroke-linejoin: round;
+}
+
+.ohms-section-heading {
+  fill: #555a52;
+  stroke-width: 5px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.ohms-section-note {
+  fill: #777c73;
+  stroke-width: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ohms-status-pill {
+  fill: #8f5a25;
+  stroke-width: 6px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ohms-status-pill.closed {
+  fill: #147f75;
+}
+
+.ohms-circuit,
+.ohms-graph,
+.ohms-meter,
+.ohms-equation-readout {
+  transition: opacity 160ms ease;
+}
+
+.ohms-circuit-boundary,
+.ohms-graph-boundary {
+  fill: rgb(246 247 242 / 78%);
+  stroke: #c7cac2;
+  stroke-width: 1.5px;
+}
+
+.ohms-wire {
+  fill: none;
+  stroke: #20221f;
+  stroke-width: 5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ohms-resistor {
+  fill: none;
+  stroke: #b65f2e;
+  stroke-width: 6px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ohms-switch circle {
+  fill: #f6f7f2;
+  stroke: #20221f;
+  stroke-width: 4px;
+}
+
+.ohms-switch line {
+  stroke: #20221f;
+  stroke-width: 5px;
+  stroke-linecap: round;
+  transform-origin: left center;
+  transition: y2 180ms ease;
+}
+
+.ohms-switch line.open {
+  stroke: #b65f2e;
+}
+
+.ohms-battery-positive {
+  stroke: #2659a8;
+  stroke-width: 7px;
+  stroke-linecap: square;
+}
+
+.ohms-battery-negative {
+  stroke: #20221f;
+  stroke-width: 5px;
+  stroke-linecap: square;
+}
+
+.ohms-component-label {
+  fill: #555a52;
+  stroke-width: 5px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ohms-component-value {
+  fill: #20221f;
+  stroke-width: 6px;
+  font-size: 18px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.ohms-component-note,
+.ohms-current-note {
+  fill: #777c73;
+  stroke-width: 4px;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.ohms-polarity {
+  fill: #333630;
+  stroke-width: 5px;
+  font-size: 19px;
+  font-weight: 850;
+}
+
+.ohms-polarity.positive {
+  fill: #2659a8;
+}
+
+.ohms-circuit-status {
+  fill: #956025;
+  stroke-width: 5px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ohms-circuit-status.closed {
+  fill: #147f75;
+}
+
+.ohms-no-current {
+  fill: #956025;
+  stroke-width: 5px;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.ohms-current-marker {
+  opacity: 0.34;
+  transition: opacity 80ms linear;
+}
+
+.ohms-current-marker path {
+  fill: none;
+  stroke: #147f75;
+  stroke-width: 4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ohms-current-marker.active {
+  opacity: 1;
+}
+
+.ohms-current-marker.active path {
+  stroke-width: 5px;
+}
+
+.ohms-meter rect,
+.ohms-equation-readout rect {
+  fill: #f1f2ed;
+  stroke: #c5c8bf;
+  stroke-width: 1.5px;
+}
+
+.ohms-meter rect {
+  border-radius: 4px;
+}
+
+.ohms-meter.blue rect {
+  stroke: #7294c9;
+}
+
+.ohms-meter.teal rect {
+  stroke: #5eaaa2;
+}
+
+.ohms-meter.copper rect {
+  stroke: #c88a68;
+}
+
+.ohms-meter.amber rect {
+  stroke: #c8a15e;
+}
+
+.ohms-meter-label {
+  fill: #6b7068;
+  stroke-width: 4px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.ohms-meter-value {
+  fill: #20221f;
+  stroke-width: 5px;
+  font-size: 21px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.ohms-meter.blue .ohms-meter-value {
+  fill: #2659a8;
+}
+
+.ohms-meter.teal .ohms-meter-value {
+  fill: #147f75;
+}
+
+.ohms-meter.copper .ohms-meter-value {
+  fill: #a84f26;
+}
+
+.ohms-meter.amber .ohms-meter-value {
+  fill: #996314;
+}
+
+.ohms-graph-grid {
+  stroke: #d3d6ce;
+  stroke-width: 1px;
+  stroke-dasharray: 3 5;
+}
+
+.ohms-graph-axis {
+  stroke: #777c73;
+  stroke-width: 1.6px;
+}
+
+.ohms-axis-value,
+.ohms-axis-title {
+  fill: #686d65;
+  stroke-width: 4px;
+  font-size: 11px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.ohms-axis-title {
+  fill: #434741;
+  font-weight: 800;
+}
+
+.ohms-vi-line {
+  fill: none;
+  stroke: #2659a8;
+  stroke-width: 4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ohms-vi-line.muted {
+  opacity: 0.35;
+  stroke-dasharray: 8 7;
+}
+
+.ohms-point-guide {
+  stroke: #8f948a;
+  stroke-width: 1.5px;
+  stroke-dasharray: 4 5;
+}
+
+.ohms-operating-dot {
+  fill: #147f75;
+  stroke: #f6f7f2;
+  stroke-width: 4px;
+}
+
+.ohms-operating-dot.open {
+  fill: #b65f2e;
+}
+
+.ohms-operating-label {
+  fill: #147f75;
+  stroke-width: 5px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ohms-equation-text {
+  fill: #20221f;
+  stroke-width: 5px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.ohms-equation-result {
+  fill: #147f75;
+  stroke-width: 5px;
+  font-size: 18px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.ohms-graph-formula,
+.ohms-meter-formula {
+  fill: #147f75;
+  paint-order: stroke;
+  stroke: #f6f7f2;
+  stroke-width: 5px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.ohms-meter-formula {
+  fill: #4e554e;
+  font-family: Inter, ui-sans-serif, sans-serif;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 750;
+}
+
+.ohms-landscape-title {
+  font-size: 36px;
+}
+
+.ohms-landscape-narration .narration-step-number {
+  transform: translate(0, -4px);
+}
+
+.ohms-landscape-narration .narration-step-title {
+  font-size: 18px;
+  transform: translate(0, -20px);
+}
+
+.ohms-landscape-narration .narration-step-caption {
+  font-size: 12px;
+  transform: translate(350px, -52px);
+}
+
+.ohms-switch-parameter {
+  padding-bottom: 19px;
+}
+
+.ohms-switch-label {
+  display: block;
+  margin-bottom: 9px;
+  color: #dfe1db;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.ohms-switch-control {
+  width: 100%;
+  height: 40px;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 38px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px 0 7px;
+  border: 1px solid #4a4c47;
+  border-radius: 6px;
+  color: #d9dcd4;
+  background: #292a27;
+  font-size: 12px;
+  font-weight: 680;
+  text-align: left;
+}
+
+.ohms-switch-control:hover {
+  border-color: #646760;
+  background: #30312e;
+}
+
+.ohms-switch-control.closed {
+  border-color: #3f726c;
+}
+
+.ohms-switch-icon {
+  width: 26px;
+  height: 26px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 4px;
+  color: #c88a68;
+  background: #353631;
+}
+
+.ohms-switch-control.closed .ohms-switch-icon {
+  color: #83c5bd;
+}
+
+.ohms-switch-track {
+  width: 34px;
+  height: 18px;
+  display: block;
+  padding: 2px;
+  border: 1px solid #565953;
+  border-radius: 9px;
+  background: #1f201e;
+}
+
+.ohms-switch-track span {
+  width: 12px;
+  height: 12px;
+  display: block;
+  border-radius: 50%;
+  background: #8c9087;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+
+.ohms-switch-control.closed .ohms-switch-track span {
+  background: #61aaa2;
+  transform: translateX(16px);
+}
+
+.ohms-measurements .ohms-voltage-measurement dd {
+  color: #8db3ef;
+}
+
+.ohms-measurements .ohms-current-measurement dd {
+  color: #75c2ba;
+}
+
+.ohms-measurements .ohms-power-measurement dd {
+  color: #e8b761;
+}
+
+.ohms-measurements .ohms-switch-measurement dd {
+  color: #d59a75;
+  font-size: 14px;
+}
+
+@media (max-width: 540px) {
+  .ohms-law-workbench .stage-area {
+    min-height: 520px;
+  }
+
+  .ohms-law-workbench.ratio-landscape .stage-area {
+    height: 340px;
+    min-height: 340px;
+  }
+
+  .ohms-stage-meta > span {
+    display: none;
+  }
+
+  .ohms-stage-meta {
+    justify-content: flex-end;
+  }
+
+  .ohms-canvas-toolbar {
+    max-width: 100%;
+  }
+}

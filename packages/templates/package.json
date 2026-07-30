@@ -7,7 +7,8 @@
     ".": "./src/index.ts",
     "./inclined-plane": "./src/inclined-plane/index.ts",
     "./energy-track": "./src/energy-track/index.ts",
-    "./forces-and-motion": "./src/forces-and-motion/index.ts"
+    "./forces-and-motion": "./src/forces-and-motion/index.ts",
+    "./ohms-law": "./src/ohms-law/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

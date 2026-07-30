@@ -51,17 +51,18 @@
 
 ### 3.1 Free Starter
 
-免费层需要证明完整课堂工作流，同时覆盖三个最常见的教师入口。
+免费层需要证明完整课堂工作流，同时覆盖力学和电学中最常见的教师入口。Free Starter 最终固定为四个实验；电学只开放 Ohm's Law Lab 的受控单回路，完整串并联电路仍属于付费内容。
 
 | 顺序 | 模板 | 状态 | 获客目的 |
 |---:|---|---|---|
 | 1 | Inclined Plane & Friction | 已实现首版 | 展示受力、分解和确定性计算 |
 | 2 | Energy Track | 已实现首版 | 覆盖多学段并展示动态守恒图 |
 | 3 | Forces & Motion | 已实现首版 | 承接 Newton's laws、net force 和 free-body diagram 搜索需求 |
+| 4 | Ohm's Law Lab | 首版开发中 | 用单回路验证 voltage、current、resistance 的关系，并建立电路模板基础 |
 
-只有前三个实验完成科学检查、讲解流程和课堂展示后，Free Starter 才算成立。
+只有四个实验都完成科学检查、讲解流程和课堂展示后，Free Starter 才算成立。前三个实验覆盖力学；第四个实验把免费入口扩展到基础电学，但不提前开放付费 DC Circuits 的拓扑编辑能力。
 
-Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖一部分受力、摩擦和分量讲解。第二个模板先选择 Energy Track，是为了尽快验证能量图、守恒量和跨学段讲解能力；第三个模板再把水平受力和 Newton's laws 补全。
+Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖一部分受力、摩擦和分量讲解。第二个模板先选择 Energy Track，是为了尽快验证能量图、守恒量和跨学段讲解能力；第三个模板再把水平受力和 Newton's laws 补全；第四个模板使用最小的理想直流回路验证电学入口，同时保护付费 DC Circuits 的差异化空间。
 
 ### 3.2 Middle School Physics Foundations
 
@@ -167,7 +168,29 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 
 模型边界：只处理一维平动；首版不包含绳索系统、滑轮、旋转或碰撞。
 
-### 5.4 DC Circuits: Series and Parallel
+### 5.4 Ohm's Law Lab
+
+- 模板 ID：`electricity.ohms-law`
+- 目录 ID：`middle-ohms-law`
+- 主要学段：Middle school；可作为高中电学复习入口
+- 权益：Free Starter（第四个也是最后一个免费 Starter 实验）
+- 建议时长：10 分钟
+- 状态：首版开发中
+- 详细合同：[ohms-law.md](templates/ohms-law.md)
+
+教学目标：识别电压源、电阻、开关和常规电流方向；使用 `I = V / R` 预测电流；通过改变一个参数观察电流的比例关系；用 `P = V I` 解释单个电阻的功率。
+
+免费合同严格限定为一个理想 DC 回路：一个理想电压源、一个电阻、一个开关和理想导线。开关闭合后回路中电流处处相同，开关断开时电流为零。参数只允许修改源电压 `V`、电阻 `R` 和开关状态；建议范围为 `1-24 V`、`1-100 Ω`。
+
+测量值：源电压、电阻、电流、电阻两端电压、功率和回路状态。画面必须同步显示电路图、常规电流方向、导线上的电流动画或明确的静态方向标识，以及 `V-I` 或参数关系图。
+
+默认讲解：识别元件 -> 闭合开关并追踪电流路径 -> 预测 `I = V / R` -> 改变电压或电阻并比较读数 -> 检查功率与结论。
+
+模型边界：不提供拓扑编辑器、串联/并联/混联、多电阻、任意布线、节点或回路选择，也不提供可移动探针式电压表/电流表。电源、电阻和导线使用理想模型；不模拟电池内阻、导线电阻、瞬态响应、温度依赖、非欧姆元件、短路电流或真实电子漂移速度。电流采用常规电流方向，不把电子漂移方向混入首版画面。
+
+科学测试：闭合时 `I = V / R` 且 `P = V I = V² / R`；断开时 `I = 0`、`P = 0`；电压加倍时电流加倍；电阻加倍时电流减半；电阻两端电压等于源电压；所有显示单位和符号与求解状态一致。
+
+### 5.5 DC Circuits: Series and Parallel
 
 - 模板 ID：`electricity.dc-circuits`
 - 主要学段：Middle school / High school
@@ -196,7 +219,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 
 科学测试：满足 Ohm's law；节点电流守恒；回路电压和为零；串并联等效电阻与解析值一致；开关断开时所有支路电流为零。
 
-### 5.5 Projectile Motion
+### 5.6 Projectile Motion
 
 - 模板 ID：`mechanics.projectile-motion`
 - 主要学段：High school
@@ -215,7 +238,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 
 科学测试：轨迹满足解析抛物线；最高点 `vy = 0`；相同高度发射与落地时速度大小相同；事件时间与解析解一致。
 
-### 5.6 One-dimensional Collision Lab
+### 5.7 One-dimensional Collision Lab
 
 - 模板 ID：`mechanics.collision-1d`
 - 主要学段：Middle school / High school
@@ -232,7 +255,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 
 模型边界：瞬时一维碰撞；不模拟形变、旋转、摩擦地面或三体连续碰撞。
 
-### 5.7 Waves: Frequency, Wavelength & Speed
+### 5.8 Waves: Frequency, Wavelength & Speed
 
 - 模板 ID：`waves.traveling-wave`
 - 主要学段：Middle school / High school
@@ -249,7 +272,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 
 模型边界：首版不处理复杂边界反射、干涉、驻波或三维声场；这些作为后续独立模板。
 
-### 5.8 Density & Buoyancy
+### 5.9 Density & Buoyancy
 
 - 模板 ID：`fluids.density-buoyancy`
 - 主要学段：Elementary / Middle school
@@ -266,7 +289,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 
 模型边界：只计算静水平衡；不模拟波浪、黏性阻力、倾覆、渗水或不规则自由表面。
 
-### 5.9 Rotation & Torque
+### 5.10 Rotation & Torque
 
 - 模板 ID：`mechanics.rotation-torque`
 - 主要学段：High school
@@ -283,7 +306,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 
 模型边界：单固定轴刚体；不处理三维进动、柔性结构或滚动接触。
 
-### 5.10 Mass-Spring Oscillator
+### 5.11 Mass-Spring Oscillator
 
 - 模板 ID：`mechanics.mass-spring`
 - 主要学段：High school
@@ -300,7 +323,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 
 模型边界：理想线性弹簧和单自由度；阻尼模式不能继续显示无阻尼解析周期为精确结果。
 
-### 5.11 Gravity & Orbits
+### 5.12 Gravity & Orbits
 
 - 模板 ID：`mechanics.gravity-orbits`
 - 主要学段：High school
@@ -344,7 +367,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 
 1. Energy Track 已完成首版，进入教师验证。
 2. Forces & Motion 已完成首版，进入教师验证。
-3. 统一三个模板的参数、测量、讲解和科学检查界面。
+3. 完成 Ohm's Law Lab 的单回路首版，并统一四个模板的参数、测量、讲解和科学检查界面。
 4. 记录教师从打开实验到开始讲解所需时间。
 
 ### 阶段 2：验证首批付费内容

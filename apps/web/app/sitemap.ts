@@ -9,5 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {url: `${siteUrl}/experiments/inclined-plane`, changeFrequency: "monthly", priority: 0.9},
     {url: `${siteUrl}/experiments/energy-track`, changeFrequency: "monthly", priority: 0.9},
     {url: `${siteUrl}/experiments/forces-and-motion`, changeFrequency: "monthly", priority: 0.9},
+    {url: `${siteUrl}/experiments/ohms-law`, changeFrequency: "monthly", priority: 0.9},
   ];
 }

@@ -54,6 +54,18 @@ export const experimentCatalog: ExperimentCatalogItem[] = [
     concepts: ["Net Force", "Friction", "Newton's Second Law"],
     preview: "motion",
   },
+  {
+    id: "middle-ohms-law",
+    slug: "ohms-law",
+    title: "Ohm's Law Lab",
+    summary: "Close a single circuit, measure current, and test how voltage and resistance are related.",
+    gradeLevel: "middle",
+    subject: "electricity",
+    availability: "free",
+    lessonMinutes: 10,
+    concepts: ["Voltage", "Current", "Resistance", "Ohm's Law"],
+    preview: "circuit",
+  },
 ];
 
 export const EXPERIMENTS_PER_PAGE = 6;
