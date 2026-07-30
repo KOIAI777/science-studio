@@ -6,6 +6,7 @@ import {
   resolveNarrationFrame,
   type NarrationStepText,
 } from "./narration";
+import {inclinedPlaneTemplate} from "@science-studio/templates/inclined-plane";
 
 const text: NarrationStepText = {
   setup: {title: "Setup", caption: "Set up the experiment."},
@@ -16,7 +17,7 @@ const text: NarrationStepText = {
 };
 
 describe("narration timeline", () => {
-  const steps = buildNarrationSteps(text, {}, {});
+  const steps = buildNarrationSteps(text, {}, {}, inclinedPlaneTemplate.narration);
 
   it("builds the fixed 12 second lesson sequence", () => {
     expect(steps.map((step) => step.id)).toEqual([
@@ -51,6 +52,7 @@ describe("narration timeline", () => {
       text,
       {forces: {title: "Name every force"}},
       {forces: 3.5},
+      inclinedPlaneTemplate.narration,
     );
 
     expect(edited[1]).toMatchObject({

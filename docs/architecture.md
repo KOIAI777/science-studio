@@ -53,7 +53,7 @@ Motion Canvas 场景使用独立 Vite 构建入口编译为浏览器可加载的
 | 公式 | KaTeX | LaTeX 公式显示 |
 | 图表 | uPlot | 高频时间序列 |
 | 物理 | 模板专用 TypeScript 求解器 | 斜面优先使用解析解，科学结果不依赖动画引擎 |
-| 数据 | 本地文档；Beta 接 Supabase | 先验证工作流，再接 Auth/Postgres/Storage |
+| 数据 | Supabase Postgres + 本地项目文档 | 目录进入 Postgres；实验编辑状态验证期仍保存在本地 |
 | 视频 | Chromium + 系统 FFmpeg | 固定帧渲染与 MP4 编码 |
 | 支付 | Beta 接 Creem Checkout + Webhook | 验证重复使用和付费意愿后接入 |
 | 测试 | Vitest + Playwright | 求解器、流程和视觉回归 |
@@ -72,7 +72,7 @@ packages/
 ├── experiment-schema/  # 项目、模板和步骤类型
 ├── simulation-core/    # 时间、单位、求解器接口和数值工具
 ├── motion-project/     # Motion Canvas 场景和独立 bundle 构建入口
-├── templates/          # 版本化模板；验证版只有 inclined-plane
+├── templates/          # 版本化模板；当前包含 inclined-plane 与 energy-track
 └── ui/                 # 基础 UI 与精选 ReactBits 组件
 supabase/
 ├── migrations/
@@ -149,6 +149,8 @@ interface ExperimentProject {
 - 模板迁移函数必须从旧版本生成新副本，不原地破坏项目。
 
 ## 7. 付费 Beta 的 Supabase 数据设计
+
+公开实验目录先使用 `experiments` 表：服务端通过 publishable key 查询，RLS 只允许匿名和已认证角色读取 `published = true` 的行；筛选、全文搜索、排序和分页都在 Postgres/Data API 完成。应用未配置 Supabase 环境变量时降级到与 `seed.sql` 同结构的本地目录数据。
 
 Beta 表：
 
@@ -300,7 +302,7 @@ GET    /api/entitlements
 
 ### 阶段 D：验证后扩展
 
-按用户需求依次评估抛体运动和一维碰撞模板。根据重复导出、模板需求和付费数据决定 AI 文案或有限场景编辑，不预先建设通用编辑器。
+模板扩展遵循 [实验模板路线](experiment-roadmap.md)：先用 Energy Track 和 Forces & Motion 完成 Free Starter，再依次验证 DC Circuits、Projectile Motion 和 One-dimensional Collision。根据重复课堂使用、模板请求和付费数据决定后续内容，不预先建设通用编辑器。
 
 ## 15. 主要风险
 

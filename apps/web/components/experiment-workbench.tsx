@@ -3,6 +3,7 @@
 import {
   inclinedPlaneDefaults,
   inclinedPlaneParametersSchema,
+  inclinedPlaneTemplate,
   inspectInclinedPlane,
   solveInclinedPlane,
   type InclinedPlaneParameters,
@@ -11,6 +12,7 @@ import {
 import type {NarrationStep} from "@science-studio/experiment-schema";
 import {
   AlertTriangle,
+  ArrowLeft,
   Check,
   ChevronDown,
   CircleGauge,
@@ -26,6 +28,7 @@ import {
   SkipForward,
   Undo2,
 } from "lucide-react";
+import Link from "next/link";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {
   localizeScienceIssue,
@@ -48,34 +51,13 @@ const FPS = 30;
 type ParameterKey = keyof InclinedPlaneParameters;
 type EditorMode = "experiment" | "narration";
 
-interface ParameterDefinition {
+const parameterDefinitions = inclinedPlaneTemplate.parameterDefinitions as Array<{
   key: ParameterKey;
   unit: string;
   min: number;
   max: number;
   step: number;
-}
-
-const parameterDefinitions: ParameterDefinition[] = [
-  {key: "angleDegrees", unit: "°", min: 5, max: 60, step: 1},
-  {key: "massKg", unit: "kg", min: 0, max: 20, step: 0.1},
-  {
-    key: "staticFrictionCoefficient",
-    unit: "μs",
-    min: 0,
-    max: 1.5,
-    step: 0.01,
-  },
-  {
-    key: "kineticFrictionCoefficient",
-    unit: "μk",
-    min: 0,
-    max: 1.5,
-    step: 0.01,
-  },
-  {key: "gravityMs2", unit: "m/s²", min: 1, max: 20, step: 0.01},
-  {key: "rampLengthM", unit: "m", min: 2, max: 20, step: 0.1},
-];
+}>;
 
 function formatNumber(value: number, locale: Locale, digits = 2) {
   return new Intl.NumberFormat(locale === "en" ? "en-US" : "zh-CN", {
@@ -449,17 +431,26 @@ export function ExperimentWorkbench() {
     : 5;
   const narrationText = useMemo(() => {
     const text = structuredClone(copy.narration.stepText);
+    const isStationary = initialState?.motion === "stationary";
     if (locale === "en") {
       text.setup.caption = `A block rests on a ${formatNumber(parameters.angleDegrees, locale, 0)}° inclined plane.`;
-      text.equation.caption = "mg sin θ exceeds μₛN, so the block begins to slide.";
+      text.equation.caption = isStationary
+        ? "Static friction balances mg sin θ, so the block remains at rest."
+        : "mg sin θ exceeds μₛN, so the block begins to slide.";
       text.result.caption = initialState
-        ? `The block accelerates at ${formatNumber(initialState.accelerationMs2, locale)} m/s² and reaches ${formatNumber(initialState.bottomVelocityMs, locale)} m/s.`
+        ? isStationary
+          ? "The block remains at rest because static friction balances the downhill force."
+          : `The block accelerates at ${formatNumber(initialState.accelerationMs2, locale)} m/s² and reaches ${formatNumber(initialState.bottomVelocityMs, locale)} m/s.`
         : copy.narration.stepText.result.caption;
     } else {
       text.setup.caption = `物体静置在 ${formatNumber(parameters.angleDegrees, locale, 0)}° 的斜面上。`;
-      text.equation.caption = "mg sin θ 大于 μₛN，因此物体开始滑动。";
+      text.equation.caption = isStationary
+        ? "静摩擦力平衡 mg sin θ，因此物体保持静止。"
+        : "mg sin θ 大于 μₛN，因此物体开始滑动。";
       text.result.caption = initialState
-        ? `物体以 ${formatNumber(initialState.accelerationMs2, locale)} m/s² 的加速度运动，底端速度为 ${formatNumber(initialState.bottomVelocityMs, locale)} m/s。`
+        ? isStationary
+          ? "静摩擦力平衡沿斜面的力，因此物体保持静止。"
+          : `物体以 ${formatNumber(initialState.accelerationMs2, locale)} m/s² 的加速度运动，底端速度为 ${formatNumber(initialState.bottomVelocityMs, locale)} m/s。`
         : copy.narration.stepText.result.caption;
     }
     return text;
@@ -469,6 +460,7 @@ export function ExperimentWorkbench() {
       narrationText,
       narrationTextOverrides[locale],
       narrationDurationOverrides,
+      inclinedPlaneTemplate.narration,
     ),
     [locale, narrationDurationOverrides, narrationText, narrationTextOverrides],
   );
@@ -621,6 +613,9 @@ export function ExperimentWorkbench() {
     <main className={`workbench-shell ${mode === "narration" ? "narration-mode" : ""}`}>
       <header className="topbar">
         <div className="project-identity">
+          <Link className="back-to-library" href="/" aria-label={locale === "en" ? "Back to experiment library" : "返回实验目录"} title={locale === "en" ? "Back to experiment library" : "返回实验目录"}>
+            <ArrowLeft size={16} />
+          </Link>
           <span className="brand-mark"><FlaskConical size={17} /></span>
           <span className="brand-name">Science Studio</span>
           <span className="topbar-divider" />

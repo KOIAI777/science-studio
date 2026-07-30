@@ -8,7 +8,10 @@
     "build": "pnpm --filter @science-studio/web build",
     "typecheck": "pnpm -r typecheck",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "db:up": "docker compose -f docker-compose.local.yml up -d",
+    "db:down": "docker compose -f docker-compose.local.yml down",
+    "db:init": "docker compose -f docker-compose.local.yml exec -T postgres psql -U postgres -d science_studio -f /workspace/supabase/migrations/20260730074758_create_experiments_catalog.sql && docker compose -f docker-compose.local.yml exec -T postgres psql -U postgres -d science_studio -f /workspace/supabase/seed.sql"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",

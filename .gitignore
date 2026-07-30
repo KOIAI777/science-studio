@@ -7,3 +7,6 @@ output/
 *.log
 *.tsbuildinfo
 .playwright-cli/
+.env
+.env.local
+.env.*.local

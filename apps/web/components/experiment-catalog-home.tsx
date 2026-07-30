@@ -1,0 +1,428 @@
+"use client";
+
+import {
+  ArrowRight,
+  Atom,
+  BookOpen,
+  Calculator,
+  Check,
+  ChevronRight,
+  Clock3,
+  FlaskConical,
+  Globe2,
+  Languages,
+  ListChecks,
+  MonitorPlay,
+  Presentation,
+  ShieldCheck,
+  SlidersHorizontal,
+  Sparkles,
+} from "lucide-react";
+import Link from "next/link";
+import {useState} from "react";
+
+type CatalogLocale = "en" | "zh-CN";
+
+const copy = {
+  en: {
+    nav: {experiments: "Experiment library", workflow: "How it works", pricing: "Pricing", faq: "FAQ"},
+    tryFree: "Try a free experiment",
+    explore: "Explore experiments",
+    heroKicker: "Interactive physics for classroom teaching",
+    heroTitle: "Interactive physics experiments, ready for class.",
+    heroBody: "Adjust real lesson parameters, reveal forces and formulas step by step, and present the result on any classroom screen.",
+    heroNote: "No student accounts required. Two mechanics experiments are free.",
+    lesson: "Live lesson preview",
+    lessonStep: "03 / Resolve gravity",
+    physicsStatus: "Deterministic model",
+    measurements: "Measurements",
+    acceleration: "Acceleration",
+    endVelocity: "End velocity",
+    forceDown: "Down-slope force",
+    trust: ["No coding", "Guided explanations", "Deterministic physics", "Classroom-ready"],
+    libraryKicker: "Experiment library",
+    libraryTitle: "One clear place for every grade level",
+    libraryBody: "Start with the free experiment today. The remaining cards show the curriculum we are building, not products currently for sale.",
+    search: "Search experiments",
+    levels: "Grade levels",
+    allLevels: "All levels",
+    elementary: "Elementary",
+    middle: "Middle school",
+    high: "High school",
+    allSubjects: "All subjects",
+    mechanics: "Mechanics",
+    electricity: "Electricity",
+    waves: "Waves",
+    showing: (count: number) => `${count} experiments`,
+    open: "Open experiment",
+    free: "Free now",
+    pack: "Future level pack",
+    planned: "Planned",
+    minutes: (minutes: number) => `${minutes} min lesson`,
+    noResults: "No experiments match these filters.",
+    clear: "Clear filters",
+    switchLanguage: "Switch to Chinese",
+    workflowKicker: "Teacher workflow",
+    workflowTitle: "From lesson objective to classroom display in minutes",
+    workflow: [
+      {title: "Choose the concept", body: "Find an experiment by grade level and subject instead of building a simulation from scratch."},
+      {title: "Set your example", body: "Adjust only the values your lesson needs, with units, ranges, assumptions, and checks kept visible."},
+      {title: "Explain it live", body: "Move through a prepared teaching sequence while the diagram, equations, and measurements stay synchronized."},
+    ],
+    benefitsKicker: "Built for the front of the room",
+    benefitsTitle: "A teaching instrument, not another student portal",
+    benefitsBody: "Science Studio stays focused on the part teachers repeat every week: making an abstract process visible, accurate, and easy to explain.",
+    benefits: [
+      {title: "Presentation-first", body: "Large labels and restrained controls remain legible on projectors and interactive whiteboards."},
+      {title: "Guided Explain mode", body: "Every experiment follows a short teaching sequence, so the visual appears when the explanation needs it."},
+      {title: "Science checks", body: "Parameter limits, model assumptions, and calculation checks are part of the lesson, not hidden in documentation."},
+      {title: "English-first conventions", body: "SI units, familiar variable names, and classroom language are designed for international science teaching."},
+    ],
+    pricingKicker: "Experiment packs",
+    pricingTitle: "Start free. Add depth when the library is ready.",
+    pricingBody: "Paid packs will open only after enough experiments pass classroom and scientific review.",
+    available: "Available now",
+    earlyAccess: "Planned early access",
+    future: "Future release",
+    targetPrice: "Target one-time price",
+    freePrice: "$0",
+    freeName: "Free Starter",
+    freeDesc: "Try the complete classroom workflow before deciding whether the format fits your teaching.",
+    middleName: "Middle School Mechanics",
+    middleDesc: "A focused pack of force, motion, friction, energy, and momentum lessons for middle school.",
+    highName: "High School Mechanics",
+    highDesc: "More advanced vector, projectile, collision, and orbital models for high school lessons.",
+    completeName: "Mechanics Complete",
+    completeDesc: "Middle and high school mechanics together in one expanding collection.",
+    currentAccess: "Inclined Plane and Energy Track available now",
+    expanding: "Expanding toward 3 free experiments",
+    opensAtFive: "Opens after 5 reviewed experiments",
+    noSubscription: "No subscription planned for validation",
+    faqKicker: "FAQ",
+    faqTitle: "Before you bring it into class",
+    faq: [
+      {q: "Is Science Studio a replacement for physical labs?", a: "No. It is a classroom explanation and demonstration tool. It helps teachers make forces, motion, equations, and model assumptions visible before or after hands-on work."},
+      {q: "Do students need accounts?", a: "No. The first version is teacher-led. A teacher opens the experiment and presents it on a projector, interactive whiteboard, or shared screen."},
+      {q: "Which grade levels are supported?", a: "The library is organized into elementary, middle school, and high school. The two released experiments currently target middle-school mechanics; other levels remain planned."},
+      {q: "Are the calculations scientifically verified?", a: "Each released experiment uses a deterministic solver, explicit SI units, documented assumptions, parameter validation, and automated tests. It is educational modeling, not engineering certification software."},
+      {q: "Does it work on classroom displays?", a: "Yes. The interface is designed around teacher projection and common classroom screens, with large diagram labels and a focused presentation workflow."},
+      {q: "What can I use for free?", a: "Inclined Plane & Friction and Energy Track are free now, including parameter controls, synchronized measurements, science checks, and guided explanation steps."},
+    ],
+    finalTitle: "Make the next physics explanation visible.",
+    finalBody: "Open either free mechanics lesson and test the full classroom workflow.",
+    footerTagline: "Guided interactive physics experiments for classroom presentation.",
+    product: "Product",
+    status: "Current status",
+    freeExperiment: "Free experiment library",
+    curriculum: "Planned curriculum",
+    rights: "Science Studio. Built for teacher-led science lessons.",
+  },
+  "zh-CN": {
+    nav: {experiments: "实验目录", workflow: "使用方式", pricing: "实验包", faq: "常见问题"},
+    tryFree: "试用免费实验",
+    explore: "查看实验目录",
+    heroKicker: "面向课堂讲解的交互式物理实验",
+    heroTitle: "打开即可讲课的交互式物理实验。",
+    heroBody: "调整真实例题参数，逐步展示受力、公式和结果，并在任何课堂屏幕上清楚呈现。",
+    heroNote: "学生无需账号。两个力学实验现已免费开放。",
+    lesson: "实时课堂预览",
+    lessonStep: "03 / 分解重力",
+    physicsStatus: "确定性物理模型",
+    measurements: "测量结果",
+    acceleration: "加速度",
+    endVelocity: "最终速度",
+    forceDown: "沿斜面合力",
+    trust: ["无需编程", "结构化讲解", "确定性计算", "适合课堂展示"],
+    libraryKicker: "实验目录",
+    libraryTitle: "按学段组织的课堂实验库",
+    libraryBody: "现在可以直接使用免费实验。其余卡片展示正在建设的课程范围，并不代表已经开放售卖。",
+    search: "搜索实验",
+    levels: "学段",
+    allLevels: "全部学段",
+    elementary: "小学",
+    middle: "初中",
+    high: "高中",
+    allSubjects: "全部主题",
+    mechanics: "力学",
+    electricity: "电学",
+    waves: "波",
+    showing: (count: number) => `${count} 个实验`,
+    open: "打开实验",
+    free: "当前免费",
+    pack: "未来实验包",
+    planned: "规划中",
+    minutes: (minutes: number) => `${minutes} 分钟课堂演示`,
+    noResults: "没有符合筛选条件的实验。",
+    clear: "清除筛选",
+    switchLanguage: "Switch to English",
+    workflowKicker: "教师使用流程",
+    workflowTitle: "几分钟内从教学目标进入课堂展示",
+    workflow: [
+      {title: "选择知识点", body: "按学段和主题寻找实验，不需要从空白场景搭建模拟。"},
+      {title: "设置例题参数", body: "只调整本节课需要的数值，同时查看单位、范围、模型假设与科学检查。"},
+      {title: "按步骤讲解", body: "沿准备好的教学顺序展示，示意图、公式与测量值始终同步。"},
+    ],
+    benefitsKicker: "为教室前方的大屏设计",
+    benefitsTitle: "这是讲解工具，不是另一个学生管理平台",
+    benefitsBody: "Science Studio 专注于教师每周都会重复的任务：把抽象过程讲得看得见、算得准、说得清。",
+    benefits: [
+      {title: "展示优先", body: "大号标注和克制控件可在投影仪与交互白板上保持清晰。"},
+      {title: "引导讲解模式", body: "每个实验都有简短教学步骤，在讲到对应内容时出现正确的可视化。"},
+      {title: "科学检查", body: "参数边界、模型假设和计算检查直接进入课堂流程，不藏在说明文档中。"},
+      {title: "英语课程规范", body: "SI 单位、常用变量与课堂文案按海外科学教学场景设计。"},
+    ],
+    pricingKicker: "实验包",
+    pricingTitle: "先免费使用，实验库成熟后再购买更深内容。",
+    pricingBody: "付费实验包只会在足够数量的实验通过课堂与科学验证后开放。",
+    available: "当前可用",
+    earlyAccess: "计划早鸟版",
+    future: "未来版本",
+    targetPrice: "目标一次性价格",
+    freePrice: "$0",
+    freeName: "免费入门包",
+    freeDesc: "先体验完整课堂讲解流程，再判断是否适合自己的教学方式。",
+    middleName: "初中力学包",
+    middleDesc: "围绕力、运动、摩擦、能量与动量组织的初中课堂实验。",
+    highName: "高中力学包",
+    highDesc: "面向高中课堂的矢量、抛体、碰撞与轨道等进阶模型。",
+    completeName: "完整力学包",
+    completeDesc: "将初中和高中力学实验合并为一个持续扩充的合集。",
+    currentAccess: "斜面实验和能量轨道现已开放",
+    expanding: "逐步扩充至 3 个免费实验",
+    opensAtFive: "完成 5 个审核实验后开放",
+    noSubscription: "验证阶段不做订阅",
+    faqKicker: "常见问题",
+    faqTitle: "带进课堂前需要知道的事",
+    faq: [
+      {q: "它会替代真实物理实验吗？", a: "不会。它是课堂解释与演示工具，帮助教师在动手实验前后把受力、运动、公式和模型假设讲清楚。"},
+      {q: "学生需要注册账号吗？", a: "不需要。首版由教师打开实验，并通过投影仪、交互白板或屏幕共享进行展示。"},
+      {q: "支持哪些学段？", a: "目录按小学、初中和高中组织。目前开放的两个实验面向初中力学，其他学段仍在规划。"},
+      {q: "计算经过科学验证吗？", a: "每个正式实验都使用确定性求解器、明确的 SI 单位和模型假设，并包含参数验证与自动化测试。它是教育模型，不是工程认证软件。"},
+      {q: "适合课堂大屏吗？", a: "适合。界面以教师投屏为中心，示意图标注较大，并提供聚焦的课堂讲解流程。"},
+      {q: "目前哪些内容免费？", a: "斜面与摩擦、能量轨道两个实验当前免费，均包含参数控制、同步测量、科学检查和五步讲解流程。"},
+    ],
+    finalTitle: "让下一次物理讲解真正看得见。",
+    finalBody: "打开任一免费力学实验，体验完整课堂流程。",
+    footerTagline: "面向课堂展示的引导式交互物理实验。",
+    product: "产品",
+    status: "当前状态",
+    freeExperiment: "免费实验目录",
+    curriculum: "规划课程范围",
+    rights: "Science Studio，面向教师主导的科学课堂。",
+  },
+};
+
+function HeroExperimentPreview({locale}: {locale: CatalogLocale}) {
+  const text = copy[locale];
+  const angleDegrees = 32;
+  const angleRadians = angleDegrees * Math.PI / 180;
+  const rampBottom = {x: 480, y: 325};
+  const rampTop = {
+    x: rampBottom.x - (rampBottom.y - 37) / Math.tan(angleRadians),
+    y: 37,
+  };
+  const downhill = {x: Math.cos(angleRadians), y: Math.sin(angleRadians)};
+  const outwardNormal = {x: Math.sin(angleRadians), y: -Math.cos(angleRadians)};
+  const rampLength = Math.hypot(rampBottom.x - rampTop.x, rampBottom.y - rampTop.y);
+  const blockContact = {
+    x: rampTop.x + downhill.x * rampLength * 0.46,
+    y: rampTop.y + downhill.y * rampLength * 0.46,
+  };
+  const blockHalfHeight = 31;
+  const blockCenter = {
+    x: blockContact.x + outwardNormal.x * blockHalfHeight,
+    y: blockContact.y + outwardNormal.y * blockHalfHeight,
+  };
+  const angleArcRadius = 46;
+  const angleArc = Array.from({length: 17}, (_, index) => {
+    const arcAngle = angleRadians * index / 16;
+    const x = rampBottom.x - angleArcRadius * Math.cos(arcAngle);
+    const y = rampBottom.y - angleArcRadius * Math.sin(arcAngle);
+    return `${index === 0 ? "M" : "L"} ${x} ${y}`;
+  }).join(" ");
+  const angleLabelRadius = 68;
+  const angleLabel = {
+    x: rampBottom.x - angleLabelRadius * Math.cos(angleRadians / 2),
+    y: rampBottom.y - angleLabelRadius * Math.sin(angleRadians / 2),
+  };
+  const vectorEnd = (direction: {x: number; y: number}, length: number) => ({
+    x: blockCenter.x + direction.x * length,
+    y: blockCenter.y + direction.y * length,
+  });
+  const normalEnd = vectorEnd(outwardNormal, 105);
+  const frictionEnd = vectorEnd({x: -downhill.x, y: -downhill.y}, 100);
+  const parallelEnd = vectorEnd(downhill, 108);
+
+  return (
+    <div className="hero-lab" aria-label="Inclined plane experiment preview">
+      <div className="hero-lab-bar">
+        <span><span className="live-dot" />{text.lesson}</span>
+        <span>{text.physicsStatus}</span>
+      </div>
+      <div className="hero-lab-layout">
+        <div className="hero-canvas">
+          <div className="hero-canvas-heading">
+            <span>{text.lessonStep}</span>
+            <strong>Inclined Plane &amp; Friction</strong>
+          </div>
+          <svg viewBox="0 0 720 400" role="img" aria-label={`Force diagram for a block on a ${angleDegrees} degree inclined plane`}>
+            <defs>
+              <pattern id="hero-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+                <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#d8dbd3" strokeWidth="1" />
+              </pattern>
+              <marker id="arrow-coral" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#e85d42" />
+              </marker>
+              <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#2659a8" />
+              </marker>
+            </defs>
+            <rect width="720" height="400" fill="url(#hero-grid)" />
+            <path d={`M ${rampTop.x} ${rampTop.y} L ${rampBottom.x} ${rampBottom.y} L ${rampTop.x} ${rampBottom.y} Z`} fill="#e4e6df" stroke="#242520" strokeWidth="4" strokeLinejoin="round" />
+            <path d={angleArc} fill="none" stroke="#2659a8" strokeWidth="3" />
+            <text x={angleLabel.x} y={angleLabel.y} textAnchor="middle" dominantBaseline="middle" fill="#2659a8" fontSize="21" fontWeight="700">{angleDegrees}°</text>
+            <g transform={`translate(${blockCenter.x} ${blockCenter.y}) rotate(${angleDegrees})`}>
+              <rect x="-37" y="-31" width="74" height="62" rx="4" fill="#f6f7f2" stroke="#1d1e1b" strokeWidth="4" />
+              <text x="0" y="8" textAnchor="middle" fill="#1d1e1b" fontFamily="Georgia, serif" fontSize="23" fontStyle="italic" fontWeight="700">m</text>
+            </g>
+            <line x1={blockCenter.x} y1={blockCenter.y} x2={blockCenter.x} y2={blockCenter.y + 120} stroke="#e85d42" strokeWidth="4" markerEnd="url(#arrow-coral)" />
+            <text x={blockCenter.x + 12} y={blockCenter.y + 112} fill="#e85d42" fontSize="19" fontWeight="700">F<tspan baselineShift="sub" fontSize="13">g</tspan></text>
+            <line x1={blockCenter.x} y1={blockCenter.y} x2={normalEnd.x} y2={normalEnd.y} stroke="#e85d42" strokeWidth="4" markerEnd="url(#arrow-coral)" />
+            <text x={normalEnd.x + 9} y={normalEnd.y - 4} fill="#e85d42" fontSize="19" fontWeight="700">N</text>
+            <line x1={blockCenter.x} y1={blockCenter.y} x2={frictionEnd.x} y2={frictionEnd.y} stroke="#e85d42" strokeWidth="4" markerEnd="url(#arrow-coral)" />
+            <text x={frictionEnd.x - 9} y={frictionEnd.y - 7} textAnchor="end" fill="#e85d42" fontSize="19" fontWeight="700">f<tspan baselineShift="sub" fontSize="13">k</tspan></text>
+            <line x1={blockCenter.x} y1={blockCenter.y} x2={parallelEnd.x} y2={parallelEnd.y} stroke="#2659a8" strokeWidth="3" strokeDasharray="8 7" markerEnd="url(#arrow-blue)" />
+            <text x={parallelEnd.x - 3} y={parallelEnd.y + 24} textAnchor="end" fill="#2659a8" fontSize="18" fontWeight="700">mg sin θ</text>
+            <text x="520" y="86" fill="#676b63" fontSize="16" fontWeight="650">NET FORCE</text>
+            <text x="520" y="122" fill="#181917" fontFamily="Georgia, serif" fontSize="25" fontStyle="italic">F = mg(sin θ − μ cos θ)</text>
+            <text x="520" y="167" fill="#2659a8" fontSize="23" fontWeight="750">18.7 N</text>
+            <path d="M520 206 H665" stroke="#c6c9c0" />
+            <text x="520" y="244" fill="#676b63" fontSize="16" fontWeight="650">PREDICTION</text>
+            <text x="520" y="278" fill="#12766d" fontSize="23" fontWeight="750">Block slides</text>
+          </svg>
+        </div>
+        <aside className="hero-measurements">
+          <span className="hero-measurements-title">{text.measurements}</span>
+          <dl>
+            <div><dt>{text.acceleration}</dt><dd>6.24 <small>m/s²</small></dd></div>
+            <div><dt>{text.endVelocity}</dt><dd>9.84 <small>m/s</small></dd></div>
+            <div><dt>{text.forceDown}</dt><dd>18.7 <small>N</small></dd></div>
+          </dl>
+          <div className="hero-step-rail" aria-label="Lesson steps">
+            {["Set up", "Forces", "Components", "Predict", "Result"].map((step, index) => (
+              <span className={index === 2 ? "active" : ""} key={step}><i>{index + 1}</i>{step}</span>
+            ))}
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+}
+
+export function ExperimentCatalogHome() {
+  const [locale, setLocale] = useState<CatalogLocale>("en");
+  const text = copy[locale];
+
+  return (
+    <div className="home-shell">
+      <header className="site-header">
+        <div className="site-header-inner">
+          <Link className="site-brand" href="/" aria-label="Science Studio home">
+            <span className="brand-mark"><FlaskConical size={17} /></span>
+            <strong>Science Studio</strong>
+          </Link>
+          <nav className="site-nav" aria-label="Primary navigation">
+            <Link href="/experiments">{text.nav.experiments}</Link>
+            <a href="#workflow">{text.nav.workflow}</a>
+            <a href="#pricing">{text.nav.pricing}</a>
+            <a href="#faq">{text.nav.faq}</a>
+          </nav>
+          <div className="site-actions">
+            <button className="site-locale-button" type="button" aria-label={text.switchLanguage} title={text.switchLanguage} onClick={() => setLocale((current) => current === "en" ? "zh-CN" : "en")}>
+              <Languages size={16} /><span>{locale === "en" ? "EN" : "中文"}</span>
+            </button>
+            <Link className="header-cta" href="/experiments/inclined-plane">{text.tryFree}<ArrowRight size={15} /></Link>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section className="home-hero" id="product">
+          <div className="hero-copy">
+            <span className="section-kicker"><Atom size={15} />{text.heroKicker}</span>
+            <h1>{text.heroTitle}</h1>
+            <p>{text.heroBody}</p>
+            <div className="hero-actions">
+              <Link className="primary-cta" href="/experiments/inclined-plane">{text.tryFree}<ArrowRight size={17} /></Link>
+              <Link className="secondary-cta" href="/experiments">{text.explore}<ChevronRight size={16} /></Link>
+            </div>
+            <span className="hero-note"><Check size={14} />{text.heroNote}</span>
+          </div>
+          <HeroExperimentPreview locale={locale} />
+        </section>
+
+        <section className="trust-strip" aria-label="Product qualities">
+          <div>{text.trust.map((item, index) => {
+            const Icon = [SlidersHorizontal, ListChecks, Calculator, MonitorPlay][index];
+            return <span key={item}><Icon size={17} />{item}</span>;
+          })}</div>
+        </section>
+
+        <section className="home-section library-callout">
+          <div className="section-heading split-heading">
+            <div><span className="section-kicker"><BookOpen size={15} />{text.libraryKicker}</span><h2>{text.libraryTitle}</h2></div>
+            <div className="library-callout-copy"><p>{text.libraryBody}</p><Link href="/experiments">{text.explore}<ArrowRight size={16} /></Link></div>
+          </div>
+        </section>
+
+        <section className="home-section workflow-section" id="workflow">
+          <div className="section-heading centered-heading"><span className="section-kicker"><ListChecks size={15} />{text.workflowKicker}</span><h2>{text.workflowTitle}</h2></div>
+          <ol className="workflow-list">
+            {text.workflow.map((item, index) => {
+              const Icon = [BookOpen, SlidersHorizontal, Presentation][index];
+              return <li key={item.title}><span className="workflow-number">0{index + 1}</span><Icon size={22} /><h3>{item.title}</h3><p>{item.body}</p></li>;
+            })}
+          </ol>
+        </section>
+
+        <section className="benefits-band">
+          <div className="benefits-inner">
+            <div className="benefits-intro"><span className="section-kicker"><Presentation size={15} />{text.benefitsKicker}</span><h2>{text.benefitsTitle}</h2><p>{text.benefitsBody}</p></div>
+            <div className="benefits-list">
+              {text.benefits.map((item, index) => {
+                const Icon = [MonitorPlay, ListChecks, ShieldCheck, Globe2][index];
+                return <article key={item.title}><Icon size={20} /><div><h3>{item.title}</h3><p>{item.body}</p></div></article>;
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="home-section pricing-section" id="pricing">
+          <div className="section-heading split-heading"><div><span className="section-kicker"><FlaskConical size={15} />{text.pricingKicker}</span><h2>{text.pricingTitle}</h2></div><p>{text.pricingBody}</p></div>
+          <div className="pricing-grid">
+            <article className="pricing-card current"><span className="plan-status"><Check size={13} />{text.available}</span><h3>{text.freeName}</h3><strong>{text.freePrice}</strong><p>{text.freeDesc}</p><ul><li><Check size={14} />{text.currentAccess}</li><li><Check size={14} />{text.expanding}</li><li><Check size={14} />{text.noSubscription}</li></ul><Link href="/experiments/inclined-plane">{text.tryFree}<ArrowRight size={15} /></Link></article>
+            <article className="pricing-card"><span className="plan-status planned"><Clock3 size={13} />{text.earlyAccess}</span><h3>{text.middleName}</h3><strong>$19 <small>{text.targetPrice}</small></strong><p>{text.middleDesc}</p><ul><li><Check size={14} />{text.opensAtFive}</li><li><Check size={14} />{text.noSubscription}</li></ul></article>
+            <article className="pricing-card"><span className="plan-status future"><Sparkles size={13} />{text.future}</span><h3>{text.highName}</h3><strong>$29 <small>{text.targetPrice}</small></strong><p>{text.highDesc}</p><ul><li><Check size={14} />{text.future}</li><li><Check size={14} />{text.noSubscription}</li></ul></article>
+            <article className="pricing-card"><span className="plan-status future"><Sparkles size={13} />{text.future}</span><h3>{text.completeName}</h3><strong>$39–49 <small>{text.targetPrice}</small></strong><p>{text.completeDesc}</p><ul><li><Check size={14} />{text.future}</li><li><Check size={14} />{text.noSubscription}</li></ul></article>
+          </div>
+        </section>
+
+        <section className="home-section faq-section" id="faq">
+          <div className="faq-layout">
+            <div className="section-heading"><span className="section-kicker"><ShieldCheck size={15} />{text.faqKicker}</span><h2>{text.faqTitle}</h2></div>
+            <div className="faq-list">{text.faq.map((item) => <details key={item.q}><summary>{item.q}<span>+</span></summary><p>{item.a}</p></details>)}</div>
+          </div>
+        </section>
+
+        <section className="final-cta-band"><div><h2>{text.finalTitle}</h2><p>{text.finalBody}</p></div><Link className="primary-cta light" href="/experiments/inclined-plane">{text.tryFree}<ArrowRight size={17} /></Link></section>
+      </main>
+
+      <footer className="site-footer">
+        <div className="footer-brand"><Link className="site-brand" href="/"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link><p>{text.footerTagline}</p></div>
+        <div><strong>{text.product}</strong><Link href="/experiments">{text.nav.experiments}</Link><a href="#workflow">{text.nav.workflow}</a><a href="#pricing">{text.nav.pricing}</a></div>
+        <div><strong>{text.status}</strong><Link href="/experiments">{text.freeExperiment}</Link><Link href="/experiments">{text.curriculum}</Link></div>
+        <small>© 2026 {text.rights}</small>
+      </footer>
+    </div>
+  );
+}

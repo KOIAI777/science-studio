@@ -1,4 +1,7 @@
-import type {ScienceIssue} from "@science-studio/experiment-schema";
+import type {
+  ExperimentTemplateContract,
+  ScienceIssue,
+} from "@science-studio/experiment-schema";
 import {clamp, degreesToRadians} from "@science-studio/simulation-core";
 import {z} from "zod";
 
@@ -54,6 +57,53 @@ export const inclinedPlaneDefaults: InclinedPlaneParameters = {
   kineticFrictionCoefficient: 0.18,
   gravityMs2: 9.81,
   rampLengthM: 7,
+};
+
+export const inclinedPlaneTemplate: ExperimentTemplateContract = {
+  id: INCLINED_PLANE_TEMPLATE_ID,
+  version: INCLINED_PLANE_TEMPLATE_VERSION,
+  catalog: {
+    slug: "inclined-plane",
+    title: "Inclined Plane & Friction",
+    summary: "Resolve gravity and predict when a block begins to slide.",
+    gradeLevel: "middle",
+    subject: "mechanics",
+    lessonMinutes: 12,
+    concepts: ["Forces", "Friction", "Acceleration"],
+  },
+  learningObjectives: [
+    "Identify gravity, normal force, and friction on a block on an incline.",
+    "Resolve gravity into components parallel and perpendicular to the plane.",
+    "Use static friction to predict whether the block moves.",
+    "Relate net force, acceleration, ramp length, and final velocity.",
+  ],
+  parameterDefinitions: [
+    {key: "angleDegrees", unit: "°", min: 5, max: 60, step: 1, requiredFor: "scene"},
+    {key: "massKg", unit: "kg", min: 0, max: 20, step: 0.1, requiredFor: "model"},
+    {key: "staticFrictionCoefficient", unit: "μs", min: 0, max: 1.5, step: 0.01, requiredFor: "model"},
+    {key: "kineticFrictionCoefficient", unit: "μk", min: 0, max: 1.5, step: 0.01, requiredFor: "model"},
+    {key: "gravityMs2", unit: "m/s²", min: 1, max: 20, step: 0.01, requiredFor: "model"},
+    {key: "rampLengthM", unit: "m", min: 2, max: 20, step: 0.1, requiredFor: "scene"},
+  ],
+  measurementDefinitions: [
+    {key: "accelerationMs2", unit: "m/s²", digits: 2, visibleIn: ["experiment", "present"]},
+    {key: "velocityMs", unit: "m/s", digits: 2, visibleIn: ["experiment", "present"]},
+    {key: "displacementM", unit: "m", digits: 2, visibleIn: ["experiment", "present"]},
+    {key: "normalForceN", unit: "N", digits: 2, visibleIn: ["experiment", "present"]},
+    {key: "bottomVelocityMs", unit: "m/s", digits: 2, visibleIn: ["experiment", "present"]},
+  ],
+  narration: [
+    {id: "setup", durationSeconds: 2, simulationMode: "hold", simulationTimeSeconds: 0, highlights: ["setup"]},
+    {id: "forces", durationSeconds: 2, simulationMode: "hold", simulationTimeSeconds: 0, highlights: ["forces"]},
+    {id: "components", durationSeconds: 2, simulationMode: "hold", simulationTimeSeconds: 0, highlights: ["components"]},
+    {id: "equation", durationSeconds: 2, simulationMode: "hold", simulationTimeSeconds: 0, highlights: ["equation"]},
+    {id: "result", durationSeconds: 4, simulationMode: "play", simulationTimeSeconds: 0, highlights: ["result"]},
+  ],
+  assumptions: [
+    "Rigid block and fixed incline.",
+    "Constant static and kinetic friction coefficients.",
+    "No air drag, rolling, deformation, or motion beyond the ramp end.",
+  ],
 };
 
 export function solveInclinedPlane(

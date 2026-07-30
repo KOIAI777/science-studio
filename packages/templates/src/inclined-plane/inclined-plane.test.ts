@@ -3,10 +3,40 @@ import {describe, expect, it} from "vitest";
 import {
   inclinedPlaneDefaults,
   inclinedPlaneParametersSchema,
+  inclinedPlaneTemplate,
   solveInclinedPlane,
 } from "./index";
 
 describe("inclined-plane solver", () => {
+  it("publishes a complete template contract for the classroom runtime", () => {
+    expect(inclinedPlaneTemplate).toMatchObject({
+      id: "mechanics.inclined-plane",
+      version: "0.1.0",
+      catalog: {
+        slug: "inclined-plane",
+        gradeLevel: "middle",
+        subject: "mechanics",
+        lessonMinutes: 12,
+      },
+    });
+    expect(inclinedPlaneTemplate.parameterDefinitions.map((item) => item.key)).toEqual([
+      "angleDegrees",
+      "massKg",
+      "staticFrictionCoefficient",
+      "kineticFrictionCoefficient",
+      "gravityMs2",
+      "rampLengthM",
+    ]);
+    expect(inclinedPlaneTemplate.narration.map((step) => step.id)).toEqual([
+      "setup",
+      "forces",
+      "components",
+      "equation",
+      "result",
+    ]);
+    expect(inclinedPlaneTemplate.narration.reduce((sum, step) => sum + step.durationSeconds, 0)).toBe(12);
+  });
+
   it("matches the analytical acceleration for the default sliding case", () => {
     const state = solveInclinedPlane(inclinedPlaneDefaults, 1);
     const angle = (inclinedPlaneDefaults.angleDegrees * Math.PI) / 180;

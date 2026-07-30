@@ -7,9 +7,7 @@ export const narrationStepSchema = z.object({
   durationSeconds: z.number().positive().max(30),
   simulationMode: z.enum(["hold", "play"]),
   simulationTimeSeconds: z.number().nonnegative(),
-  highlights: z.array(
-    z.enum(["setup", "forces", "components", "equation", "result"]),
-  ),
+  highlights: z.array(z.string().min(1)),
 });
 
 export const experimentProjectSchema = z.object({
@@ -38,4 +36,47 @@ export interface ScienceIssue {
   title: string;
   detail: string;
   path?: string;
+}
+
+export interface ExperimentParameterDefinition {
+  key: string;
+  unit: string;
+  min: number;
+  max: number;
+  step: number;
+  requiredFor: "model" | "scene";
+}
+
+export interface ExperimentMeasurementDefinition {
+  key: string;
+  unit: string;
+  digits: number;
+  visibleIn: Array<"experiment" | "present">;
+}
+
+export interface ExperimentNarrationBlueprint {
+  id: string;
+  durationSeconds: number;
+  simulationMode: "hold" | "play";
+  simulationTimeSeconds: number;
+  highlights: string[];
+}
+
+export interface ExperimentTemplateContract {
+  id: string;
+  version: string;
+  catalog: {
+    slug: string;
+    title: string;
+    summary: string;
+    gradeLevel: "elementary" | "middle" | "high";
+    subject: "mechanics" | "electricity" | "waves";
+    lessonMinutes: number;
+    concepts: string[];
+  };
+  learningObjectives: string[];
+  parameterDefinitions: ExperimentParameterDefinition[];
+  measurementDefinitions: ExperimentMeasurementDefinition[];
+  narration: ExperimentNarrationBlueprint[];
+  assumptions: string[];
 }

@@ -5,7 +5,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./inclined-plane": "./src/inclined-plane/index.ts"
+    "./inclined-plane": "./src/inclined-plane/index.ts",
+    "./energy-track": "./src/energy-track/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

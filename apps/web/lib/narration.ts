@@ -1,4 +1,7 @@
-import type {NarrationStep} from "@science-studio/experiment-schema";
+import type {
+  ExperimentNarrationBlueprint,
+  NarrationStep,
+} from "@science-studio/experiment-schema";
 
 export const NARRATION_STEP_IDS = [
   "setup",
@@ -21,55 +24,13 @@ export type NarrationTextOverrides = Partial<
 
 export type NarrationDurationOverrides = Partial<Record<NarrationStepId, number>>;
 
-const stepDefinitions: Array<
-  Pick<
-    NarrationStep,
-    "id" | "durationSeconds" | "simulationMode" | "simulationTimeSeconds" | "highlights"
-  >
-> = [
-  {
-    id: "setup",
-    durationSeconds: 2,
-    simulationMode: "hold",
-    simulationTimeSeconds: 0,
-    highlights: ["setup"],
-  },
-  {
-    id: "forces",
-    durationSeconds: 2,
-    simulationMode: "hold",
-    simulationTimeSeconds: 0,
-    highlights: ["forces"],
-  },
-  {
-    id: "components",
-    durationSeconds: 2,
-    simulationMode: "hold",
-    simulationTimeSeconds: 0,
-    highlights: ["components"],
-  },
-  {
-    id: "equation",
-    durationSeconds: 2,
-    simulationMode: "hold",
-    simulationTimeSeconds: 0,
-    highlights: ["equation"],
-  },
-  {
-    id: "result",
-    durationSeconds: 4,
-    simulationMode: "play",
-    simulationTimeSeconds: 0,
-    highlights: ["result"],
-  },
-];
-
 export function buildNarrationSteps(
   text: NarrationStepText,
   textOverrides: NarrationTextOverrides,
   durationOverrides: NarrationDurationOverrides,
+  blueprint: ExperimentNarrationBlueprint[],
 ): NarrationStep[] {
-  return stepDefinitions.map((definition) => {
+  return blueprint.map((definition) => {
     const id = definition.id as NarrationStepId;
     return {
       ...definition,
