@@ -1213,6 +1213,95 @@ a {
   transition: opacity 160ms ease;
 }
 
+.energy-force-guide-title,
+.energy-force-guide-note,
+.energy-force-guide-value,
+.energy-force-guide-copy,
+.energy-force-label {
+  letter-spacing: 0;
+  paint-order: stroke;
+  stroke: #f6f7f2;
+  stroke-linejoin: round;
+}
+
+.energy-force-guide-title {
+  fill: #555a52;
+  font-size: 14px;
+  font-weight: 800;
+  stroke-width: 5px;
+}
+
+.energy-force-guide-note {
+  fill: #858981;
+  font-size: 12px;
+  font-weight: 600;
+  stroke-width: 4px;
+}
+
+.energy-force-guide-rule {
+  stroke: #c7cac2;
+  stroke-width: 1px;
+}
+
+.energy-force-guide-value {
+  font-size: 16px;
+  font-weight: 780;
+  stroke-width: 5px;
+}
+
+.energy-force-guide-copy {
+  fill: #656a62;
+  font-size: 13px;
+  font-weight: 600;
+  stroke-width: 4px;
+}
+
+.energy-force-friction-copy {
+  fill: #83570f;
+}
+
+.energy-force-arrow {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 4px;
+}
+
+.energy-force-arrow-weight {
+  stroke: #e85d42;
+}
+
+.energy-force-arrow-normal {
+  stroke: #2659a8;
+}
+
+.energy-force-arrow-friction {
+  stroke: #b7791f;
+}
+
+.energy-force-label {
+  font-size: 19px;
+  font-weight: 800;
+  stroke-width: 7px;
+}
+
+.energy-force-weight {
+  fill: #c8422d;
+}
+
+.energy-force-normal {
+  fill: #2659a8;
+}
+
+.energy-force-friction {
+  fill: #996314;
+}
+
+.energy-force-origin {
+  fill: #f6f7f2;
+  stroke: #1b1d1a;
+  stroke-width: 3px;
+}
+
 .track-height-label,
 .track-return-label {
   paint-order: stroke;

@@ -73,6 +73,11 @@ interface EnergyCopy {
     turning: string;
     startHeight: string;
     returnHeight: string;
+    forceAnalysis: string;
+    forceScaleNote: string;
+    gravityGuide: string;
+    normalGuide: string;
+    frictionGuide: string;
     energyBudget: string;
     kinetic: string;
     potential: string;
@@ -125,6 +130,11 @@ const energyCopy: Record<Locale, EnergyCopy> = {
       turning: "FIRST TURNING POINT",
       startHeight: "start",
       returnHeight: "return",
+      forceAnalysis: "FORCE ANALYSIS",
+      forceScaleNote: "vectors not to scale",
+      gravityGuide: "vertical downward",
+      normalGuide: "normal to track",
+      frictionGuide: "opposes motion → Eₜₕ",
       energyBudget: "ENERGY BUDGET",
       kinetic: "Kinetic",
       potential: "Potential",
@@ -196,6 +206,11 @@ const energyCopy: Record<Locale, EnergyCopy> = {
       turning: "第一次转折点",
       startHeight: "起始",
       returnHeight: "返回",
+      forceAnalysis: "受力分析",
+      forceScaleNote: "箭头长度不按比例",
+      gravityGuide: "竖直向下",
+      normalGuide: "垂直轨道",
+      frictionGuide: "反向做功 → E热",
       energyBudget: "能量账本",
       kinetic: "动能",
       potential: "势能",
@@ -311,6 +326,33 @@ function EnergyTrackCanvas({
   const cartX = 360 + 260 * Math.sin(angle);
   const cartY = 500 + 260 * Math.cos(angle);
   const cartRotation = (-angle * 180) / Math.PI;
+  const inwardUnit = {x: -Math.sin(angle), y: -Math.cos(angle)};
+  const tangentUnit = {x: Math.cos(angle), y: -Math.sin(angle)};
+  const forceOrigin = {
+    x: cartX + inwardUnit.x * 30,
+    y: cartY + inwardUnit.y * 30,
+  };
+  const weightForceN = parameters.massKg * parameters.gravityMs2;
+  const weightLength = 84;
+  const normalLength = state && weightForceN > 0
+    ? Math.min(132, Math.max(56, (state.normalForceN / weightForceN) * weightLength))
+    : 0;
+  const frictionLength = state && state.frictionForceN > 0 && weightForceN > 0
+    ? Math.min(88, Math.max(52, (state.frictionForceN / weightForceN) * weightLength))
+    : 0;
+  const normalEnd = {
+    x: forceOrigin.x + inwardUnit.x * normalLength,
+    y: forceOrigin.y + inwardUnit.y * normalLength,
+  };
+  const frictionVector = {
+    x: -tangentUnit.x * frictionLength,
+    y: -tangentUnit.y * frictionLength,
+  };
+  const frictionEnd = {
+    x: forceOrigin.x + frictionVector.x,
+    y: forceOrigin.y + frictionVector.y,
+  };
+  const normalPointsLeft = inwardUnit.x < -0.12;
   const startAngle = -Math.acos(1 - parameters.startHeightM / 12);
   const startX = 360 + 260 * Math.sin(startAngle);
   const startY = 500 + 260 * Math.cos(startAngle);
@@ -356,6 +398,15 @@ function EnergyTrackCanvas({
           <pattern id="energy-minor-grid" width="40" height="40" patternUnits="userSpaceOnUse">
             <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#dfe1da" strokeWidth="1" />
           </pattern>
+          <marker id="energy-arrow-weight" markerWidth="7" markerHeight="7" refX="6.2" refY="3.5" orient="auto">
+            <path d="M0,0 L7,3.5 L0,7 Z" fill="#e85d42" />
+          </marker>
+          <marker id="energy-arrow-normal" markerWidth="7" markerHeight="7" refX="6.2" refY="3.5" orient="auto">
+            <path d="M0,0 L7,3.5 L0,7 Z" fill="#2659a8" />
+          </marker>
+          <marker id="energy-arrow-friction" markerWidth="7" markerHeight="7" refX="6.2" refY="3.5" orient="auto">
+            <path d="M0,0 L7,3.5 L0,7 Z" fill="#b7791f" />
+          </marker>
           <clipPath id="energy-budget-clip"><rect x={budgetX} y="868" width={budgetWidth} height="34" rx="3" /></clipPath>
         </defs>
 
@@ -383,6 +434,24 @@ function EnergyTrackCanvas({
         )}
 
         <g className="energy-track-visual" opacity={trackOpacity}>
+          <g className="energy-force-guide" transform="translate(72 338)">
+            <text className="energy-force-guide-title">{copy.forceAnalysis}</text>
+            <text x="576" textAnchor="end" className="energy-force-guide-note">{copy.forceScaleNote}</text>
+            <line x1="0" y1="15" x2="576" y2="15" className="energy-force-guide-rule" />
+            <g transform="translate(0 36)">
+              <text className="energy-force-guide-value energy-force-weight">mg = {formatNumber(weightForceN, locale, 1)} N</text>
+              <text y="22" className="energy-force-guide-copy">{copy.gravityGuide}</text>
+            </g>
+            <g transform="translate(198 36)">
+              <text className="energy-force-guide-value energy-force-normal">N = {state ? formatNumber(state.normalForceN, locale, 1) : "--"} N</text>
+              <text y="22" className="energy-force-guide-copy">{copy.normalGuide}</text>
+            </g>
+            <g transform="translate(396 36)" opacity={parameters.frictionCoefficient > 0 ? 1 : 0.32}>
+              <text className="energy-force-guide-value energy-force-friction">f<tspan baselineShift="sub" fontSize="12">k</tspan> = {state ? formatNumber(state.frictionForceN, locale, 1) : "--"} N</text>
+              <text y="22" className="energy-force-guide-copy energy-force-friction-copy">{copy.frictionGuide}</text>
+            </g>
+          </g>
+
           <path d={`${buildTrackPath(-Math.PI / 2, Math.PI / 2)} L 620 790 L 100 790 Z`} fill="#e5e7e0" />
           <path d={buildTrackPath(-Math.PI / 2, Math.PI / 2)} fill="none" stroke="#1b1d1a" strokeWidth="8" strokeLinecap="round" />
           <path d={trailPath} fill="none" stroke="#147f75" strokeWidth="8" strokeLinecap="round" />
@@ -398,6 +467,53 @@ function EnergyTrackCanvas({
             <circle cx="-23" cy="-8" r="8" fill="#1b1d1a" />
             <circle cx="23" cy="-8" r="8" fill="#1b1d1a" />
           </g>
+
+          {state ? (
+            <g className="energy-force-vectors">
+              <line
+                x1={forceOrigin.x}
+                y1={forceOrigin.y}
+                x2={forceOrigin.x}
+                y2={forceOrigin.y + weightLength}
+                className="energy-force-arrow energy-force-arrow-weight"
+                markerEnd="url(#energy-arrow-weight)"
+              />
+              <text x={forceOrigin.x + 12} y={forceOrigin.y + weightLength + 4} className="energy-force-label energy-force-weight">mg</text>
+              <line
+                x1={forceOrigin.x}
+                y1={forceOrigin.y}
+                x2={normalEnd.x}
+                y2={normalEnd.y}
+                className="energy-force-arrow energy-force-arrow-normal"
+                markerEnd="url(#energy-arrow-normal)"
+              />
+              <text
+                x={normalEnd.x + (normalPointsLeft ? -10 : 10)}
+                y={normalEnd.y - 7}
+                textAnchor={normalPointsLeft ? "end" : "start"}
+                className="energy-force-label energy-force-normal"
+              >N</text>
+              {frictionLength > 0 ? (
+                <>
+                  <line
+                    x1={forceOrigin.x}
+                    y1={forceOrigin.y}
+                    x2={frictionEnd.x}
+                    y2={frictionEnd.y}
+                    className="energy-force-arrow energy-force-arrow-friction"
+                    markerEnd="url(#energy-arrow-friction)"
+                  />
+                  <text
+                    x={frictionEnd.x - 10}
+                    y={frictionEnd.y + (frictionVector.y > 0 ? 20 : -8)}
+                    textAnchor="end"
+                    className="energy-force-label energy-force-friction"
+                  >f<tspan baselineShift="sub" fontSize="14">k</tspan></text>
+                </>
+              ) : null}
+              <circle cx={forceOrigin.x} cy={forceOrigin.y} r="5" className="energy-force-origin" />
+            </g>
+          ) : null}
         </g>
 
         <g className="energy-budget-visual" opacity={budgetOpacity}>
