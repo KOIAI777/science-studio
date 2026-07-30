@@ -1,0 +1,21 @@
+{
+  "name": "@science-studio/templates",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./inclined-plane": "./src/inclined-plane/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@science-studio/experiment-schema": "workspace:*",
+    "@science-studio/simulation-core": "workspace:*",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

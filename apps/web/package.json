@@ -1,0 +1,25 @@
+{
+  "name": "@science-studio/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@science-studio/experiment-schema": "workspace:*",
+    "@science-studio/simulation-core": "workspace:*",
+    "@science-studio/templates": "workspace:*",
+    "lucide-react": "^0.468.0",
+    "next": "^16.2.12",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^5.9.3"
+  }
+}

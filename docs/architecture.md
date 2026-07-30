@@ -1,4 +1,4 @@
-# Science Studio 技术架构 v0.2
+# Science Studio 技术架构 v0.3
 
 更新日期：2026-07-30
 
@@ -126,6 +126,7 @@ P0 原则：
 ```ts
 interface ExperimentProject {
   schemaVersion: 1
+  locale: "en" | "zh-CN"
   templateId: string
   templateVersion: string
   engineVersion: string
@@ -142,6 +143,7 @@ interface ExperimentProject {
 ```
 
 - P0 将经过 Zod 校验的文档保存到浏览器本地，并允许导入/导出 JSON。
+- `locale` 默认是 `en`，决定模板文案、讲解步骤和导出画面的语言；物理求解器不读取本地化文案。
 - 付费 Beta 的数据库保存 JSONB 文档和独立查询字段；每次导出冻结一份不可变 `project_snapshot`。
 - 付费 Beta 的自动保存提交 `revision`，服务端只接受基于当前 revision 的更新。
 - 模板迁移函数必须从旧版本生成新副本，不原地破坏项目。

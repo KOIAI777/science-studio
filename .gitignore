@@ -2,6 +2,8 @@ node_modules/
 .next/
 coverage/
 artifacts/
+output/
 .DS_Store
 *.log
+*.tsbuildinfo
 .playwright-cli/
