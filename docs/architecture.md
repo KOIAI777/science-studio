@@ -2,11 +2,13 @@
 
 更新日期：2026-07-30
 
+> 当前 P0 以 [product-spec.md](product-spec.md) 为准：教师直接在网页中使用三个免费实验，不实现登录、视频导出、云渲染或 Creem。本文中的渲染 Worker、云项目和支付章节仅保留为验证后的技术参考，不属于当前实施范围。
+
 ## 1. 架构目标
 
 - 相同模板版本、参数和时间点得到可复现结果。
 - 浏览器预览与服务端导出使用同一套场景和求解器代码。
-- 验证版只支撑“斜面受力与摩擦”模板，不提前建设通用物理编辑器。
+- 验证版支撑斜面、能量轨道与力和运动三个模板，不提前建设通用物理编辑器。
 - Web、渲染 Worker、支付和数据层可以独立扩展。
 - 科学规则是确定性代码；AI 不能成为结果真源。
 - 先验证本地内容生产闭环，再建设账户、云渲染和支付基础设施。
@@ -72,7 +74,7 @@ packages/
 ├── experiment-schema/  # 项目、模板和步骤类型
 ├── simulation-core/    # 时间、单位、求解器接口和数值工具
 ├── motion-project/     # Motion Canvas 场景和独立 bundle 构建入口
-├── templates/          # 版本化模板；当前包含 inclined-plane 与 energy-track
+├── templates/          # 版本化模板；当前包含 inclined-plane、energy-track 与 forces-and-motion
 └── ui/                 # 基础 UI 与精选 ReactBits 组件
 supabase/
 ├── migrations/

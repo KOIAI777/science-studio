@@ -44,8 +44,12 @@ const experimentPreviewImages: Record<string, {src: string; alt: string}> = {
     alt: "Actual Science Studio inclined-plane output showing the block, force vectors, ramp, and angle.",
   },
   "energy-track": {
-    src: "/experiments/energy-track-diagram.jpg",
-    alt: "Actual Science Studio energy-track output showing the cart, circular track, and live energy budget.",
+    src: "/experiments/energy-track-diagram.png",
+    alt: "Actual Science Studio energy-track output showing the cart, force vectors, return height, and live energy budget.",
+  },
+  "forces-and-motion": {
+    src: "/experiments/forces-and-motion-diagram.png",
+    alt: "Actual Science Studio free-body diagram showing normal force, weight, applied force, and friction on a sliding block.",
   },
 };
 
@@ -107,7 +111,7 @@ export function ExperimentLibrary({catalog, filters}: {catalog: CatalogPage; fil
         <div className="library-breadcrumb"><Link href="/"><ArrowLeft size={14} />Home</Link><span>/</span><span>Experiment library</span></div>
         <section className="library-heading">
           <div><span className="section-kicker">Experiment library</span><h1>One clear place for every grade level</h1></div>
-          <p>Find classroom-ready physics experiments by grade and subject. Start with two free mechanics lessons while the wider curriculum is being reviewed.</p>
+          <p>Find classroom-ready physics experiments by grade and subject. Start with three free mechanics lessons while the wider curriculum is being reviewed.</p>
         </section>
 
         <section className="library-toolbar" aria-label="Experiment filters">

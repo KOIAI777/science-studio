@@ -15,7 +15,6 @@ import {
   ArrowLeft,
   Check,
   ChevronDown,
-  CircleGauge,
   FlaskConical,
   Info,
   Languages,
@@ -598,8 +597,6 @@ export function ExperimentWorkbench() {
     setIsPlaying(false);
   }, [locale]);
 
-  const blockingCount = issues.filter((issue) => issue.severity === "blocking").length;
-
   const toggleLocale = useCallback(() => {
     setLocale((current) => {
       const next = current === "en" ? "zh-CN" : "en";
@@ -658,11 +655,6 @@ export function ExperimentWorkbench() {
           </button>
           <button className="icon-button" type="button" aria-label={copy.actions.undo} title={copy.actions.undo} disabled><Undo2 /></button>
           <button className="icon-button" type="button" aria-label={copy.actions.redo} title={copy.actions.redo} disabled><Redo2 /></button>
-          <button className="science-button" type="button">
-            {blockingCount ? <AlertTriangle size={15} /> : <CircleGauge size={15} />}
-            {copy.actions.scienceCheck}
-            <span>{issues.length}</span>
-          </button>
         </div>
       </header>
 

@@ -991,32 +991,6 @@ a {
   stroke-width: 1.8;
 }
 
-.science-button {
-  height: 32px;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-left: 4px;
-  padding: 0 9px;
-  border: 1px solid var(--border-default);
-  border-radius: 6px;
-  color: #dfe1dc;
-  background: var(--surface-raised);
-  font-size: 12px;
-}
-
-.science-button > span {
-  min-width: 18px;
-  height: 18px;
-  display: inline-grid;
-  place-items: center;
-  border-radius: 4px;
-  color: #171816;
-  background: #d3d6ce;
-  font-size: 11px;
-  font-variant-numeric: tabular-nums;
-}
-
 .workspace {
   min-height: 0;
   display: grid;
@@ -2055,22 +2029,6 @@ a {
 }
 
 @media (max-width: 540px) {
-.science-button {
-    width: 32px;
-    justify-content: center;
-    padding: 0;
-    font-size: 0;
-  }
-
-  .science-button > span {
-    position: absolute;
-    width: 14px;
-    min-width: 14px;
-    height: 14px;
-    margin: -20px 0 0 20px;
-    font-size: 9px;
-  }
-
   .stage-area {
     min-height: 500px;
   }
@@ -2127,5 +2085,576 @@ a {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+/* Forces & Motion worksheet */
+.forces-stage-area {
+  isolation: isolate;
+}
+
+.forces-stage-meta {
+  z-index: 4;
+  align-items: center;
+  pointer-events: none;
+}
+
+.forces-canvas-toolbar {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px;
+  border: 1px solid #4b4e48;
+  border-radius: 6px;
+  color: #cfd2ca;
+  background: rgb(24 25 23 / 94%);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 18%);
+  pointer-events: auto;
+}
+
+.canvas-ratio-switch {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding-right: 3px;
+  border-right: 1px solid #4b4e48;
+}
+
+.canvas-ratio-switch button,
+.canvas-tool-button {
+  height: 24px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  color: #aeb2a9;
+  background: transparent;
+}
+
+.canvas-ratio-switch button {
+  min-width: 42px;
+  padding: 0 7px;
+  font-size: 10px;
+  font-weight: 720;
+  font-variant-numeric: tabular-nums;
+}
+
+.canvas-tool-button {
+  width: 26px;
+}
+
+.canvas-tool-button svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 1.8;
+}
+
+.canvas-ratio-switch button:hover:not(:disabled),
+.canvas-tool-button:hover:not(:disabled) {
+  color: #f0f1ed;
+  background: #393b36;
+}
+
+.canvas-ratio-switch button.active,
+.canvas-tool-button.active {
+  color: #fff;
+  background: #3d403a;
+  box-shadow: inset 0 -2px var(--accent-control);
+}
+
+.canvas-ratio-switch button:focus-visible,
+.canvas-tool-button:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+.canvas-tool-button:disabled {
+  opacity: 0.34;
+}
+
+.canvas-zoom-value {
+  width: 38px;
+  color: #d8dad4;
+  font-size: 9px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.forces-canvas-transform {
+  position: relative;
+  height: 100%;
+  max-height: 680px;
+  aspect-ratio: 9 / 16;
+  flex: 0 1 auto;
+  transform-origin: center;
+  transition: transform 140ms ease;
+  outline: none;
+}
+
+.forces-canvas-transform.is-landscape {
+  width: 100%;
+  height: auto;
+  max-width: 1200px;
+  max-height: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.forces-canvas-transform.can-pan {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.forces-canvas-transform.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.forces-canvas-transform:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.forces-canvas-transform .forces-output-frame {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  aspect-ratio: inherit;
+}
+
+.forces-output-frame.is-landscape {
+  max-width: none;
+}
+
+.forces-landscape-motion-value {
+  font-size: 24px;
+}
+
+.forces-landscape-narration .narration-step-title {
+  font-size: 22px;
+}
+
+.forces-landscape-narration .narration-step-caption {
+  font-size: 15px;
+}
+
+.forces-motion-workbench:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 68px;
+  overflow: hidden;
+}
+
+.forces-motion-workbench:fullscreen .topbar,
+.forces-motion-workbench:fullscreen .parameter-panel {
+  display: none;
+}
+
+.forces-motion-workbench:fullscreen .workspace {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.forces-motion-workbench:fullscreen .forces-stage-area {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  order: initial;
+  display: flex;
+  padding: 54px 32px 24px;
+  background-color: var(--surface-app);
+  background-image: radial-gradient(#343631 0.8px, transparent 0.8px);
+  background-size: 16px 16px;
+}
+
+.forces-motion-workbench:fullscreen .forces-canvas-transform {
+  max-height: calc(100vh - 146px);
+}
+
+.forces-motion-workbench:fullscreen .forces-canvas-transform.is-landscape {
+  max-width: calc((100vh - 146px) * 16 / 9);
+}
+
+.forces-motion-workbench:fullscreen .forces-stage-meta {
+  top: 14px;
+}
+
+.forces-motion-workbench:fullscreen .playback-bar {
+  position: relative;
+  order: initial;
+  display: grid;
+  height: 68px;
+}
+
+.forces-canvas-section {
+  transition: opacity 160ms ease;
+}
+
+.forces-motion-value {
+  font-size: 27px;
+}
+
+.forces-section-heading,
+.forces-section-note,
+.forces-held,
+.forces-breakaway,
+.forces-threshold-value,
+.forces-applied-value,
+.forces-ruler-number,
+.forces-force-label,
+.forces-force-readout,
+.forces-friction-guide,
+.forces-equation-result,
+.forces-acceleration-result,
+.forces-plot-axes,
+.forces-plot-legend,
+.forces-release-label {
+  letter-spacing: 0;
+  paint-order: stroke;
+  stroke: #f6f7f2;
+  stroke-linejoin: round;
+}
+
+.forces-section-heading {
+  fill: #555a52;
+  stroke-width: 5px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.forces-section-note,
+.forces-release-label {
+  fill: #777c73;
+  stroke-width: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.forces-section-rule {
+  stroke: #c7cac2;
+  stroke-width: 1px;
+}
+
+.forces-held,
+.forces-breakaway {
+  stroke-width: 5px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.forces-held {
+  fill: #2b63ad;
+}
+
+.forces-breakaway {
+  fill: #c8422d;
+}
+
+.forces-threshold-line {
+  stroke: #9b9f96;
+  stroke-width: 4px;
+  stroke-linecap: round;
+}
+
+.forces-threshold-tick {
+  stroke: #747970;
+  stroke-width: 3px;
+}
+
+.forces-threshold-marker {
+  stroke: #b7791f;
+  stroke-width: 4px;
+}
+
+.forces-threshold-value {
+  fill: #8d5c12;
+  stroke-width: 6px;
+  font-size: 15px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.forces-applied-dot {
+  fill: #2b63ad;
+  stroke: #f6f7f2;
+  stroke-width: 4px;
+}
+
+.forces-applied-dot.breakaway {
+  fill: #e85d42;
+}
+
+.forces-applied-value {
+  fill: #2d302b;
+  stroke-width: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.forces-ruler-number {
+  fill: #71766d;
+  stroke-width: 4px;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.forces-surface {
+  stroke: #1b1d1a;
+  stroke-width: 8px;
+  stroke-linecap: square;
+}
+
+.forces-origin-mark {
+  stroke: #a6aaa1;
+  stroke-width: 2px;
+  stroke-dasharray: 5 5;
+}
+
+.forces-displacement-trail {
+  stroke: #147f75;
+  stroke-width: 7px;
+}
+
+.forces-origin-label,
+.forces-position-label {
+  paint-order: stroke;
+  stroke: #f6f7f2;
+  stroke-width: 6px;
+  fill: #6b7068;
+  font-size: 14px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.forces-position-label {
+  fill: #147f75;
+}
+
+.forces-block rect {
+  fill: #f6f7f2;
+  stroke: #1b1d1a;
+  stroke-width: 5px;
+}
+
+.forces-block path {
+  fill: none;
+  stroke: #ef6548;
+  stroke-width: 6px;
+  stroke-linecap: round;
+}
+
+.forces-block text {
+  fill: #1b1d1a;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.forces-vector {
+  fill: none;
+  stroke-width: 4px;
+  stroke-linecap: round;
+}
+
+.forces-vector-applied {
+  stroke: #e85d42;
+}
+
+.forces-vector-friction {
+  stroke: #b7791f;
+}
+
+.forces-vector-normal {
+  stroke: #2659a8;
+}
+
+.forces-vector-weight {
+  stroke: #147f75;
+}
+
+.forces-vector-origin {
+  fill: #f6f7f2;
+  stroke: #1b1d1a;
+  stroke-width: 3px;
+}
+
+.forces-force-label {
+  stroke-width: 7px;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.forces-label-applied {
+  fill: #c8422d;
+}
+
+.forces-label-friction {
+  fill: #996314;
+}
+
+.forces-label-normal {
+  fill: #2659a8;
+}
+
+.forces-label-weight {
+  fill: #147f75;
+}
+
+.forces-force-readout {
+  stroke-width: 5px;
+  font-size: 15px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.forces-friction-guide {
+  fill: #686d65;
+  stroke-width: 5px;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.forces-equation-formula {
+  fill: #20221f;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 27px;
+  font-style: italic;
+}
+
+.forces-equation-result,
+.forces-acceleration-result {
+  stroke-width: 5px;
+  font-size: 17px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.forces-equation-result {
+  fill: #c8422d;
+}
+
+.forces-acceleration-result {
+  fill: #147f75;
+}
+
+.forces-plot-axes {
+  fill: #686d65;
+  stroke-width: 4px;
+  font-size: 12px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.forces-plot-axes line {
+  stroke: #989c93;
+  stroke-width: 1.5px;
+}
+
+.forces-plot-axes .forces-plot-gridline {
+  stroke: #d0d3cb;
+  stroke-dasharray: 4 5;
+}
+
+.forces-series {
+  fill: none;
+  stroke-width: 3px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.forces-series-applied {
+  stroke: #e85d42;
+}
+
+.forces-series-friction {
+  stroke: #b7791f;
+}
+
+.forces-series-net {
+  stroke: #2659a8;
+  stroke-dasharray: 7 5;
+}
+
+.forces-series-velocity {
+  stroke: #147f75;
+  stroke-width: 4px;
+}
+
+.forces-plot-legend {
+  fill: #62675f;
+  stroke-width: 4px;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.forces-plot-legend line {
+  stroke-width: 3px;
+}
+
+.forces-release-line {
+  stroke: #8b8f87;
+  stroke-width: 2px;
+  stroke-dasharray: 5 5;
+}
+
+.forces-live-dot {
+  fill: #147f75;
+  stroke: #f6f7f2;
+  stroke-width: 3px;
+}
+
+.forces-measurements .forces-applied-measurement dd {
+  color: #ff9b87;
+}
+
+.forces-measurements .forces-friction-measurement dd {
+  color: #e8b761;
+}
+
+.forces-measurements .forces-net-measurement dd {
+  color: #8db3ef;
+}
+
+@media (max-width: 540px) {
+  .forces-motion-workbench .stage-area {
+    min-height: 520px;
+  }
+
+  .forces-motion-workbench.ratio-landscape .stage-area {
+    height: 340px;
+    min-height: 340px;
+  }
+
+  .forces-stage-meta > span {
+    display: none;
+  }
+
+  .forces-stage-meta {
+    justify-content: flex-end;
+  }
+
+  .forces-canvas-toolbar {
+    max-width: 100%;
+  }
+
+  .canvas-ratio-switch button {
+    min-width: 39px;
+    padding: 0 5px;
+  }
+
+  .canvas-tool-button {
+    width: 25px;
+  }
+
+  .canvas-zoom-value {
+    width: 34px;
   }
 }

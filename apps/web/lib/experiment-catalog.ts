@@ -42,6 +42,18 @@ export const experimentCatalog: ExperimentCatalogItem[] = [
     concepts: ["Energy", "Conservation", "Friction"],
     preview: "energy",
   },
+  {
+    id: "middle-forces-motion",
+    slug: "forces-and-motion",
+    title: "Forces & Motion",
+    summary: "Balance friction, find the net force, and follow the motion after a push ends.",
+    gradeLevel: "middle",
+    subject: "mechanics",
+    availability: "free",
+    lessonMinutes: 10,
+    concepts: ["Net Force", "Friction", "Newton's Second Law"],
+    preview: "motion",
+  },
 ];
 
 export const EXPERIMENTS_PER_PAGE = 6;

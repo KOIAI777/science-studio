@@ -16,7 +16,6 @@ import {
   ArrowLeft,
   Check,
   ChevronDown,
-  CircleGauge,
   FlaskConical,
   Info,
   Languages,
@@ -702,8 +701,6 @@ export function EnergyTrackWorkbench() {
       return next;
     });
   }, []);
-  const blockingCount = issues.filter((issue) => issue.severity === "blocking").length;
-
   return (
     <main className={`workbench-shell energy-workbench ${mode === "narration" ? "narration-mode" : ""}`}>
       <header className="topbar">
@@ -724,7 +721,6 @@ export function EnergyTrackWorkbench() {
           <button className="locale-button" type="button" onClick={toggleLocale} aria-label={commonCopy.actions.switchLanguage} title={commonCopy.actions.switchLanguage}><Languages size={15} /><span>{locale === "en" ? "EN" : "中文"}</span></button>
           <button className="icon-button" type="button" aria-label={commonCopy.actions.undo} title={commonCopy.actions.undo} disabled><Undo2 /></button>
           <button className="icon-button" type="button" aria-label={commonCopy.actions.redo} title={commonCopy.actions.redo} disabled><Redo2 /></button>
-          <button className="science-button" type="button">{blockingCount ? <AlertTriangle size={15} /> : <CircleGauge size={15} />}{commonCopy.actions.scienceCheck}<span>{issues.length}</span></button>
         </div>
       </header>
 

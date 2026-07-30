@@ -57,7 +57,7 @@
 |---:|---|---|---|
 | 1 | Inclined Plane & Friction | 已实现首版 | 展示受力、分解和确定性计算 |
 | 2 | Energy Track | 已实现首版 | 覆盖多学段并展示动态守恒图 |
-| 3 | Forces & Motion | 后续免费目标 | 承接 Newton's laws、net force 和 free-body diagram 搜索需求 |
+| 3 | Forces & Motion | 已实现首版 | 承接 Newton's laws、net force 和 free-body diagram 搜索需求 |
 
 只有前三个实验完成科学检查、讲解流程和课堂展示后，Free Starter 才算成立。
 
@@ -154,6 +154,8 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 - 主要学段：Middle school
 - 权益：Free Starter
 - 建议时长：10 分钟
+- 状态：已实现首版
+- 详细合同：[forces-and-motion.md](templates/forces-and-motion.md)
 
 教学目标：理解 net force、Newton's first and second laws、static/kinetic friction 和 free-body diagram。
 
@@ -161,7 +163,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 
 测量值：重力、支持力、摩擦力、合力、加速度、速度和位移。画面显示受力图、运动轨迹以及可选的 `force-time`、`velocity-time` 图表。
 
-默认讲解：建立场景 -> 标注所有力 -> 计算合力 -> 判断是否克服静摩擦 -> 观察运动 -> 对照图表。
+默认讲解：建立场景 -> 标注所有力 -> 判断是否克服静摩擦 -> 计算合力 -> 观察运动 -> 对照图表。
 
 模型边界：只处理一维平动；首版不包含绳索系统、滑轮、旋转或碰撞。
 
@@ -341,7 +343,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 ### 阶段 1：完成 Free Starter
 
 1. Energy Track 已完成首版，进入教师验证。
-2. 开发 Forces & Motion。
+2. Forces & Motion 已完成首版，进入教师验证。
 3. 统一三个模板的参数、测量、讲解和科学检查界面。
 4. 记录教师从打开实验到开始讲解所需时间。
 
