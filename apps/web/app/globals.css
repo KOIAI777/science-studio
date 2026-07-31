@@ -3251,3 +3251,573 @@ a {
     max-width: 100%;
   }
 }
+
+/* DC circuits comparison worksheet */
+.dc-pack-badge {
+  min-height: 21px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  border: 1px solid #765b3f;
+  border-radius: 4px;
+  color: #e8c995;
+  background: #32291f;
+  font-size: 9px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.dc-stage-area {
+  isolation: isolate;
+}
+
+.dc-stage-meta {
+  z-index: 4;
+  align-items: center;
+  pointer-events: none;
+}
+
+.dc-canvas-toolbar {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px;
+  border: 1px solid #4b4e48;
+  border-radius: 6px;
+  color: #cfd2ca;
+  background: rgb(24 25 23 / 94%);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 18%);
+  pointer-events: auto;
+}
+
+.dc-canvas-transform {
+  position: relative;
+  height: 100%;
+  max-height: 680px;
+  aspect-ratio: 9 / 16;
+  flex: 0 1 auto;
+  transform-origin: center;
+  transition: transform 140ms ease;
+  outline: none;
+}
+
+.dc-canvas-transform.is-landscape {
+  width: 100%;
+  height: auto;
+  max-width: 1200px;
+  max-height: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.dc-canvas-transform.can-pan {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.dc-canvas-transform.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.dc-canvas-transform:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.dc-canvas-transform .dc-output-frame {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  aspect-ratio: inherit;
+}
+
+.dc-output-frame.is-landscape {
+  max-width: none;
+}
+
+.dc-circuits-workbench:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 68px;
+  overflow: hidden;
+}
+
+.dc-circuits-workbench:fullscreen .topbar,
+.dc-circuits-workbench:fullscreen .parameter-panel {
+  display: none;
+}
+
+.dc-circuits-workbench:fullscreen .workspace {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.dc-circuits-workbench:fullscreen .dc-stage-area {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  order: initial;
+  display: flex;
+  padding: 54px 32px 24px;
+  background-color: var(--surface-app);
+  background-image: radial-gradient(#343631 0.8px, transparent 0.8px);
+  background-size: 16px 16px;
+}
+
+.dc-circuits-workbench:fullscreen .dc-canvas-transform {
+  max-height: calc(100vh - 146px);
+}
+
+.dc-circuits-workbench:fullscreen .dc-canvas-transform.is-landscape {
+  max-width: calc((100vh - 146px) * 16 / 9);
+}
+
+.dc-circuits-workbench:fullscreen .dc-stage-meta {
+  top: 14px;
+}
+
+.dc-circuits-workbench:fullscreen .playback-bar {
+  position: relative;
+  order: initial;
+  display: grid;
+  height: 68px;
+}
+
+.dc-canvas-bg {
+  fill: #f6f7f2;
+}
+
+.dc-grid-line {
+  fill: none;
+  stroke: #dce0d7;
+  stroke-width: 1px;
+}
+
+.dc-canvas-border {
+  fill: none;
+  stroke: #c9ccc3;
+  stroke-width: 1.4px;
+  stroke-dasharray: 7 7;
+}
+
+.dc-landscape-title {
+  font-size: 36px;
+}
+
+.dc-landscape-subtitle,
+.dc-portrait-subtitle {
+  font-size: 17px;
+}
+
+.dc-portrait-title {
+  font-size: 34px;
+}
+
+.dc-section-label,
+.dc-status,
+.dc-component-label,
+.dc-component-value,
+.dc-polarity,
+.dc-current-label,
+.dc-open-note,
+.dc-footnote,
+.dc-meter-label,
+.dc-meter-value,
+.dc-compare-name,
+.dc-compare-formula,
+.dc-equivalent-result,
+.dc-equation,
+.dc-equation-result,
+.dc-assumptions,
+.dc-invalid {
+  letter-spacing: 0;
+  paint-order: stroke;
+  stroke: #f6f7f2;
+  stroke-linejoin: round;
+}
+
+.dc-schematic-boundary,
+.dc-meter rect,
+.dc-comparison > rect,
+.dc-equation-card rect {
+  fill: rgb(246 247 242 / 82%);
+  stroke: #c4c8bf;
+  stroke-width: 1.5px;
+}
+
+.dc-section-label {
+  fill: #555a52;
+  stroke-width: 5px;
+  font-size: 12px;
+  font-weight: 820;
+}
+
+.dc-status {
+  fill: #956025;
+  stroke-width: 5px;
+  font-size: 11px;
+  font-weight: 820;
+}
+
+.dc-status.closed {
+  fill: #147f75;
+}
+
+.dc-wire {
+  fill: none;
+  stroke: #20221f;
+  stroke-width: 5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dc-resistor {
+  fill: none;
+  stroke: #b65f2e;
+  stroke-width: 6px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke-width 140ms ease, stroke 140ms ease;
+}
+
+.dc-resistor.selected {
+  stroke: #2659a8;
+  stroke-width: 9px;
+}
+
+.dc-source.selected .dc-battery-positive,
+.dc-source.selected .dc-battery-negative {
+  stroke: #147f75;
+}
+
+.dc-battery-positive {
+  stroke: #2659a8;
+  stroke-width: 7px;
+  stroke-linecap: square;
+}
+
+.dc-battery-negative {
+  stroke: #20221f;
+  stroke-width: 5px;
+  stroke-linecap: square;
+}
+
+.dc-switch circle {
+  fill: #f6f7f2;
+  stroke: #20221f;
+  stroke-width: 4px;
+}
+
+.dc-switch line {
+  stroke: #20221f;
+  stroke-width: 5px;
+  stroke-linecap: round;
+}
+
+.dc-switch line.open {
+  stroke: #b65f2e;
+}
+
+.dc-node {
+  fill: #20221f;
+}
+
+.dc-component-label {
+  fill: #565b53;
+  stroke-width: 5px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.dc-component-value {
+  fill: #20221f;
+  stroke-width: 6px;
+  font-size: 17px;
+  font-weight: 820;
+  font-variant-numeric: tabular-nums;
+}
+
+.dc-polarity {
+  fill: #333630;
+  stroke-width: 5px;
+  font-size: 19px;
+  font-weight: 850;
+}
+
+.dc-polarity.positive {
+  fill: #2659a8;
+}
+
+.dc-current-path {
+  fill: none;
+  stroke: #147f75;
+  stroke-width: 4px;
+  stroke-dasharray: 8 11;
+  opacity: 0;
+}
+
+.dc-current-path.active {
+  opacity: 1;
+}
+
+.dc-arrow-head {
+  fill: #147f75;
+}
+
+.dc-current-label {
+  fill: #147f75;
+  stroke-width: 6px;
+  font-size: 12px;
+  font-weight: 820;
+  font-variant-numeric: tabular-nums;
+}
+
+.dc-open-note {
+  fill: #956025;
+  stroke-width: 5px;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.dc-footnote,
+.dc-assumptions {
+  fill: #747970;
+  stroke-width: 4px;
+  font-size: 9px;
+  font-weight: 650;
+}
+
+.dc-meter-value {
+  fill: #20221f;
+  stroke-width: 5px;
+  font-size: 21px;
+  font-weight: 820;
+  font-variant-numeric: tabular-nums;
+}
+
+.dc-meter-value.voltage {
+  fill: #2659a8;
+}
+
+.dc-meter-value.current {
+  fill: #147f75;
+}
+
+.dc-meter-label {
+  fill: #686d65;
+  stroke-width: 4px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.dc-comparison > g rect {
+  fill: #eceee8;
+  stroke: #d0d3ca;
+  stroke-width: 1px;
+}
+
+.dc-comparison > g.active rect {
+  fill: #e2ece8;
+  stroke: #5d9b93;
+  stroke-width: 1.6px;
+}
+
+.dc-compare-name,
+.dc-compare-formula {
+  fill: #656a62;
+  stroke-width: 4px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.dc-comparison > g.active .dc-compare-name,
+.dc-comparison > g.active .dc-compare-formula {
+  fill: #155f58;
+  font-weight: 820;
+}
+
+.dc-compare-formula,
+.dc-equation {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+}
+
+.dc-equivalent-result {
+  fill: #147f75;
+  stroke-width: 5px;
+  font-size: 13px;
+  font-weight: 820;
+  font-variant-numeric: tabular-nums;
+}
+
+.dc-equation {
+  fill: #20221f;
+  stroke-width: 5px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.dc-equation.small {
+  font-size: 18px;
+}
+
+.dc-equation-result {
+  fill: #147f75;
+  stroke-width: 5px;
+  font-size: 19px;
+  font-weight: 820;
+  font-variant-numeric: tabular-nums;
+}
+
+.dc-invalid {
+  fill: #a6503a;
+  stroke-width: 6px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.dc-narration .narration-step-title {
+  font-size: 19px;
+}
+
+.dc-narration .narration-step-caption {
+  font-size: 11px;
+}
+
+.dc-control-label {
+  display: block;
+  margin-bottom: 9px;
+  color: #dfe1db;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.dc-topology-control,
+.dc-meter-targets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid #464943;
+  border-radius: 6px;
+  background: #20211f;
+}
+
+.dc-topology-control button,
+.dc-meter-targets button {
+  min-width: 0;
+  height: 31px;
+  padding: 0 4px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #aeb2aa;
+  background: transparent;
+  font-size: 10px;
+}
+
+.dc-topology-control button.active,
+.dc-meter-targets button.active {
+  border-color: #657d78;
+  color: #e6efec;
+  background: #2d4440;
+  box-shadow: inset 0 -2px #62aaa2;
+}
+
+.dc-topology-control button:disabled,
+.dc-meter-targets button:disabled,
+.parameter-control.disabled {
+  opacity: 0.46;
+}
+
+.dc-switch-control {
+  width: 100%;
+  height: 40px;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 38px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border: 1px solid #4a4c47;
+  border-radius: 6px;
+  color: #d9dcd4;
+  background: #292a27;
+  font-size: 12px;
+  font-weight: 680;
+  text-align: left;
+}
+
+.dc-switch-control:hover {
+  border-color: #646760;
+  background: #30312e;
+}
+
+.dc-switch-control.closed {
+  border-color: #3f726c;
+}
+
+.dc-switch-track {
+  width: 34px;
+  height: 18px;
+  display: block;
+  padding: 2px;
+  border: 1px solid #565953;
+  border-radius: 9px;
+  background: #1f201e;
+}
+
+.dc-switch-track span {
+  width: 12px;
+  height: 12px;
+  display: block;
+  border-radius: 50%;
+  background: #8c9087;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+
+.dc-switch-control.closed .dc-switch-track span {
+  background: #61aaa2;
+  transform: translateX(16px);
+}
+
+.dc-measurements .dc-total-current dd {
+  color: #75c2ba;
+}
+
+.dc-measurements .dc-total-power dd {
+  color: #e8b761;
+}
+
+@media (max-width: 1100px) {
+  .dc-pack-badge {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .dc-circuits-workbench .stage-area {
+    min-height: 520px;
+  }
+
+  .dc-circuits-workbench.ratio-landscape .stage-area {
+    height: 340px;
+    min-height: 340px;
+  }
+
+  .dc-stage-meta > span {
+    display: none;
+  }
+
+  .dc-stage-meta {
+    justify-content: flex-end;
+  }
+
+  .dc-canvas-toolbar {
+    max-width: 100%;
+  }
+}

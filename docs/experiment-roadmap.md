@@ -58,7 +58,7 @@
 | 1 | Inclined Plane & Friction | 已实现首版 | 展示受力、分解和确定性计算 |
 | 2 | Energy Track | 已实现首版 | 覆盖多学段并展示动态守恒图 |
 | 3 | Forces & Motion | 已实现首版 | 承接 Newton's laws、net force 和 free-body diagram 搜索需求 |
-| 4 | Ohm's Law Lab | 首版开发中 | 用单回路验证 voltage、current、resistance 的关系，并建立电路模板基础 |
+| 4 | Ohm's Law Lab | 已实现首版 | 用单回路验证 voltage、current、resistance 的关系，并建立电路模板基础 |
 
 只有四个实验都完成科学检查、讲解流程和课堂展示后，Free Starter 才算成立。前三个实验覆盖力学；第四个实验把免费入口扩展到基础电学，但不提前开放付费 DC Circuits 的拓扑编辑能力。
 
@@ -175,7 +175,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 - 主要学段：Middle school；可作为高中电学复习入口
 - 权益：Free Starter（第四个也是最后一个免费 Starter 实验）
 - 建议时长：10 分钟
-- 状态：首版开发中
+- 状态：已实现首版
 - 详细合同：[ohms-law.md](templates/ohms-law.md)
 
 教学目标：识别电压源、电阻、开关和常规电流方向；使用 `I = V / R` 预测电流；通过改变一个参数观察电流的比例关系；用 `P = V I` 解释单个电阻的功率。
@@ -197,6 +197,8 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 - 权益：Middle School Physics Foundations
 - 建议时长：12-15 分钟
 - 商业角色：首批付费旗舰
+- 状态：首个付费实验 MVP 已实现
+- 详细合同：[dc-circuits.md](templates/dc-circuits.md)
 
 教学目标：理解 voltage、current、resistance、series/parallel connections、Ohm's law 和基础 Kirchhoff rules。
 
@@ -367,16 +369,16 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 
 1. Energy Track 已完成首版，进入教师验证。
 2. Forces & Motion 已完成首版，进入教师验证。
-3. 完成 Ohm's Law Lab 的单回路首版，并统一四个模板的参数、测量、讲解和科学检查界面。
+3. Ohm's Law Lab 单回路首版已完成；继续统一四个免费模板的参数、测量、讲解和科学检查界面。
 4. 记录教师从打开实验到开始讲解所需时间。
 
 ### 阶段 2：验证首批付费内容
 
-1. 开发 DC Circuits。
+1. DC Circuits 首个付费 MVP 已完成，进入教师验证。
 2. 开发 Projectile Motion。
 3. 开发 Collision Lab。
 4. 根据初中教师反馈在 Waves 与 Density/Buoyancy 中选择下一项。
-5. 满足 5 个同包实验、重复课堂使用和教师付费反馈后再接 Creem。
+5. 满足 5 个同包实验、重复课堂使用和教师付费反馈后再接 Waffo Pancake。
 
 ### 阶段 3：扩展高阶实验
 

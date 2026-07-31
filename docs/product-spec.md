@@ -1,6 +1,6 @@
-# Science Studio 功能定义 v0.5
+# Science Studio 功能定义 v0.6
 
-更新日期：2026-07-30
+更新日期：2026-07-31
 
 ## 1. 产品定义
 
@@ -14,7 +14,7 @@ Science Studio 是面向英语市场科学教师的课堂物理实验库。教�
 
 ### 核心价值
 
-1. **备课即用**：实验按学段和知识点组织，教师不需要从自由场景开始搭建。
+1. **备课即用**：实验按知识点组织，并在卡片上标注适用学段，教师不需要从自由场景开始搭建。
 2. **引导讲解**：每个实验内置课堂讲解步骤，支持暂停、突出受力、分量、公式和结论。
 3. **确定性计算**：相同模板版本和参数产生相同结果，并能与解析结果比较。
 4. **科学检查**：明确参数范围、单位、模型假设和模板边界。
@@ -42,7 +42,7 @@ Science Studio 是面向英语市场科学教师的课堂物理实验库。教�
 
 ## 3. 首版用户任务
 
-> 当我要讲解一个物理知识点时，我希望按学段快速找到实验，修改例题参数，然后按教学顺序向全班展示实验、受力和公式。
+> 当我要讲解一个物理知识点时，我希望快速找到已发布实验，修改例题参数，然后按教学顺序向全班展示实验、受力和公式。
 
 成功标准：教师无需学习代码，可以在两分钟内找到实验并进入可讲解状态。
 
@@ -56,18 +56,17 @@ Science Studio 是面向英语市场科学教师的课堂物理实验库。教�
 
 独立实验目录 `/experiments` 支持：
 
-- 按学段筛选：`Elementary`、`Middle school`、`High school`。
-- 按主题筛选：`Mechanics`、`Electricity`、`Waves`。
+- 当前按已有内容筛选：`All`、`Mechanics`、`Electricity`。学段显示在实验卡上；当一个新学段或主题至少有真实发布实验时，才增加对应筛选项。
 - 按标题、说明和概念搜索。
 - 每页展示 6 个实验，并在 URL 中保留学段、主题、关键词和页码。
 - 显示教学时长、核心概念和可用状态。
-- 明确区分 `Free`、`Included in level pack` 和 `Planned`。
+- 权益由卡片状态表达，不额外设置 `Free/Paid` 全局筛选：`Free`、`Included in Middle School Pack`、已购买后的 `Included in your library`、以及未发布时的 `Coming soon`。
 
 只有真实完成并通过科学检查的实验可以进入目录数据库。未完成实验只记录在路线文档中，不创建目录卡片，也不允许打开或付款。
 
 目录数据由 Supabase Postgres 提供，公开客户端只能通过 RLS 读取 `published = true` 的实验。未配置 Supabase 环境变量时，开发环境使用同结构的本地种子数据，保证界面可预览。
 
-所有价格必须标明当前可用状态。未完成的 Early Access 和未来实验包只展示目标价格与开放条件，不提供购买按钮，不接入 Creem。
+所有价格必须标明当前可用状态。未完成的 Early Access 和未来实验包只展示目标价格与开放条件，不提供购买按钮，不接入支付。当前目录只放真实完成的实验，不放“未来包”或“规划中”占位卡。
 
 ### 4.2 学段实验包
 
@@ -137,14 +136,14 @@ P0 不允许自由添加物体、关节或约束。
 
 | 产品 | 权益 | 状态 |
 |---|---|---|
-| Free Starter | 4 个基础实验和完整课堂展示 | 三个力学实验已完成；Ohm's Law Lab 作为唯一免费电学实验开发中 |
-| Middle School Physics Foundations | 约 8 个初中物理实验 | `DC Circuits: Series and Parallel` 是首批付费旗舰，内容达到 5 个后开始 Early Access |
+| Free Starter | 4 个基础实验和完整课堂展示 | 四个初中力学与电学实验现已开放 |
+| Middle School Physics Foundations | 约 8 个初中物理实验 | `DC Circuits: Series and Parallel` 首个付费 MVP 已实现；内容达到 5 个后开始 Early Access |
 | High School Mechanics | 约 8 个高中力学实验 | 后续验证 |
 | Mechanics Complete | 初中与高中力学合集 | 后续验证 |
 
 Free Starter 固定为四个实验：Inclined Plane & Friction、Energy Track、Forces & Motion 和 Ohm's Law Lab。Ohm's Law Lab 只提供一个 source、一个 resistor、一个 switch 的理想单回路；不包含串联、并联、混联、多电阻、任意布线或探针表。这些能力保留给付费旗舰 `DC Circuits: Series and Parallel`。
 
-当前四个免费实验仍不接 Creem、不销售订阅。至少完成 5 个同学段付费实验并获得教师重复使用反馈后，才测试一次性实验包。
+当前已建立教师邮箱 Magic Link 登录与账户基础，但四个免费实验保持匿名开放。首个付费实验 MVP 仍不接 Waffo Pancake、不销售订阅；付费目录卡只表达未来实验包权益并保持锁定。至少完成 5 个同学段付费实验并获得教师重复使用反馈后，才测试一次性实验包。
 
 初步价格假设：
 
@@ -165,20 +164,23 @@ P0 只实现：
 
 P0 不实现：
 
-- 登录、Creem、云项目和订阅。
+- Waffo Pancake 支付、线上权益校验、云项目和订阅。
 - 视频导出和云端渲染。
 - 学生账户、作业、提交、成绩和统计。
 - 完整教师仪表板或学校采购流程。
 
+当前已进入 P1 内容生产：完成 `DC Circuits: Series & Parallel` 的三种固定拓扑、支路测量、等效电阻、KCL/KVL 对照和双语讲解。它作为 `Middle School Physics Foundations` 的第 1 个付费内容模板存在。教师邮箱登录与账户页已作为支付前置基础实现，但 Waffo Pancake、购买按钮和线上权益校验仍按上述销售门槛暂缓。
+
 ## 7. 验收条件
 
-- 教师可以从主页按学段和主题找到四个已发布免费实验，并能通过 `Electricity` 筛选找到 Ohm's Law Lab。
+- 教师可以从主页进入目录，按 `Mechanics` 或 `Electricity` 找到四个已发布免费实验，并能通过 `Electricity` 筛选找到 Ohm's Law Lab。
 - 搜索引擎可以获取唯一标题、说明、规范链接、Open Graph、站点地图、robots 和结构化产品信息。
 - 主页不会把未完成实验显示为可用或可购买。
 - 四个免费实验在桌面和手机宽度均可使用。
 - 修改参数后，场景、公式、讲解和科学检查同步更新。
 - 同一参数和绝对时间重复采样得到相同结果。
 - 教师可以完成每个实验的引导式讲解并返回目录。
+- DC Circuits 在 single、series、parallel 三种拓扑下满足 Ohm's law、KCL、KVL 与功率守恒；目录卡明确显示实验包权益但不提供未开放的购买操作。
 
 ## 8. 下一步验证
 
@@ -186,6 +188,6 @@ P0 不实现：
 2. 找 5 位英语物理教师观察他们如何在真实讲解中使用。
 3. 找教师验证 `Energy Track` 的能量账本、`Forces & Motion` 的静摩擦阈值，以及 Ohm's Law Lab 的单回路讲解是否清楚。
 4. 验证教师是否能区分免费 Ohm's Law Lab 与付费 `DC Circuits: Series and Parallel` 的拓扑、分支和测量能力。
-5. 验证教师是否按学段寻找内容，以及是否愿意购买 5-8 个实验组成的实验包。
+5. 验证教师是否能按主题找到内容，以及是否愿意购买 5-8 个实验组成的学段实验包。
 
 北极星指标暂定为：每周完成的课堂实验演示次数。

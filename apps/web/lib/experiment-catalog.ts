@@ -66,6 +66,18 @@ export const experimentCatalog: ExperimentCatalogItem[] = [
     concepts: ["Voltage", "Current", "Resistance", "Ohm's Law"],
     preview: "circuit",
   },
+  {
+    id: "middle-dc-circuits",
+    slug: "dc-circuits",
+    title: "DC Circuits: Series & Parallel",
+    summary: "Compare current, voltage, and power in three fixed DC circuit topologies.",
+    gradeLevel: "middle",
+    subject: "electricity",
+    availability: "pack",
+    lessonMinutes: 15,
+    concepts: ["Series Circuits", "Parallel Circuits", "Equivalent Resistance", "Kirchhoff's Laws"],
+    preview: "circuit",
+  },
 ];
 
 export const EXPERIMENTS_PER_PAGE = 6;

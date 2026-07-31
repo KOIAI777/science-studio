@@ -5,11 +5,11 @@ import type {GradeLevel, SubjectArea} from "../../lib/experiment-catalog";
 
 export const metadata: Metadata = {
   title: "Interactive Physics Experiment Library",
-  description: "Browse classroom-ready interactive physics experiments by grade level and subject.",
+  description: "Browse classroom-ready interactive physics experiments by subject, with grade context on every lesson.",
   alternates: {canonical: "/experiments"},
   openGraph: {
     title: "Interactive Physics Experiment Library",
-    description: "Physics experiments organized for elementary, middle-school, and high-school teaching.",
+    description: "Classroom-ready middle-school physics experiments across mechanics and electricity.",
     url: "/experiments",
   },
 };

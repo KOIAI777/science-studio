@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   SlidersHorizontal,
   Sparkles,
+  UserRound,
 } from "lucide-react";
 import Link from "next/link";
 import {useState} from "react";
@@ -25,7 +26,7 @@ type CatalogLocale = "en" | "zh-CN";
 
 const copy = {
   en: {
-    nav: {experiments: "Experiment library", workflow: "How it works", pricing: "Pricing", faq: "FAQ"},
+    nav: {experiments: "Experiment library", workflow: "How it works", pricing: "Pricing", faq: "FAQ", account: "Account"},
     tryFree: "Try a free experiment",
     explore: "Explore experiments",
     heroKicker: "Interactive physics for classroom teaching",
@@ -41,31 +42,13 @@ const copy = {
     forceDown: "Down-slope force",
     trust: ["No coding", "Guided explanations", "Deterministic physics", "Classroom-ready"],
     libraryKicker: "Experiment library",
-    libraryTitle: "One clear place for every grade level",
-    libraryBody: "Start with four free mechanics and electricity experiments today. New grade levels and subjects will appear only after their lessons are classroom-ready.",
-    search: "Search experiments",
-    levels: "Grade levels",
-    allLevels: "All levels",
-    elementary: "Elementary",
-    middle: "Middle school",
-    high: "High school",
-    allSubjects: "All subjects",
-    mechanics: "Mechanics",
-    electricity: "Electricity",
-    waves: "Waves",
-    showing: (count: number) => `${count} experiments`,
-    open: "Open experiment",
-    free: "Free now",
-    pack: "Future level pack",
-    planned: "Planned",
-    minutes: (minutes: number) => `${minutes} min lesson`,
-    noResults: "No experiments match these filters.",
-    clear: "Clear filters",
+    libraryTitle: "Interactive physics experiments, ready for class.",
+    libraryBody: "Start with four free middle-school lessons across mechanics and electricity. New subjects and grade levels appear only after their lessons are classroom-ready.",
     switchLanguage: "Switch to Chinese",
     workflowKicker: "Teacher workflow",
     workflowTitle: "From lesson objective to classroom display in minutes",
     workflow: [
-      {title: "Choose the concept", body: "Find an experiment by grade level and subject instead of building a simulation from scratch."},
+      {title: "Choose the concept", body: "Find a released experiment by concept and subject instead of building a simulation from scratch."},
       {title: "Set your example", body: "Adjust only the values your lesson needs, with units, ranges, assumptions, and checks kept visible."},
       {title: "Explain it live", body: "Move through a prepared teaching sequence while the diagram, equations, and measurements stay synchronized."},
     ],
@@ -103,7 +86,7 @@ const copy = {
     faq: [
       {q: "Is Science Studio a replacement for physical labs?", a: "No. It is a classroom explanation and demonstration tool. It helps teachers make forces, motion, equations, and model assumptions visible before or after hands-on work."},
       {q: "Do students need accounts?", a: "No. The first version is teacher-led. A teacher opens the experiment and presents it on a projector, interactive whiteboard, or shared screen."},
-      {q: "Which grade levels are supported?", a: "The library is organized into elementary, middle school, and high school. The four released experiments currently target middle-school mechanics and electricity; other levels remain planned."},
+      {q: "Which grade levels are supported?", a: "The four released experiments currently target middle-school mechanics and electricity. Elementary and high-school lessons will appear only after they are classroom-ready."},
       {q: "Are the calculations scientifically verified?", a: "Each released experiment uses a deterministic solver, explicit SI units, documented assumptions, parameter validation, and automated tests. It is educational modeling, not engineering certification software."},
       {q: "Does it work on classroom displays?", a: "Yes. The interface is designed around teacher projection and common classroom screens, with large diagram labels and a focused presentation workflow."},
       {q: "What can I use for free?", a: "Inclined Plane & Friction, Energy Track, Forces & Motion, and Ohm's Law Lab are free now, including parameter controls, synchronized measurements, science checks, and guided explanation steps."},
@@ -118,7 +101,7 @@ const copy = {
     rights: "Science Studio. Built for teacher-led science lessons.",
   },
   "zh-CN": {
-    nav: {experiments: "实验目录", workflow: "使用方式", pricing: "实验包", faq: "常见问题"},
+    nav: {experiments: "实验目录", workflow: "使用方式", pricing: "实验包", faq: "常见问题", account: "账户"},
     tryFree: "试用免费实验",
     explore: "查看实验目录",
     heroKicker: "面向课堂讲解的交互式物理实验",
@@ -134,31 +117,13 @@ const copy = {
     forceDown: "沿斜面合力",
     trust: ["无需编程", "结构化讲解", "确定性计算", "适合课堂展示"],
     libraryKicker: "实验目录",
-    libraryTitle: "按学段组织的课堂实验库",
-    libraryBody: "现在可以直接使用免费实验。其余卡片展示正在建设的课程范围，并不代表已经开放售卖。",
-    search: "搜索实验",
-    levels: "学段",
-    allLevels: "全部学段",
-    elementary: "小学",
-    middle: "初中",
-    high: "高中",
-    allSubjects: "全部主题",
-    mechanics: "力学",
-    electricity: "电学",
-    waves: "波",
-    showing: (count: number) => `${count} 个实验`,
-    open: "打开实验",
-    free: "当前免费",
-    pack: "未来实验包",
-    planned: "规划中",
-    minutes: (minutes: number) => `${minutes} 分钟课堂演示`,
-    noResults: "没有符合筛选条件的实验。",
-    clear: "清除筛选",
+    libraryTitle: "打开即可讲课的交互式物理实验。",
+    libraryBody: "现在有四个面向初中的免费力学与电学实验。新的主题和学段只会在实验达到课堂可用标准后才显示。",
     switchLanguage: "Switch to English",
     workflowKicker: "教师使用流程",
     workflowTitle: "几分钟内从教学目标进入课堂展示",
     workflow: [
-      {title: "选择知识点", body: "按学段和主题寻找实验，不需要从空白场景搭建模拟。"},
+      {title: "选择知识点", body: "按知识点和主题寻找已发布实验，不需要从空白场景搭建模拟。"},
       {title: "设置例题参数", body: "只调整本节课需要的数值，同时查看单位、范围、模型假设与科学检查。"},
       {title: "按步骤讲解", body: "沿准备好的教学顺序展示，示意图、公式与测量值始终同步。"},
     ],
@@ -196,7 +161,7 @@ const copy = {
     faq: [
       {q: "它会替代真实物理实验吗？", a: "不会。它是课堂解释与演示工具，帮助教师在动手实验前后把受力、运动、公式和模型假设讲清楚。"},
       {q: "学生需要注册账号吗？", a: "不需要。首版由教师打开实验，并通过投影仪、交互白板或屏幕共享进行展示。"},
-      {q: "支持哪些学段？", a: "目录按小学、初中和高中组织。目前开放的四个实验面向初中力学和电学，其他学段仍在规划。"},
+      {q: "支持哪些学段？", a: "目前开放的四个实验面向初中力学和电学。小学和高中实验会在达到课堂可用标准后再加入目录。"},
       {q: "计算经过科学验证吗？", a: "每个正式实验都使用确定性求解器、明确的 SI 单位和模型假设，并包含参数验证与自动化测试。它是教育模型，不是工程认证软件。"},
       {q: "适合课堂大屏吗？", a: "适合。界面以教师投屏为中心，示意图标注较大，并提供聚焦的课堂讲解流程。"},
       {q: "目前哪些内容免费？", a: "斜面与摩擦、能量轨道、力与运动和欧姆定律实验当前免费，均包含参数控制、同步测量、科学检查和引导式讲解流程。"},
@@ -341,6 +306,7 @@ export function ExperimentCatalogHome() {
             <button className="site-locale-button" type="button" aria-label={text.switchLanguage} title={text.switchLanguage} onClick={() => setLocale((current) => current === "en" ? "zh-CN" : "en")}>
               <Languages size={16} /><span>{locale === "en" ? "EN" : "中文"}</span>
             </button>
+            <Link className="header-account-link" href="/account" aria-label={text.nav.account} title={text.nav.account}><UserRound size={15} /><span>{text.nav.account}</span></Link>
             <Link className="header-cta" href="/experiments/inclined-plane">{text.tryFree}<ArrowRight size={15} /></Link>
           </div>
         </div>

@@ -9,6 +9,7 @@ import {
   LockKeyhole,
   Search,
   Sparkles,
+  UserRound,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,6 +27,9 @@ const subjectLabels: Record<SubjectArea, string> = {
   electricity: "Electricity",
   waves: "Waves",
 };
+
+// Only expose a filter when the public library has released work in that category.
+const visibleSubjects: SubjectArea[] = ["mechanics", "electricity"];
 
 function buildCatalogHref(filters: CatalogQuery, overrides: Partial<CatalogQuery>) {
   const next = {...filters, ...overrides};
@@ -55,6 +59,10 @@ const experimentPreviewImages: Record<string, {src: string; alt: string}> = {
     src: "/experiments/ohms-law-diagram.png",
     alt: "Actual Science Studio Ohm's Law circuit output showing one source, one resistor, a switch, and current direction.",
   },
+  "dc-circuits": {
+    src: "/experiments/dc-circuits-diagram.png",
+    alt: "Actual Science Studio output comparing a series circuit, equivalent resistance, total current, and selected component measurements.",
+  },
 };
 
 function ExperimentPreview({experiment}: {experiment: ExperimentCatalogItem}) {
@@ -69,9 +77,9 @@ function ExperimentPreview({experiment}: {experiment: ExperimentCatalogItem}) {
 }
 
 function AvailabilityLabel({availability}: {availability: ExperimentAvailability}) {
-  if (availability === "free") return <span className="availability free"><Check size={12} />Free now</span>;
-  if (availability === "pack") return <span className="availability pack"><LockKeyhole size={12} />Future level pack</span>;
-  return <span className="availability planned"><Sparkles size={12} />Planned</span>;
+  if (availability === "free") return <span className="availability free"><Check size={12} />Free</span>;
+  if (availability === "pack") return <span className="availability pack"><LockKeyhole size={12} />Included in Middle School Pack</span>;
+  return <span className="availability planned"><Sparkles size={12} />Coming soon</span>;
 }
 
 function ExperimentCard({experiment}: {experiment: ExperimentCatalogItem}) {
@@ -80,10 +88,11 @@ function ExperimentCard({experiment}: {experiment: ExperimentCatalogItem}) {
     <ExperimentPreview experiment={experiment} />
     <div className="experiment-card-body">
       <div className="experiment-card-status"><AvailabilityLabel availability={experiment.availability} /><span><Clock3 size={12} />{experiment.lessonMinutes} min lesson</span></div>
+      <div className="experiment-card-context"><span>{gradeLabels[experiment.gradeLevel]}</span><span>{subjectLabels[experiment.subject]}</span></div>
       <h2>{experiment.title}</h2>
       <p>{experiment.summary}</p>
       <div className="concept-list">{experiment.concepts.map((concept) => <span key={concept}>{concept}</span>)}</div>
-      <div className="experiment-card-action">{isAvailable ? <><Gauge size={14} />Open experiment<ChevronRight size={15} /></> : <>{experiment.availability === "pack" ? "Future level pack" : "Planned"}<LockKeyhole size={13} /></>}</div>
+      <div className="experiment-card-action">{isAvailable ? <><Gauge size={14} />Open experiment<ChevronRight size={15} /></> : <>{experiment.availability === "pack" ? "Included in Middle School Pack" : "Coming soon"}<LockKeyhole size={13} /></>}</div>
     </div>
   </>;
 
@@ -107,27 +116,22 @@ export function ExperimentLibrary({catalog, filters}: {catalog: CatalogPage; fil
             <Link href="/#pricing">Pricing</Link>
             <Link href="/#faq">FAQ</Link>
           </nav>
-          <div className="site-actions"><Link className="header-cta" href="/experiments/inclined-plane">Try a free experiment<ChevronRight size={15} /></Link></div>
+          <div className="site-actions"><Link className="header-account-link" href="/account" aria-label="Account" title="Account"><UserRound size={15} /><span>Account</span></Link><Link className="header-cta" href="/experiments/inclined-plane">Try a free experiment<ChevronRight size={15} /></Link></div>
         </div>
       </header>
 
       <main className="library-main">
         <div className="library-breadcrumb"><Link href="/"><ArrowLeft size={14} />Home</Link><span>/</span><span>Experiment library</span></div>
         <section className="library-heading">
-          <div><span className="section-kicker">Experiment library</span><h1>One clear place for every grade level</h1></div>
-          <p>Find classroom-ready physics experiments by grade and subject. Start with four free lessons across mechanics and electricity while the wider curriculum is being reviewed.</p>
+          <div><span className="section-kicker">Experiment library</span><h1>Interactive physics experiments, ready for class.</h1></div>
+          <p>Four free middle-school lessons are ready to present today. Browse the released mechanics and electricity topics; new subjects appear here only when they are classroom-ready.</p>
         </section>
 
         <section className="library-toolbar" aria-label="Experiment filters">
           <div className="library-filter-group">
-            <span>Grade level</span>
-            <Link className={!filters.grade ? "active" : ""} href={buildCatalogHref(filters, {grade: undefined, page: 1})}>All</Link>
-            {(Object.keys(gradeLabels) as GradeLevel[]).map((grade) => <Link className={filters.grade === grade ? "active" : ""} href={buildCatalogHref(filters, {grade, page: 1})} key={grade}>{gradeLabels[grade]}</Link>)}
-          </div>
-          <div className="library-filter-group">
             <span>Subject</span>
             <Link className={!filters.subject ? "active" : ""} href={buildCatalogHref(filters, {subject: undefined, page: 1})}>All</Link>
-            {(Object.keys(subjectLabels) as SubjectArea[]).map((subject) => <Link className={filters.subject === subject ? "active" : ""} href={buildCatalogHref(filters, {subject, page: 1})} key={subject}>{subjectLabels[subject]}</Link>)}
+            {visibleSubjects.map((subject) => <Link className={filters.subject === subject ? "active" : ""} href={buildCatalogHref(filters, {subject, page: 1})} key={subject}>{subjectLabels[subject]}</Link>)}
           </div>
           <form className="library-search" action="/experiments">
             {filters.grade && <input type="hidden" name="grade" value={filters.grade} />}

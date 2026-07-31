@@ -2,7 +2,7 @@
 
 更新日期：2026-07-30
 
-> 当前 P0 以 [product-spec.md](product-spec.md) 为准：教师直接在网页中使用四个免费实验，不实现登录、视频导出、云渲染或 Creem。免费电学范围只到 Ohm's Law Lab 的单电源、单电阻、单开关理想回路；串并联电路仍是未来付费内容。本文中的渲染 Worker、云项目和支付章节仅保留为验证后的技术参考，不属于当前实施范围。
+> 当前产品边界以 [product-spec.md](product-spec.md) 为准：教师直接在网页中匿名使用四个免费实验，邮箱 Magic Link 登录和账户页已作为支付前置基础实现，首个付费内容模板 `DC Circuits: Series & Parallel` 已进入本地验证。视频导出、云渲染、Waffo Pancake 和线上权益校验尚未实现；相关章节仅保留为销售门槛达到后的技术参考。
 
 ## 1. 架构目标
 
@@ -27,7 +27,7 @@ Browser / Next.js + React
       └── Paid Beta: Supabase Auth / Postgres / Storage
                          │
                          ├── Next.js Server Routes
-                         │     └── Creem Checkout + Webhook
+                         │     └── Waffo Pancake Checkout + Webhook
                          └── render_jobs
                                 │
                                 ▼
@@ -57,7 +57,7 @@ Motion Canvas 场景使用独立 Vite 构建入口编译为浏览器可加载的
 | 物理 | 模板专用 TypeScript 求解器 | 斜面优先使用解析解，科学结果不依赖动画引擎 |
 | 数据 | Supabase Postgres + 本地项目文档 | 目录进入 Postgres；实验编辑状态验证期仍保存在本地 |
 | 视频 | Chromium + 系统 FFmpeg | 固定帧渲染与 MP4 编码 |
-| 支付 | Beta 接 Creem Checkout + Webhook | 验证重复使用和付费意愿后接入 |
+| 支付 | Beta 接 Waffo Pancake Checkout + Webhook | 验证重复使用和付费意愿后接入 |
 | 测试 | Vitest + Playwright | 求解器、流程和视觉回归 |
 
 截至 2026-07-30 的许可证核对：Motion Canvas 的 `core`、`2d`、`player`、`ui` 和 `vite-plugin` 包为 MIT；ReactBits 为 MIT + Commons Clause。`@motion-canvas/ffmpeg` 的源码许可标记与 npm 元数据存在冲突，当前方案不采用该包，视频编码直接调用 Worker 镜像中的 FFmpeg。myPhysicsLab 仅作为后续复杂物理算法的 Apache-2.0 参考来源，不作为验证版依赖。发布前再次核对所有第三方许可证并生成 notice。
@@ -158,10 +158,11 @@ Beta 表：
 
 | 表 | 用途 |
 |---|---|
-| `profiles` | 用户显示信息 |
+| `profiles` | 已实现；用户显示信息与受保护的 `teacher/admin` 角色 |
 | `projects` | 项目元数据、JSONB 文档、revision |
 | `project_exports` | 冻结快照、格式、状态、进度和输出路径 |
-| `subscriptions` | Creem 客户、订阅状态和周期 |
+| `orders` | 一次性实验包订单；支付接入阶段实现 |
+| `entitlements` | 用户拥有的实验包访问权；支付接入阶段实现 |
 | `billing_events` | Webhook 事件幂等记录 |
 | `usage_ledger` | 渲染额度预留、消耗和返还 |
 
@@ -169,7 +170,7 @@ Beta 表：
 
 - `public` 中所有表默认开启 RLS。
 - 用户只能读写自己的项目和导出任务。
-- `subscriptions`、`billing_events` 和额度最终写入只允许服务端角色。
+- `orders`、`entitlements`、`billing_events` 和额度最终写入只允许服务端角色。
 - 前端只使用 publishable key，不暴露 `service_role` 或 secret key。
 - Storage 中项目缩略图和导出文件默认私有，通过短期签名 URL 访问。
 - Worker 使用独立服务凭据，只处理已领取的任务。
@@ -224,16 +225,16 @@ P0：
 - 渲染页面不加载产品导航、ReactBits 动效或非必要字体。
 - 不使用实时屏幕录制；实时录制会受设备帧率和掉帧影响。
 
-## 10. 付费 Beta 的 Creem 与权益
+## 10. 付费 Beta 的 Waffo Pancake 与权益
 
 - Checkout Session 只能由服务端创建。
 - Webhook 使用原始请求体验证签名，并在 `billing_events` 以事件 ID 去重。
-- Webhook 更新 `subscriptions`，再由服务端计算 entitlement。
+- Webhook 写入 `orders`，再由服务端授予或撤销 entitlement。
 - 前端支付成功跳转只负责反馈，不直接授予权益。
 - 取消、过期、续费失败和退款必须有明确状态映射。
 - 渲染额度使用 ledger，而不是直接递减单个数字，确保失败可返还和事件可审计。
 
-具体 API 字段和签名方式在接入阶段以 Creem 官方文档为准，不在架构文档中固化未经验证的字段名。
+具体 API 字段和签名方式在接入阶段以 Waffo Pancake 官方文档为准，不在架构文档中固化未经验证的字段名。登录与角色细节见 [authentication.md](authentication.md)。
 
 ## 11. ReactBits 集成
 
@@ -294,10 +295,10 @@ GET    /api/entitlements
 
 ### 阶段 C：2-3 周付费 Beta
 
-- Supabase Auth、RLS 和私有 Storage
+- Supabase Auth 与 profile RLS 已实现；私有 Storage 后续实现
 - 项目保存、版本快照和最近项目
 - 斜面模板 1080p 云端导出、失败重试和成本记录
-- Creem 订阅、额度 ledger 和账单页
+- Waffo Pancake 一次性实验包、权益和账单记录
 - 基础监控与错误追踪
 
 退出条件：真实用户完成支付、导出和第二次复用。
