@@ -66,7 +66,7 @@ Science Studio 是面向英语市场科学教师的课堂物理实验库。教�
 
 目录数据由 Supabase Postgres 提供，公开客户端只能通过 RLS 读取 `published = true` 的实验。未配置 Supabase 环境变量时，开发环境使用同结构的本地种子数据，保证界面可预览。
 
-所有价格必须标明当前可用状态。未完成的 Early Access 和未来实验包只展示目标价格与开放条件，不提供购买按钮，不接入支付。当前目录只放真实完成的实验，不放“未来包”或“规划中”占位卡。
+所有价格必须标明当前可用状态。当前只开放一个真实完成的 Early Access 实验包；未来实验包只展示目标价格与开放条件，不提供购买按钮。当前目录只放真实完成的实验，不放“未来包”或“规划中”占位卡。
 
 ### 4.2 学段实验包
 
@@ -137,17 +137,18 @@ P0 不允许自由添加物体、关节或约束。
 | 产品 | 权益 | 状态 |
 |---|---|---|
 | Free Starter | 4 个基础实验和完整课堂展示 | 四个初中力学与电学实验现已开放 |
-| Middle School Physics Foundations | 约 8 个初中物理实验 | `DC Circuits: Series and Parallel` 首个付费 MVP 已实现；内容达到 5 个后开始 Early Access |
+| Middle School Physics Foundations | 约 8 个初中物理实验 | Early Access 已开放；`DC Circuits: Series and Parallel` 现可解锁，后续通过验证的同包实验加入 |
 | High School Mechanics | 约 8 个高中力学实验 | 后续验证 |
 | Mechanics Complete | 初中与高中力学合集 | 后续验证 |
 
 Free Starter 固定为四个实验：Inclined Plane & Friction、Energy Track、Forces & Motion 和 Ohm's Law Lab。Ohm's Law Lab 只提供一个 source、一个 resistor、一个 switch 的理想单回路；不包含串联、并联、混联、多电阻、任意布线或探针表。这些能力保留给付费旗舰 `DC Circuits: Series and Parallel`。
 
-当前已建立教师邮箱 Magic Link 登录与账户基础，但四个免费实验保持匿名开放。首个付费实验 MVP 仍不接 Waffo Pancake、不销售订阅；付费目录卡只表达未来实验包权益并保持锁定。至少完成 5 个同学段付费实验并获得教师重复使用反馈后，才测试一次性实验包。
+四个免费实验保持匿名开放。教师邮箱 Magic Link、一次性 Waffo Pancake Checkout、签名 Webhook、订单与 entitlement 已接入，`DC Circuits: Series and Parallel` 通过教师账户的 active entitlement 打开。当前不销售订阅；同包后续实验只有在完成课堂和科学验证后才加入。
 
 初步价格假设：
 
-- 学段 Early Access：`$19` 一次性。
+- Middle School Physics Foundations Early Access：`$9.90` 一次性。
+- 内容达到 5 个并获得教师重复使用反馈后，评估调整至 `$19`。
 - 完整学段包：`$29` 一次性。
 - 力学合集：`$39-49` 一次性。
 - 只有在实验数量、持续更新和教师复用被验证后，再考虑年度 All Access。
@@ -164,12 +165,12 @@ P0 只实现：
 
 P0 不实现：
 
-- Waffo Pancake 支付、线上权益校验、云项目和订阅。
+- 云项目和订阅。
 - 视频导出和云端渲染。
 - 学生账户、作业、提交、成绩和统计。
 - 完整教师仪表板或学校采购流程。
 
-当前已进入 P1 内容生产：完成 `DC Circuits: Series & Parallel` 的三种固定拓扑、支路测量、等效电阻、KCL/KVL 对照和双语讲解。它作为 `Middle School Physics Foundations` 的第 1 个付费内容模板存在。教师邮箱登录与账户页已作为支付前置基础实现，但 Waffo Pancake、购买按钮和线上权益校验仍按上述销售门槛暂缓。
+当前已进入 P1 内容生产：完成 `DC Circuits: Series & Parallel` 的三种固定拓扑、支路测量、等效电阻、KCL/KVL 对照和双语讲解。它作为 `Middle School Physics Foundations` 的第 1 个付费内容模板存在，使用 Waffo Pancake 测试 Checkout 验证教师购买闭环。
 
 ## 7. 验收条件
 

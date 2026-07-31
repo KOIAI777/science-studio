@@ -56,12 +56,15 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<local publishable or anon key>
 5. 执行 `supabase/migrations/20260731045101_create_auth_profiles.sql`，或通过正式 migration 流程推送。
 6. 正式发送邮件前配置自有 SMTP，再启用 `supabase/templates/magic-link.html` 品牌模板；Supabase 默认邮件服务只适合低频测试。
 
-## 5. 支付接入顺序
+## 5. 已实现的支付边界
 
-登录验证完成后再实现：
+`Middle School Physics Foundations` 是一次性 Early Access 实验包。支付路径已实现为：
 
-1. `orders`、`entitlements` 和 `billing_events`。
-2. 服务端创建 Waffo Pancake Checkout。
-3. 验签且幂等的 Webhook 写入订单和权益。
-4. 付费实验路由通过已认证 `user_id` 查询 entitlement。
-5. 支付成功跳转只展示结果，不直接授予权益。
+1. 已登录教师向服务端请求 Checkout；浏览器永不接触 Waffo 私钥或 Supabase 服务端密钥。
+2. 服务端创建 `orders` 行，并用 Supabase `user_id` 作为 Waffo `buyerIdentity`。
+3. Waffo Checkout 创建时接收内部订单 UUID 作为 `orderMerchantExternalId`。
+4. `/api/billing/webhook` 读取原始 body，以 SDK 验证 RSA-SHA256 签名，并按 Waffo delivery ID 去重。
+5. 验签的 `order.completed` 原子写入订单和 entitlement；`refund.succeeded` 撤销 entitlement。
+6. `/experiments/dc-circuits` 只根据已认证 `user_id` 的 active entitlement 打开工作台；支付成功跳转只显示状态，绝不直接授予权限。
+
+本机测试环境的 Waffo 私钥保存在 Keychain。部署环境必须使用 `SUPABASE_SECRET_KEY`、`WAFFO_MERCHANT_ID`、`WAFFO_STORE_ID`、`WAFFO_MIDDLE_SCHOOL_PACK_PRODUCT_ID`、`WAFFO_PRIVATE_KEY_BASE64` 和 `WAFFO_ENVIRONMENT`，均不得使用 `NEXT_PUBLIC_` 前缀。

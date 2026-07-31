@@ -7,7 +7,6 @@ import {
   Calculator,
   Check,
   ChevronRight,
-  Clock3,
   FlaskConical,
   Globe2,
   Languages,
@@ -62,12 +61,12 @@ const copy = {
       {title: "English-first conventions", body: "SI units, familiar variable names, and classroom language are designed for international science teaching."},
     ],
     pricingKicker: "Experiment packs",
-    pricingTitle: "Start free. Add depth when the library is ready.",
-    pricingBody: "Paid packs will open only after enough experiments pass classroom and scientific review.",
+    pricingTitle: "Start free. Add the first teacher pack when you need it.",
+    pricingBody: "The first pack is a small early-access release; more experiments will be added only after classroom and scientific review.",
     available: "Available now",
-    earlyAccess: "Planned early access",
+    earlyAccess: "Early access available",
     future: "Future release",
-    targetPrice: "Target one-time price",
+    targetPrice: "One-time price",
     freePrice: "$0",
     freeName: "Free Starter",
     freeDesc: "Try the complete classroom workflow before deciding whether the format fits your teaching.",
@@ -79,7 +78,7 @@ const copy = {
     completeDesc: "Middle and high school mechanics together in one expanding collection.",
     currentAccess: "Inclined Plane, Energy Track, Forces & Motion, and Ohm's Law Lab available now",
     expanding: "Four complete classroom experiments",
-    opensAtFive: "Opens after 5 reviewed experiments",
+    opensAtFive: "One-time teacher access",
     noSubscription: "No subscription planned for validation",
     faqKicker: "FAQ",
     faqTitle: "Before you bring it into class",
@@ -137,12 +136,12 @@ const copy = {
       {title: "英语课程规范", body: "SI 单位、常用变量与课堂文案按海外科学教学场景设计。"},
     ],
     pricingKicker: "实验包",
-    pricingTitle: "先免费使用，实验库成熟后再购买更深内容。",
-    pricingBody: "付费实验包只会在足够数量的实验通过课堂与科学验证后开放。",
+    pricingTitle: "先免费使用，需要时再解锁教师实验包。",
+    pricingBody: "第一个实验包先以早期访问形式开放，后续实验通过课堂和科学验证后再加入。",
     available: "当前可用",
-    earlyAccess: "计划早鸟版",
+    earlyAccess: "早期访问，现已开放",
     future: "未来版本",
-    targetPrice: "目标一次性价格",
+    targetPrice: "一次性价格",
     freePrice: "$0",
     freeName: "免费入门包",
     freeDesc: "先体验完整课堂讲解流程，再判断是否适合自己的教学方式。",
@@ -154,7 +153,7 @@ const copy = {
     completeDesc: "将初中和高中力学实验合并为一个持续扩充的合集。",
     currentAccess: "斜面、能量轨道、力和运动与欧姆定律现已开放",
     expanding: "四个完整课堂实验",
-    opensAtFive: "完成 5 个审核实验后开放",
+    opensAtFive: "一次性教师访问",
     noSubscription: "验证阶段不做订阅",
     faqKicker: "常见问题",
     faqTitle: "带进课堂前需要知道的事",
@@ -367,7 +366,7 @@ export function ExperimentCatalogHome() {
           <div className="section-heading split-heading"><div><span className="section-kicker"><FlaskConical size={15} />{text.pricingKicker}</span><h2>{text.pricingTitle}</h2></div><p>{text.pricingBody}</p></div>
           <div className="pricing-grid">
             <article className="pricing-card current"><span className="plan-status"><Check size={13} />{text.available}</span><h3>{text.freeName}</h3><strong>{text.freePrice}</strong><p>{text.freeDesc}</p><ul><li><Check size={14} />{text.currentAccess}</li><li><Check size={14} />{text.expanding}</li><li><Check size={14} />{text.noSubscription}</li></ul><Link href="/experiments/inclined-plane">{text.tryFree}<ArrowRight size={15} /></Link></article>
-            <article className="pricing-card"><span className="plan-status planned"><Clock3 size={13} />{text.earlyAccess}</span><h3>{text.middleName}</h3><strong>$19 <small>{text.targetPrice}</small></strong><p>{text.middleDesc}</p><ul><li><Check size={14} />{text.opensAtFive}</li><li><Check size={14} />{text.noSubscription}</li></ul></article>
+            <article className="pricing-card available-pack"><span className="plan-status"><Check size={13} />{text.earlyAccess}</span><h3>{text.middleName}</h3><strong>$9.90 <small>{text.targetPrice}</small></strong><p>{text.middleDesc}</p><ul><li><Check size={14} />{text.opensAtFive}</li><li><Check size={14} />{text.noSubscription}</li></ul><Link href="/experiments/dc-circuits">View pack<ArrowRight size={15} /></Link></article>
             <article className="pricing-card"><span className="plan-status future"><Sparkles size={13} />{text.future}</span><h3>{text.highName}</h3><strong>$29 <small>{text.targetPrice}</small></strong><p>{text.highDesc}</p><ul><li><Check size={14} />{text.future}</li><li><Check size={14} />{text.noSubscription}</li></ul></article>
             <article className="pricing-card"><span className="plan-status future"><Sparkles size={13} />{text.future}</span><h3>{text.completeName}</h3><strong>$39–49 <small>{text.targetPrice}</small></strong><p>{text.completeDesc}</p><ul><li><Check size={14} />{text.future}</li><li><Check size={14} />{text.noSubscription}</li></ul></article>
           </div>

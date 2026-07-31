@@ -48,14 +48,14 @@ Science Studio
 │   ├── 实验
 │   ├── 讲解
 │   └── 展示
-└── 实验包（内容达到销售条件后）
+└── 实验包与付款状态
 ```
 
 独立路由 `/experiments` 承载已发布主题筛选、搜索、结果统计和分页；适用学段显示在实验卡上。
 
 验证版使用标准产品主页，开放斜面、能量轨道、力和运动与 Ohm's Law Lab 四个免费实验。Ohm's Law Lab 固定为单电源、单电阻、单开关的理想直流回路；串联、并联、混联、自由布线、多电阻和探针表不进入免费层。未完成模板不进入实验目录，只在路线与实验包文案中说明。当前创建教师 Magic Link 登录和基础账户页，不创建账单、学生课堂或数据分析页面；免费实验不要求登录。
 
-P1 首个付费内容模板是 `DC Circuits: Series & Parallel`。目录卡使用真实画布封面并显示 `Included in Middle School Pack`，但在购买链路开放前保持锁定；内部开发通过直接路由校验完整工作台。付费画布以三种拓扑对照和受限测量点作为差异化信息，不使用金色装饰或营销式视觉代替真实能力。
+P1 首个付费内容模板是 `DC Circuits: Series & Parallel`。目录卡使用真实画布封面并显示 `Included in Middle School Pack`；点击后，匿名用户进入登录，未购教师看到简洁的实验包购买页，已购教师直接进入工作台。付费画布以三种拓扑对照和受限测量点作为差异化信息，不使用金色装饰或营销式视觉代替真实能力。
 
 ## 3. 页面定义
 
@@ -70,10 +70,10 @@ P1 首个付费内容模板是 `DC Circuits: Series & Parallel`。目录卡使�
 - 实验卡使用从已发布模板实际运行画布截取的封面，显示教学时长、核心概念和内容状态；不为未完成实验手绘占位缩略图。
 - 当前筛选只显示已有真实发布内容的 `All`、`Mechanics`、`Electricity`；新学段或主题有已发布实验后才加入筛选栏。
 - 权益不单独做 `Free/Paid` 筛选，而由卡片上的文字和图标共同表达：`Free`、`Included in Middle School Pack`、已购买后的 `Included in your library`，或未发布时的 `Coming soon`。
-- 只有完成的实验可以点击；未完成实验不得显示购买操作。
+- 已完成的免费和付费实验可以点击；付费卡进入访问页，未完成实验不得显示购买操作。
 - 搜索匹配标题、说明和核心概念。
 - 独立实验目录每页稳定显示 6 个结果，分页链接保留全部筛选参数，并提供可访问的 `aria-current` 页码状态。
-- 价格卡明确区分 `Available now`、`Planned early access` 和 `Future release`；只有当前可用的免费计划包含操作按钮。
+- 价格卡明确区分 `Available now`、`Early access available` 和 `Future release`；当前可用的免费计划与 Early Access 实验包都包含清晰操作按钮。
 - 页面必须包含唯一 `h1`、语义化章节、规范 URL、Open Graph、Twitter Card、JSON-LD、`robots.txt` 与 `sitemap.xml`。
 
 ### 3.2 模板库 `/templates`

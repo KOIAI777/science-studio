@@ -2,7 +2,7 @@
 
 更新日期：2026-07-30
 
-> 当前产品边界以 [product-spec.md](product-spec.md) 为准：教师直接在网页中匿名使用四个免费实验，邮箱 Magic Link 登录和账户页已作为支付前置基础实现，首个付费内容模板 `DC Circuits: Series & Parallel` 已进入本地验证。视频导出、云渲染、Waffo Pancake 和线上权益校验尚未实现；相关章节仅保留为销售门槛达到后的技术参考。
+> 当前产品边界以 [product-spec.md](product-spec.md) 为准：教师直接在网页中匿名使用四个免费实验；`DC Circuits: Series & Parallel` 是 Middle School Physics Foundations 的首个 Early Access 内容。Waffo Pancake 测试 Checkout、签名 Webhook、订单和线上权益校验已实现；视频导出、云渲染和生产支付发布仍未实现。
 
 ## 1. 架构目标
 
@@ -161,9 +161,9 @@ Beta 表：
 | `profiles` | 已实现；用户显示信息与受保护的 `teacher/admin` 角色 |
 | `projects` | 项目元数据、JSONB 文档、revision |
 | `project_exports` | 冻结快照、格式、状态、进度和输出路径 |
-| `orders` | 一次性实验包订单；支付接入阶段实现 |
-| `entitlements` | 用户拥有的实验包访问权；支付接入阶段实现 |
-| `billing_events` | Webhook 事件幂等记录 |
+| `orders` | 已实现；一次性实验包订单和 Waffo session/order ID |
+| `entitlements` | 已实现；用户拥有的实验包访问权 |
+| `billing_events` | 已实现；Waffo delivery ID 幂等记录 |
 | `usage_ledger` | 渲染额度预留、消耗和返还 |
 
 安全边界：
@@ -234,7 +234,7 @@ P0：
 - 取消、过期、续费失败和退款必须有明确状态映射。
 - 渲染额度使用 ledger，而不是直接递减单个数字，确保失败可返还和事件可审计。
 
-具体 API 字段和签名方式在接入阶段以 Waffo Pancake 官方文档为准，不在架构文档中固化未经验证的字段名。登录与角色细节见 [authentication.md](authentication.md)。
+当前接入使用 `@waffo/pancake-ts` 的 authenticated Checkout：Supabase `user_id` 作为 Waffo `buyerIdentity`，而邮箱仅用于预填。服务器创建本地订单并把其 UUID 传为 `orderMerchantExternalId`；仅 RSA-SHA256 验签成功的 `order.completed` 会通过受限的数据库函数授予权益，`refund.succeeded` 会撤销权益。登录与角色细节见 [authentication.md](authentication.md)。
 
 ## 11. ReactBits 集成
 

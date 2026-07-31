@@ -83,7 +83,7 @@ function AvailabilityLabel({availability}: {availability: ExperimentAvailability
 }
 
 function ExperimentCard({experiment}: {experiment: ExperimentCatalogItem}) {
-  const isAvailable = experiment.availability === "free" && Boolean(experimentPreviewImages[experiment.slug]);
+  const isAvailable = (experiment.availability === "free" || experiment.availability === "pack") && Boolean(experimentPreviewImages[experiment.slug]);
   const content = <>
     <ExperimentPreview experiment={experiment} />
     <div className="experiment-card-body">
@@ -92,7 +92,7 @@ function ExperimentCard({experiment}: {experiment: ExperimentCatalogItem}) {
       <h2>{experiment.title}</h2>
       <p>{experiment.summary}</p>
       <div className="concept-list">{experiment.concepts.map((concept) => <span key={concept}>{concept}</span>)}</div>
-      <div className="experiment-card-action">{isAvailable ? <><Gauge size={14} />Open experiment<ChevronRight size={15} /></> : <>{experiment.availability === "pack" ? "Included in Middle School Pack" : "Coming soon"}<LockKeyhole size={13} /></>}</div>
+      <div className="experiment-card-action">{isAvailable ? <><Gauge size={14} />{experiment.availability === "pack" ? "View pack access" : "Open experiment"}<ChevronRight size={15} /></> : <>{experiment.availability === "pack" ? "Included in Middle School Pack" : "Coming soon"}<LockKeyhole size={13} /></>}</div>
     </div>
   </>;
 

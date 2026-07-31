@@ -4,3 +4,6 @@ packages:
 
 allowBuilds:
   sharp: true
+
+minimumReleaseAgeExclude:
+  - '@waffo/pancake-ts@0.16.1'

@@ -137,4 +137,4 @@ I_total = I1 + I2
 
 ## 权益状态
 
-目录卡显示 `Included in Middle School Pack`。教师邮箱登录已实现，但 Waffo Pancake 和权益校验尚未接入，因此卡片保持锁定且不提供购买按钮；开发路由可直接打开用于内部验证，并使用 `noindex` 且不进入 sitemap。完成至少 5 个同包实验和教师重复使用验证后，才开放 Early Access 销售。
+目录卡显示 `Included in Middle School Pack` 并进入购买页。匿名访问会进入教师 Magic Link；已登录但未拥有权益的教师看到一次性 Early Access Checkout；只有 Waffo 签名的 `order.completed` Webhook 写入 active entitlement 后才打开工作台。页面使用 `noindex` 且不进入 sitemap。后续同包实验仍需完成课堂与科学验证后才加入。
