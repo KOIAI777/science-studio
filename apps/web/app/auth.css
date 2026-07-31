@@ -433,7 +433,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(320px, 390px);
   align-items: start;
   gap: clamp(48px, 8vw, 110px);
-  padding: 78px 0 40px;
+  padding: 64px 0 42px;
 }
 
 .pack-access-copy .section-kicker {
@@ -449,6 +449,45 @@
   font-size: 50px;
   font-weight: 600;
   line-height: 1.04;
+}
+
+.pack-preview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  align-items: center;
+  gap: 28px;
+  margin: 22px 0 0;
+  padding-top: 34px;
+  border-top: 1px solid #c8cbc2;
+}
+
+.pack-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid #bfc3b9;
+  border-radius: 6px;
+  background: #f6f7f2;
+}
+
+.pack-preview figcaption {
+  display: grid;
+  gap: 10px;
+}
+
+.pack-preview figcaption span {
+  color: #356f68;
+  font-size: 10px;
+  font-weight: 780;
+  text-transform: uppercase;
+}
+
+.pack-preview figcaption strong {
+  color: #30332d;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.22;
 }
 
 .pack-access-lede {
@@ -546,6 +585,10 @@
   background: #f1f2ed;
   font-size: 11px;
   font-weight: 760;
+}
+
+a.pack-checkout-button {
+  margin-top: 22px;
 }
 
 .pack-checkout-button:hover:not(:disabled) {
@@ -735,5 +778,9 @@
   .pack-access-card,
   .checkout-status-panel {
     padding: 26px 22px;
+  }
+
+  .pack-preview {
+    grid-template-columns: 1fr;
   }
 }

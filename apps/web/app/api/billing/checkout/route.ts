@@ -9,19 +9,33 @@ import {
   MIDDLE_SCHOOL_PACK_SKU,
 } from "../../../../lib/waffo";
 
-function redirectToPaywall(request: Request, error?: string) {
-  const url = new URL("/experiments/dc-circuits", request.url);
+const PACK_EXPERIMENT_PATHS = new Set([
+  "/experiments/dc-circuits",
+  "/experiments/waves",
+  "/experiments/density-buoyancy",
+]);
+
+function normalizeReturnTo(value: FormDataEntryValue | string | null | undefined) {
+  return typeof value === "string" && PACK_EXPERIMENT_PATHS.has(value)
+    ? value
+    : "/experiments/dc-circuits";
+}
+
+function redirectToPaywall(request: Request, returnTo: string, error?: string) {
+  const url = new URL(returnTo, request.url);
   if (error) url.searchParams.set("billing", error);
   return NextResponse.redirect(url, 303);
 }
 
 export async function POST(request: Request) {
+  const formData = await request.formData();
+  const returnTo = normalizeReturnTo(formData.get("returnTo"));
   const supabase = await createClient();
   const {data: userData} = await supabase.auth.getUser();
   const user = userData.user;
-  if (!user) return redirectToPaywall(request, "login");
+  if (!user) return redirectToPaywall(request, returnTo, "login");
 
-  if (!isSupabaseAdminConfigured()) return redirectToPaywall(request, "configuration");
+  if (!isSupabaseAdminConfigured()) return redirectToPaywall(request, returnTo, "configuration");
 
   const admin = createAdminClient();
   const {data: existingEntitlement} = await admin
@@ -31,7 +45,7 @@ export async function POST(request: Request) {
     .eq("sku", MIDDLE_SCHOOL_PACK_SKU)
     .eq("status", "active")
     .maybeSingle();
-  if (existingEntitlement) return redirectToPaywall(request);
+  if (existingEntitlement) return redirectToPaywall(request, returnTo);
 
   const internalOrderId = crypto.randomUUID();
   const {error: orderError} = await admin.from("orders").insert({
@@ -42,11 +56,11 @@ export async function POST(request: Request) {
     currency: "USD",
     amount: MIDDLE_SCHOOL_PACK_PRICE_USD,
     buyer_email: user.email ?? null,
-    metadata: {source: "dc-circuits-paywall"},
+    metadata: {source: `${returnTo.slice("/experiments/".length)}-paywall`, returnTo},
   });
   if (orderError) {
     console.error("Failed to create billing order", orderError);
-    return redirectToPaywall(request, "order");
+    return redirectToPaywall(request, returnTo, "order");
   }
 
   try {
@@ -57,7 +71,7 @@ export async function POST(request: Request) {
       buyerEmail: user.email ?? undefined,
       orderMerchantExternalId: internalOrderId,
       metadata: {sku: MIDDLE_SCHOOL_PACK_SKU, internalOrderId},
-      successUrl: `${getSiteUrl()}/checkout/success?order=${encodeURIComponent(internalOrderId)}`,
+      successUrl: `${getSiteUrl()}/checkout/success?order=${encodeURIComponent(internalOrderId)}&next=${encodeURIComponent(returnTo)}`,
       language: "en",
       darkMode: false,
     });
@@ -72,6 +86,6 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Failed to create Waffo checkout", error);
     await admin.from("orders").update({status: "failed"}).eq("id", internalOrderId);
-    return redirectToPaywall(request, "checkout");
+    return redirectToPaywall(request, returnTo, "checkout");
   }
 }

@@ -29,3 +29,8 @@ export function getSiteUrl() {
     return LOCAL_SITE_URL;
   }
 }
+
+export function isLocalPaidExperimentPreviewEnabled() {
+  return process.env.NODE_ENV === "development"
+    && process.env.LOCAL_PAID_EXPERIMENT_PREVIEW === "true";
+}

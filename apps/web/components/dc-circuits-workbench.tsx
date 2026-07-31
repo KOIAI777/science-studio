@@ -172,7 +172,7 @@ const dcCopy: Record<Locale, DcCopy> = {
       singleFormula: "R_eq = R1",
       seriesFormula: "R_eq = R1 + R2",
       parallelFormula: "1 / R_eq = 1 / R1 + 1 / R2",
-      currentNote: "Conventional-current direction · marker speed is illustrative",
+      currentNote: "Conventional current · Power halo compares dissipation, not temperature",
       assumptions: "Ideal source · Ideal wires · Ohmic resistors · Steady DC",
       invalid: "Fix the parameters to resume",
     },
@@ -253,7 +253,7 @@ const dcCopy: Record<Locale, DcCopy> = {
       singleFormula: "R_eq = R1",
       seriesFormula: "R_eq = R1 + R2",
       parallelFormula: "1 / R_eq = 1 / R1 + 1 / R2",
-      currentNote: "常规电流方向 · 标记速度只用于示意",
+      currentNote: "常规电流 · 功率光晕仅比较耗散，不表示温度",
       assumptions: "理想电源 · 理想导线 · 欧姆电阻 · 稳恒直流",
       invalid: "修正参数后恢复实验",
     },
@@ -352,8 +352,7 @@ function CircuitSchematic({x, y, width, height, state, topology, meterTarget, sh
   const switchLeft = left + width * 0.22;
   const switchRight = switchLeft + 82;
   const activeCurrent = state.circuitClosed && showCurrent;
-  const currentOffset = -state.currentMarkerPhase * 48;
-  const currentClass = activeCurrent ? "dc-current-path active" : "dc-current-path";
+  const currentOffset = -state.currentMarkerPhase * 116;
   const resistorColor = meterTarget === "r1" ? " selected" : "";
   const resistor2Color = meterTarget === "r2" ? " selected" : "";
   const sourceSelected = meterTarget === "source" ? " selected" : "";
@@ -361,7 +360,13 @@ function CircuitSchematic({x, y, width, height, state, topology, meterTarget, sh
 
   const resistor1X = topology === "parallel" ? x + width * 0.56 : right;
   const resistor2X = topology === "parallel" ? x + width * 0.81 : right;
+  const circuitRight = topology === "parallel" ? resistor2X : right;
   const splitY = top + (bottom - top) / 2;
+  const maxResistorPower = Math.max(state.resistorPower1W, state.resistorPower2W, Number.EPSILON);
+  const powerPulse = 0.78 + 0.22 * Math.sin(state.timeSeconds * Math.PI * 1.6);
+  const powerOpacity = (powerW: number) => state.circuitClosed && powerW > 0
+    ? 0.1 + (powerW / maxResistorPower) * 0.32 * powerPulse
+    : 0;
 
   return (
     <g className="dc-schematic">
@@ -370,8 +375,8 @@ function CircuitSchematic({x, y, width, height, state, topology, meterTarget, sh
       <text x={x + width - 20} y={y + 30} textAnchor="end" className={`dc-status ${state.circuitClosed ? "closed" : "open"}`}>{status}</text>
 
       <path d={`M ${left} ${top} H ${switchLeft}`} className="dc-wire" />
-      <path d={`M ${switchRight} ${top} H ${right}`} className="dc-wire" />
-      <path d={`M ${left} ${bottom} H ${right}`} className="dc-wire" />
+      <path d={`M ${switchRight} ${top} H ${circuitRight}`} className="dc-wire" />
+      <path d={`M ${left} ${bottom} H ${circuitRight}`} className="dc-wire" />
       <path d={`M ${left} ${top} V ${y + height * 0.43}`} className="dc-wire" />
       <path d={`M ${left} ${y + height * 0.57} V ${bottom}`} className="dc-wire" />
 
@@ -393,20 +398,28 @@ function CircuitSchematic({x, y, width, height, state, topology, meterTarget, sh
 
       {topology === "single" ? (
         <>
+          <path d={resistorPath(right, top, bottom)} className="dc-resistor-power" style={{opacity: powerOpacity(state.resistorPower1W)}} />
           <path d={resistorPath(right, top, bottom)} className={`dc-resistor${resistorColor}`} />
           <text x={right - 28} y={splitY - 8} textAnchor="end" className="dc-component-label">R1</text>
           <text x={right - 28} y={splitY + 20} textAnchor="end" className="dc-component-value">{formatNumber(state.parameters.resistance1Ohm, locale, 0)} Ω</text>
+          <text x={right - 28} y={splitY + 43} textAnchor="end" className="dc-power-label">P₁ {formatNumber(state.resistorPower1W, locale, 2)} W</text>
         </>
       ) : topology === "series" ? (
         <>
+          <path d={resistorPath(right, top, splitY - 8)} className="dc-resistor-power" style={{opacity: powerOpacity(state.resistorPower1W)}} />
           <path d={resistorPath(right, top, splitY - 8)} className={`dc-resistor${resistorColor}`} />
+          <path d={`M ${right} ${splitY - 8} V ${splitY + 8}`} className="dc-wire" />
+          <path d={resistorPath(right, splitY + 8, bottom)} className="dc-resistor-power" style={{opacity: powerOpacity(state.resistorPower2W)}} />
           <path d={resistorPath(right, splitY + 8, bottom)} className={`dc-resistor${resistor2Color}`} />
           <text x={right - 30} y={top + (splitY - top) / 2 - 5} textAnchor="end" className="dc-component-label">R1 · {formatNumber(state.parameters.resistance1Ohm, locale, 0)} Ω</text>
+          <text x={right - 30} y={top + (splitY - top) / 2 + 17} textAnchor="end" className="dc-power-label">P₁ {formatNumber(state.resistorPower1W, locale, 2)} W</text>
           <text x={right - 30} y={splitY + (bottom - splitY) / 2 + 5} textAnchor="end" className="dc-component-label">R2 · {formatNumber(state.parameters.resistance2Ohm, locale, 0)} Ω</text>
+          <text x={right - 30} y={splitY + (bottom - splitY) / 2 + 27} textAnchor="end" className="dc-power-label">P₂ {formatNumber(state.resistorPower2W, locale, 2)} W</text>
         </>
       ) : (
         <>
-          <path d={`M ${right} ${top} V ${bottom}`} className="dc-wire" />
+          <path d={resistorPath(resistor1X, top, bottom)} className="dc-resistor-power" style={{opacity: powerOpacity(state.resistorPower1W)}} />
+          <path d={resistorPath(resistor2X, top, bottom)} className="dc-resistor-power" style={{opacity: powerOpacity(state.resistorPower2W)}} />
           <path d={resistorPath(resistor1X, top, bottom)} className={`dc-resistor${resistorColor}`} />
           <path d={resistorPath(resistor2X, top, bottom)} className={`dc-resistor${resistor2Color}`} />
           <circle cx={resistor1X} cy={top} r="5" className="dc-node" />
@@ -415,20 +428,31 @@ function CircuitSchematic({x, y, width, height, state, topology, meterTarget, sh
           <circle cx={resistor2X} cy={bottom} r="5" className="dc-node" />
           <text x={resistor1X - 24} y={splitY - 8} textAnchor="end" className="dc-component-label">R1</text>
           <text x={resistor1X - 24} y={splitY + 20} textAnchor="end" className="dc-component-value">{formatNumber(state.parameters.resistance1Ohm, locale, 0)} Ω</text>
+          <text x={resistor1X - 24} y={splitY + 43} textAnchor="end" className="dc-power-label">P₁ {formatNumber(state.resistorPower1W, locale, 2)} W</text>
           <text x={resistor2X - 24} y={splitY - 8} textAnchor="end" className="dc-component-label">R2</text>
           <text x={resistor2X - 24} y={splitY + 20} textAnchor="end" className="dc-component-value">{formatNumber(state.parameters.resistance2Ohm, locale, 0)} Ω</text>
+          <text x={resistor2X - 24} y={splitY + 43} textAnchor="end" className="dc-power-label">P₂ {formatNumber(state.resistorPower2W, locale, 2)} W</text>
         </>
       )}
 
-      <path d={`M ${left + 18} ${top} H ${switchLeft - 12}`} className={currentClass} style={{strokeDashoffset: currentOffset}} markerEnd={activeCurrent ? "url(#dc-current-arrow)" : undefined} />
-      {topology === "parallel" ? (
+      {activeCurrent ? <g className="dc-current-flow" style={{strokeDashoffset: currentOffset}} aria-hidden="true">
+        <path d={`M ${left} ${y + height * 0.43} V ${top} H ${circuitRight}`} />
+        <path d={`M ${circuitRight} ${bottom} H ${left} V ${y + height * 0.57}`} />
+        {topology === "single" ? <path d={resistorPath(right, top, bottom)} /> : topology === "series" ? <>
+          <path d={resistorPath(right, top, splitY - 8)} />
+          <path d={`M ${right} ${splitY - 8} V ${splitY + 8}`} />
+          <path d={resistorPath(right, splitY + 8, bottom)} />
+        </> : <>
+          <path d={resistorPath(resistor1X, top, bottom)} />
+          <path d={resistorPath(resistor2X, top, bottom)} />
+        </>}
+      </g> : null}
+
+      {topology === "parallel" && activeCurrent ? (
         <>
-          <path d={`M ${resistor1X} ${top + 34} V ${bottom - 34}`} className={currentClass} style={{strokeDashoffset: currentOffset}} markerEnd={activeCurrent ? "url(#dc-current-arrow)" : undefined} />
-          <path d={`M ${resistor2X} ${top + 34} V ${bottom - 34}`} className={currentClass} style={{strokeDashoffset: currentOffset}} markerEnd={activeCurrent ? "url(#dc-current-arrow)" : undefined} />
-          {activeCurrent ? <>
-            <text x={resistor1X + 20} y={splitY} className="dc-current-label">I1 {formatCurrent(state.branchCurrent1A, locale)}</text>
-            <text x={resistor2X + 20} y={splitY} className="dc-current-label">I2 {formatCurrent(state.branchCurrent2A, locale)}</text>
-          </> : null}
+          <text x={left + width * 0.36} y={top - 19} className="dc-current-label">I {formatCurrent(state.totalCurrentA, locale)}</text>
+          <text x={resistor1X + 20} y={splitY} className="dc-current-label">I1 {formatCurrent(state.branchCurrent1A, locale)}</text>
+          <text x={resistor2X + 20} y={splitY} className="dc-current-label">I2 {formatCurrent(state.branchCurrent2A, locale)}</text>
         </>
       ) : activeCurrent ? <text x={left + width * 0.38} y={top - 19} className="dc-current-label">I {formatCurrent(state.totalCurrentA, locale)}</text> : null}
 
@@ -440,10 +464,10 @@ function CircuitSchematic({x, y, width, height, state, topology, meterTarget, sh
 
 function TopologyComparison({x, y, width, state, topology, locale}: {x: number; y: number; width: number; state: DCCircuitsState; topology: DCCircuitsTopology; locale: Locale}) {
   const copy = dcCopy[locale];
-  const rows: Array<{key: DCCircuitsTopology; formula: string}> = [
-    {key: "single", formula: copy.canvas.singleFormula},
-    {key: "series", formula: copy.canvas.seriesFormula},
-    {key: "parallel", formula: copy.canvas.parallelFormula},
+  const rows: Array<{key: DCCircuitsTopology; before: string; after: string}> = [
+    {key: "single", before: "R", after: " = R₁"},
+    {key: "series", before: "R", after: " = R₁ + R₂"},
+    {key: "parallel", before: "1 / R", after: " = 1 / R₁ + 1 / R₂"},
   ];
   return (
     <g className="dc-comparison" transform={`translate(${x} ${y})`}>
@@ -451,16 +475,29 @@ function TopologyComparison({x, y, width, state, topology, locale}: {x: number; 
       <text x="18" y="28" className="dc-section-label">{copy.canvas.topologyCompare}</text>
       {rows.map((row, index) => {
         const active = row.key === topology;
-        const rowY = 45 + index * 42;
+        const rowY = 42 + index * 37;
         return <g className={active ? "active" : ""} transform={`translate(12 ${rowY})`} key={row.key}>
-          <rect width={width - 24} height="35" rx="3" />
-          <text x="10" y="23" className="dc-compare-name">{copy.topology[row.key]}</text>
-          <text x={width - 38} y="23" textAnchor="end" className="dc-compare-formula">{row.formula}</text>
+          <rect width={width - 24} height="31" rx="3" />
+          <text x="10" y="21" className="dc-compare-name">{copy.topology[row.key]}</text>
+          <text x={width - 38} y="21" textAnchor="end" className="dc-compare-formula">{row.before}<tspan baselineShift="sub" fontSize="9">eq</tspan>{row.after}</text>
         </g>;
       })}
-      <text x={width - 18} y="172" textAnchor="end" className="dc-equivalent-result">R_eq = {formatNumber(state.equivalentResistanceOhm, locale, 2)} Ω</text>
+      <line x1="18" y1="158" x2={width - 18} y2="158" className="dc-comparison-divider" />
+      <text x={width - 18} y="177" textAnchor="end" className="dc-equivalent-result">R<tspan baselineShift="sub" fontSize="9">eq</tspan> = {formatNumber(state.equivalentResistanceOhm, locale, 2)} Ω</text>
     </g>
   );
+}
+
+function OhmsLawCard({x, y, width, height, state, locale, compact = false}: {x: number; y: number; width: number; height: number; state: DCCircuitsState; locale: Locale; compact?: boolean}) {
+  const copy = dcCopy[locale];
+  return <g className={`dc-equation-card${compact ? " compact" : ""}`} transform={`translate(${x} ${y})`}>
+    <rect width={width} height={height} rx="4" />
+    <text x="18" y={compact ? 23 : 27} className="dc-section-label">{copy.canvas.networkLaw}</text>
+    <line x1="18" y1={compact ? 31 : 39} x2={width - 18} y2={compact ? 31 : 39} className="dc-equation-divider" />
+    <text x="18" y={compact ? 60 : 72} className="dc-equation">I = V / R<tspan baselineShift="sub" fontSize={compact ? "11" : "14"}>eq</tspan></text>
+    {!compact ? <text x="18" y="101" className="dc-equation-substitution">{formatNumber(state.parameters.sourceVoltageV, locale, 1)} V / {formatNumber(state.equivalentResistanceOhm, locale, 2)} Ω</text> : null}
+    <text x={width - 18} y={compact ? 60 : 101} textAnchor="end" className="dc-equation-result">= {formatCurrent(state.totalCurrentA, locale)}</text>
+  </g>;
 }
 
 interface DcCanvasProps {
@@ -501,7 +538,7 @@ function DcLandscapeCanvas(props: DcCanvasProps) {
       <CircuitSchematic x={52} y={178} width={760} height={460} state={props.state} topology={props.parameters.topology} meterTarget={props.meterTarget} showCurrent={props.parameters.showConventionalCurrent} locale={props.locale} />
       <SelectedMeter x={842} y={179} width={372} state={props.state} target={props.meterTarget} locale={props.locale} />
       <TopologyComparison x={842} y={311} width={372} state={props.state} topology={props.parameters.topology} locale={props.locale} />
-      <g className="dc-equation-card" transform="translate(842 515)"><rect width="372" height="123" rx="4" /><text x="18" y="28" className="dc-section-label">{copy.canvas.networkLaw}</text><text x="18" y="68" className="dc-equation">I_total = V_source / R_eq</text><text x="354" y="101" textAnchor="end" className="dc-equation-result">{formatCurrent(props.state.totalCurrentA, props.locale)}</text></g>
+      <OhmsLawCard x={842} y={515} width={372} height={123} state={props.state} locale={props.locale} />
     </> : <text x="640" y="380" textAnchor="middle" className="dc-invalid">{copy.canvas.invalid}</text>}
     <NarrationHeader x={842} y={76} step={props.narrationStep} index={props.narrationStepIndex} count={props.narrationStepCount} />
     <text x="1225" y="675" textAnchor="end" className="dc-assumptions">{copy.canvas.assumptions}</text>
@@ -527,7 +564,7 @@ function DcPortraitCanvas(props: DcCanvasProps) {
       <CircuitSchematic x={54} y={props.narrationStep ? 276 : 190} width={612} height={516} state={props.state} topology={props.parameters.topology} meterTarget={props.meterTarget} showCurrent={props.parameters.showConventionalCurrent} locale={props.locale} />
       <SelectedMeter x={54} y={props.narrationStep ? 812 : 726} width={612} state={props.state} target={props.meterTarget} locale={props.locale} />
       <TopologyComparison x={54} y={props.narrationStep ? 944 : 858} width={612} state={props.state} topology={props.parameters.topology} locale={props.locale} />
-      <g className="dc-equation-card" transform={`translate(54 ${props.narrationStep ? 1148 : 1062})`}><rect width="612" height="76" rx="4" /><text x="18" y="29" className="dc-section-label">{copy.canvas.networkLaw}</text><text x="18" y="59" className="dc-equation small">I_total = V_source / R_eq</text><text x="594" y="59" textAnchor="end" className="dc-equation-result">{formatCurrent(props.state.totalCurrentA, props.locale)}</text></g>
+      <OhmsLawCard x={54} y={props.narrationStep ? 1148 : 1062} width={612} height={76} state={props.state} locale={props.locale} compact />
     </> : <text x="360" y="640" textAnchor="middle" className="dc-invalid">{copy.canvas.invalid}</text>}
     <text x="666" y="1234" textAnchor="end" className="dc-assumptions">{copy.canvas.assumptions}</text>
   </svg>;

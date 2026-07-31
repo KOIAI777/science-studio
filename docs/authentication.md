@@ -47,6 +47,14 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<local publishable or anon key>
 
 重启 Web 开发服务器后打开 `/login`。本地邮件不会发到真实邮箱，在 `http://127.0.0.1:54324` 的 Mailpit 中打开登录邮件。
 
+只调试收费实验界面时，可在未提交的 `apps/web/.env.local` 增加：
+
+```bash
+LOCAL_PAID_EXPERIMENT_PREVIEW=true
+```
+
+这个开关仅在 `NODE_ENV=development` 时生效，允许直接打开收费实验工作台，不需要本地登录或模拟支付。生产构建即使误配该变量也不会跳过 entitlement 检查。
+
 ## 4. 托管 Supabase 手动配置
 
 1. 在 Supabase Dashboard 创建项目。
@@ -65,6 +73,6 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<local publishable or anon key>
 3. Waffo Checkout 创建时接收内部订单 UUID 作为 `orderMerchantExternalId`。
 4. `/api/billing/webhook` 读取原始 body，以 SDK 验证 RSA-SHA256 签名，并按 Waffo delivery ID 去重。
 5. 验签的 `order.completed` 原子写入订单和 entitlement；`refund.succeeded` 撤销 entitlement。
-6. `/experiments/dc-circuits` 只根据已认证 `user_id` 的 active entitlement 打开工作台；支付成功跳转只显示状态，绝不直接授予权限。
+6. `/experiments/dc-circuits` 的实验介绍和价格对访客公开并允许搜索引擎索引；实际工作台只根据已认证 `user_id` 的 active entitlement 打开。支付成功跳转只显示状态，绝不直接授予权限。
 
 本机测试环境的 Waffo 私钥保存在 Keychain。部署环境必须使用 `SUPABASE_SECRET_KEY`、`WAFFO_MERCHANT_ID`、`WAFFO_STORE_ID`、`WAFFO_MIDDLE_SCHOOL_PACK_PRODUCT_ID`、`WAFFO_PRIVATE_KEY_BASE64` 和 `WAFFO_ENVIRONMENT`，均不得使用 `NEXT_PUBLIC_` 前缀。

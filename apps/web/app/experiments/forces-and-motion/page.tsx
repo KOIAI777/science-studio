@@ -1,9 +1,12 @@
 import type {Metadata} from "next";
+import {ExperimentStructuredData} from "../../../components/experiment-structured-data";
 import {ForcesAndMotionWorkbench} from "../../../components/forces-and-motion-workbench";
+
+const description = "Adjust mass, applied force, and friction while a live free-body diagram and graphs explain Newton's second law.";
 
 export const metadata: Metadata = {
   title: "Free Forces and Motion Experiment",
-  description: "Adjust mass, applied force, and friction while a live free-body diagram and graphs explain Newton's second law.",
+  description,
   alternates: {canonical: "/experiments/forces-and-motion"},
   openGraph: {
     title: "Free Forces and Motion Experiment",
@@ -25,5 +28,5 @@ export const metadata: Metadata = {
 };
 
 export default function ForcesAndMotionExperimentPage() {
-  return <ForcesAndMotionWorkbench />;
+  return <><ExperimentStructuredData name="Free Forces and Motion Experiment" description={description} path="/experiments/forces-and-motion" image="/experiments/forces-and-motion-diagram.png" teaches={["Free-body diagrams", "Static friction", "Kinetic friction", "Newton's second law"]} lessonMinutes={10} isFree /><ForcesAndMotionWorkbench /></>;
 }

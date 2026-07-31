@@ -9,7 +9,9 @@
     "./energy-track": "./src/energy-track/index.ts",
     "./forces-and-motion": "./src/forces-and-motion/index.ts",
     "./ohms-law": "./src/ohms-law/index.ts",
-    "./dc-circuits": "./src/dc-circuits/index.ts"
+    "./dc-circuits": "./src/dc-circuits/index.ts",
+    "./traveling-wave": "./src/traveling-wave/index.ts",
+    "./buoyancy": "./src/buoyancy/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

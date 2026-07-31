@@ -17,9 +17,22 @@ function first(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] : value;
 }
 
+function experimentPath(value: string | undefined) {
+  return value === "/experiments/waves" || value === "/experiments/density-buoyancy"
+    ? value
+    : "/experiments/dc-circuits";
+}
+
+function experimentLabel(path: string) {
+  if (path === "/experiments/waves") return "Open Waves";
+  if (path === "/experiments/density-buoyancy") return "Open Density & Buoyancy";
+  return "Open DC Circuits";
+}
+
 export default async function CheckoutSuccessPage({searchParams}: CheckoutSuccessPageProps) {
   const params = await searchParams;
   const orderId = first(params.order);
+  const next = experimentPath(first(params.next));
   if (!orderId || !/^[0-9a-f-]{36}$/i.test(orderId)) redirect("/experiments");
 
   const supabase = await createClient();
@@ -43,7 +56,7 @@ export default async function CheckoutSuccessPage({searchParams}: CheckoutSucces
         <h1>{completed ? "Your experiment pack is ready." : "We are confirming your payment."}</h1>
         <p>{completed ? "Middle School Physics Foundations is now linked to your teacher account." : "Waffo has redirected you back. Access will appear as soon as the signed payment event is processed."}</p>
         <div className="checkout-status-actions">
-          {completed ? <Link className="checkout-primary-action" href="/experiments/dc-circuits">Open DC Circuits</Link> : <Link className="checkout-primary-action" href={`/checkout/success?order=${orderId}`}><RefreshCw size={15} />Refresh status</Link>}
+          {completed ? <Link className="checkout-primary-action" href={next}>{experimentLabel(next)}</Link> : <Link className="checkout-primary-action" href={`/checkout/success?order=${orderId}&next=${encodeURIComponent(next)}`}><RefreshCw size={15} />Refresh status</Link>}
           <Link className="checkout-secondary-action" href="/account">Open account</Link>
         </div>
       </div>

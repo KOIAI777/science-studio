@@ -55,7 +55,7 @@ Science Studio
 
 验证版使用标准产品主页，开放斜面、能量轨道、力和运动与 Ohm's Law Lab 四个免费实验。Ohm's Law Lab 固定为单电源、单电阻、单开关的理想直流回路；串联、并联、混联、自由布线、多电阻和探针表不进入免费层。未完成模板不进入实验目录，只在路线与实验包文案中说明。当前创建教师 Magic Link 登录和基础账户页，不创建账单、学生课堂或数据分析页面；免费实验不要求登录。
 
-P1 首个付费内容模板是 `DC Circuits: Series & Parallel`。目录卡使用真实画布封面并显示 `Included in Middle School Pack`；点击后，匿名用户进入登录，未购教师看到简洁的实验包购买页，已购教师直接进入工作台。付费画布以三种拓扑对照和受限测量点作为差异化信息，不使用金色装饰或营销式视觉代替真实能力。
+P1 付费内容由同一个 `Middle School Physics Foundations` 权益打开。DC Circuits、Waves 与 Density & Buoyancy 已发布；目录卡使用各自真实画布封面并显示 `Included in Middle School Pack`。未购教师看到可索引的实验介绍和实验包购买入口，已购教师直接进入完整工作台。付费画布必须用真实对照、测量和讲解能力体现价值，不使用金色装饰或营销式视觉代替功能。
 
 ## 3. 页面定义
 
@@ -68,7 +68,7 @@ P1 首个付费内容模板是 `DC Circuits: Series & Parallel`。目录卡使�
 - 首屏之后依次展示产品可信点、实验目录入口、三步教师流程、课堂功能、实验包规划、FAQ 和最终体验入口。
 - 顶部 `Experiment library` 和首页目录入口均跳转 `/experiments`。
 - 实验卡使用从已发布模板实际运行画布截取的封面，显示教学时长、核心概念和内容状态；不为未完成实验手绘占位缩略图。
-- 当前筛选只显示已有真实发布内容的 `All`、`Mechanics`、`Electricity`；新学段或主题有已发布实验后才加入筛选栏。
+- 当前筛选只显示已有真实发布内容的 `All`、`Mechanics`、`Electricity`、`Waves` 与 `Fluids`；新学段或主题有已发布实验后才加入筛选栏。
 - 权益不单独做 `Free/Paid` 筛选，而由卡片上的文字和图标共同表达：`Free`、`Included in Middle School Pack`、已购买后的 `Included in your library`，或未发布时的 `Coming soon`。
 - 已完成的免费和付费实验可以点击；付费卡进入访问页，未完成实验不得显示购买操作。
 - 搜索匹配标题、说明和核心概念。

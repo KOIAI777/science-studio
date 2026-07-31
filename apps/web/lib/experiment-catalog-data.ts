@@ -7,6 +7,7 @@ import {
   type GradeLevel,
   type SubjectArea,
 } from "./experiment-catalog";
+import {isLocalPaidExperimentPreviewEnabled} from "./supabase/config";
 
 export interface CatalogQuery {
   grade?: GradeLevel;
@@ -92,6 +93,8 @@ function getLocalCatalogPage(filters: CatalogQuery): CatalogPage {
 }
 
 export async function getExperimentCatalogPage(filters: CatalogQuery): Promise<CatalogPage> {
+  if (isLocalPaidExperimentPreviewEnabled()) return getLocalCatalogPage(filters);
+
   const databaseUrl = process.env.DATABASE_URL;
   if (databaseUrl) {
     const sql = getLocalPostgresClient(databaseUrl);

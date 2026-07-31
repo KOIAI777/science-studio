@@ -3423,6 +3423,7 @@ a {
 .dc-status,
 .dc-component-label,
 .dc-component-value,
+.dc-power-label,
 .dc-polarity,
 .dc-current-label,
 .dc-open-note,
@@ -3486,6 +3487,16 @@ a {
   transition: stroke-width 140ms ease, stroke 140ms ease;
 }
 
+.dc-resistor-power {
+  fill: none;
+  stroke: #e5a451;
+  stroke-width: 18px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+  transition: opacity 90ms linear;
+}
+
 .dc-resistor.selected {
   stroke: #2659a8;
   stroke-width: 9px;
@@ -3543,6 +3554,14 @@ a {
   font-variant-numeric: tabular-nums;
 }
 
+.dc-power-label {
+  fill: #9a621f;
+  stroke-width: 5px;
+  font-size: 10px;
+  font-weight: 820;
+  font-variant-numeric: tabular-nums;
+}
+
 .dc-polarity {
   fill: #333630;
   stroke-width: 5px;
@@ -3554,16 +3573,14 @@ a {
   fill: #2659a8;
 }
 
-.dc-current-path {
+.dc-current-flow {
   fill: none;
-  stroke: #147f75;
-  stroke-width: 4px;
-  stroke-dasharray: 8 11;
-  opacity: 0;
-}
-
-.dc-current-path.active {
-  opacity: 1;
+  stroke: #19a99b;
+  stroke-width: 8px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 2 24;
+  pointer-events: none;
 }
 
 .dc-arrow-head {
@@ -3632,14 +3649,27 @@ a {
 .dc-compare-formula {
   fill: #656a62;
   stroke-width: 4px;
-  font-size: 11px;
   font-weight: 700;
+}
+
+.dc-compare-name {
+  font-size: 12px;
+}
+
+.dc-compare-formula {
+  font-size: 13px;
 }
 
 .dc-comparison > g.active .dc-compare-name,
 .dc-comparison > g.active .dc-compare-formula {
   fill: #155f58;
   font-weight: 820;
+}
+
+.dc-comparison-divider,
+.dc-equation-divider {
+  stroke: #cfd2ca;
+  stroke-width: 1px;
 }
 
 .dc-compare-formula,
@@ -3659,12 +3689,22 @@ a {
 .dc-equation {
   fill: #20221f;
   stroke-width: 5px;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
 }
 
-.dc-equation.small {
+.dc-equation-card.compact .dc-equation {
   font-size: 18px;
+}
+
+.dc-equation-substitution {
+  fill: #666b63;
+  stroke: #f6f7f2;
+  stroke-width: 4px;
+  paint-order: stroke;
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
 .dc-equation-result {
@@ -3819,5 +3859,996 @@ a {
 
   .dc-canvas-toolbar {
     max-width: 100%;
+  }
+}
+
+/* Traveling-wave classroom oscilloscope */
+.wave-pack-badge {
+  min-height: 21px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  border: 1px solid #3f6d70;
+  border-radius: 4px;
+  color: #a9d6d4;
+  background: #1d3030;
+  font-size: 9px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.wave-stage-area {
+  isolation: isolate;
+}
+
+.wave-stage-meta {
+  z-index: 4;
+  align-items: center;
+  pointer-events: none;
+}
+
+.wave-canvas-toolbar {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px;
+  border: 1px solid #4b4e48;
+  border-radius: 6px;
+  color: #cfd2ca;
+  background: rgb(24 25 23 / 94%);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 18%);
+  pointer-events: auto;
+}
+
+.wave-canvas-transform {
+  position: relative;
+  height: 100%;
+  max-height: 680px;
+  aspect-ratio: 9 / 16;
+  flex: 0 1 auto;
+  transform-origin: center;
+  transition: transform 140ms ease;
+  outline: none;
+}
+
+.wave-canvas-transform.is-landscape {
+  width: 100%;
+  height: auto;
+  max-width: 1200px;
+  max-height: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.wave-canvas-transform.can-pan {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.wave-canvas-transform.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.wave-canvas-transform:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.wave-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+  border: 1px solid #bbc5c5;
+  box-shadow: 0 22px 50px rgb(9 26 28 / 15%);
+}
+
+.wave-canvas text {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+.wave-canvas .canvas-eyebrow {
+  fill: #537073;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.wave-canvas .canvas-title {
+  fill: #172d30;
+  font-size: 34px;
+  font-weight: 780;
+}
+
+.wave-canvas .canvas-subtitle {
+  fill: #597073;
+  font-size: 14px;
+  font-weight: 520;
+}
+
+.wave-medium-badge rect {
+  fill: #e0ecec;
+  stroke: #aac2c2;
+}
+
+.wave-medium-badge text:first-of-type {
+  fill: #426467;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.wave-medium-badge text:last-of-type {
+  fill: #183b3f;
+  font-size: 14px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.wave-plot-surface {
+  fill: rgb(255 255 255 / 68%);
+  stroke: #cbd7d7;
+}
+
+.wave-plot-label {
+  fill: #263e41;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.wave-plot-reading {
+  fill: #526b6d;
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.wave-grid-line {
+  stroke: #d8e2e2;
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+}
+
+.wave-equilibrium {
+  stroke: #809395;
+  stroke-width: 1.5;
+  stroke-dasharray: 7 5;
+}
+
+.wave-particle-guide {
+  stroke: #b7c7c8;
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+}
+
+.wave-particle {
+  stroke: #f8fbfc;
+  stroke-width: 2;
+}
+
+.wave-direction-line {
+  stroke: #547376;
+  stroke-width: 2;
+}
+
+.wave-measure-line,
+.wave-measure-cap {
+  stroke: #2b474a;
+  stroke-width: 1.6;
+}
+
+.wave-measure-cap.clipped {
+  stroke-dasharray: 3 3;
+}
+
+.wave-measure-label {
+  fill: #2c484b;
+  paint-order: stroke;
+  stroke: #f8fbfc;
+  stroke-width: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.wave-direction-note {
+  fill: #48676a;
+  color: #0d7280;
+}
+
+.wave-direction-note > svg {
+  width: 19px;
+  height: 19px;
+  overflow: visible;
+  transform: translate(-1px, -11px);
+}
+
+.wave-direction-note text {
+  fill: #496467;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.wave-direction-note line {
+  stroke: #0d7280;
+  stroke-width: 2;
+}
+
+.wave-formula-panel rect {
+  fill: #17383b;
+  stroke: #325b5e;
+}
+
+.wave-formula-panel.highlighted rect {
+  fill: #0e5e67;
+  stroke: #4d969d;
+  stroke-width: 3;
+}
+
+.wave-formula-kicker {
+  fill: #9bc6c5;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.wave-formula {
+  fill: #f3f8f7;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 26px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.wave-formula-calculation {
+  fill: #d1e2e1;
+  font-size: 15px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.wave-formula-b {
+  fill: #f1c3aa;
+}
+
+.wave-narration-overlay .narration-step-title {
+  fill: #172d30;
+}
+
+.wave-narration-overlay .narration-step-caption {
+  fill: #516a6d;
+}
+
+.wave-toggle-parameter {
+  padding-bottom: 17px;
+}
+
+.wave-control-label {
+  display: block;
+  margin-bottom: 9px;
+  color: #dfe1db;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.wave-switch-control {
+  width: 100%;
+  height: 38px;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 38px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px 0 8px;
+  border: 1px solid #4a4c47;
+  border-radius: 6px;
+  color: #d9dcd4;
+  background: #292a27;
+  font-size: 12px;
+  font-weight: 680;
+  text-align: left;
+}
+
+.wave-switch-control:hover {
+  border-color: #646760;
+  background: #30312e;
+}
+
+.wave-switch-control.enabled {
+  border-color: #3f726c;
+}
+
+.wave-switch-control > svg {
+  color: #747a72;
+}
+
+.wave-switch-control.enabled > svg {
+  color: #75bcb5;
+}
+
+.wave-switch-track {
+  width: 34px;
+  height: 18px;
+  display: block;
+  padding: 2px;
+  border: 1px solid #565953;
+  border-radius: 9px;
+  background: #1f201e;
+}
+
+.wave-switch-track span {
+  width: 12px;
+  height: 12px;
+  display: block;
+  border-radius: 50%;
+  background: #8c9087;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+
+.wave-switch-control.enabled .wave-switch-track span {
+  background: #61aaa2;
+  transform: translateX(16px);
+}
+
+.wave-measurements .wave-measurement-heading {
+  grid-column: 1 / -1;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 9px;
+  background: #203537;
+}
+
+.wave-measurements .wave-measurement-heading dt,
+.wave-measurements .wave-measurement-heading dd {
+  color: #86cbc6;
+}
+
+.wave-measurements .wave-b-heading {
+  background: #382b25;
+}
+
+.wave-measurements .wave-b-heading dt,
+.wave-measurements .wave-b-heading dd {
+  color: #e1a27d;
+}
+
+.wave-measurements .wave-measurement-heading dd {
+  font-size: 13px;
+}
+
+.wave-measurements .wave-speed-measurement {
+  grid-column: 1 / -1;
+}
+
+.wave-measurements .wave-speed-measurement dd {
+  color: #e8c176;
+}
+
+.traveling-wave-workbench:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 68px;
+  overflow: hidden;
+}
+
+.traveling-wave-workbench:fullscreen .topbar,
+.traveling-wave-workbench:fullscreen .parameter-panel {
+  display: none;
+}
+
+.traveling-wave-workbench:fullscreen .workspace {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.traveling-wave-workbench:fullscreen .wave-stage-area {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  order: initial;
+  display: flex;
+  padding: 54px 32px 24px;
+  background-color: var(--surface-app);
+  background-image: radial-gradient(#343631 0.8px, transparent 0.8px);
+  background-size: 16px 16px;
+}
+
+.traveling-wave-workbench:fullscreen .wave-canvas-transform {
+  max-height: calc(100vh - 146px);
+}
+
+.traveling-wave-workbench:fullscreen .wave-canvas-transform.is-landscape {
+  max-width: calc((100vh - 146px) * 16 / 9);
+}
+
+.traveling-wave-workbench:fullscreen .wave-stage-meta {
+  top: 14px;
+}
+
+.traveling-wave-workbench:fullscreen .playback-bar {
+  position: relative;
+  order: initial;
+  display: grid;
+  height: 68px;
+}
+
+@media (max-width: 1100px) {
+  .wave-pack-badge {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .traveling-wave-workbench .stage-area {
+    min-height: 520px;
+  }
+
+  .traveling-wave-workbench.ratio-landscape .stage-area {
+    height: 340px;
+    min-height: 340px;
+  }
+
+  .wave-stage-meta > span {
+    display: none;
+  }
+
+  .wave-stage-meta {
+    justify-content: flex-end;
+  }
+
+  .wave-canvas-toolbar {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-canvas-transform,
+  .wave-switch-track span {
+    transition: none;
+  }
+}
+
+/* Density and buoyancy twin-tank laboratory */
+.buoyancy-pack-badge {
+  min-height: 21px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  border: 1px solid #426f74;
+  border-radius: 4px;
+  color: #acd9d7;
+  background: #1c3031;
+  font-size: 9px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.buoyancy-stage-area {
+  isolation: isolate;
+}
+
+.buoyancy-stage-meta {
+  z-index: 4;
+  align-items: center;
+  pointer-events: none;
+}
+
+.buoyancy-canvas-toolbar {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px;
+  border: 1px solid #4b4e48;
+  border-radius: 6px;
+  color: #cfd2ca;
+  background: rgb(24 25 23 / 94%);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 18%);
+  pointer-events: auto;
+}
+
+.buoyancy-canvas-transform {
+  position: relative;
+  height: 100%;
+  max-height: 680px;
+  aspect-ratio: 9 / 16;
+  flex: 0 1 auto;
+  transform-origin: center;
+  transition: transform 140ms ease;
+  outline: none;
+}
+
+.buoyancy-canvas-transform.is-landscape {
+  width: 100%;
+  height: auto;
+  max-width: 1200px;
+  max-height: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.buoyancy-canvas-transform.can-pan {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.buoyancy-canvas-transform.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.buoyancy-canvas-transform:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.buoyancy-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+  border: 1px solid #bcc8c6;
+  box-shadow: 0 22px 50px rgb(9 30 32 / 15%);
+}
+
+.buoyancy-canvas text {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+.buoyancy-eyebrow {
+  fill: #557277;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.buoyancy-title {
+  fill: #172f33;
+  font-size: 34px;
+  font-weight: 790;
+}
+
+.buoyancy-subtitle {
+  fill: #5b7376;
+  font-size: 13px;
+  font-weight: 540;
+}
+
+.buoyancy-object-summary rect {
+  fill: #e2eded;
+  stroke: #abc3c3;
+}
+
+.buoyancy-object-summary.highlighted rect {
+  fill: #d1e8e7;
+  stroke: #4f8f91;
+  stroke-width: 2.5px;
+}
+
+.buoyancy-object-summary text {
+  fill: #47686b;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.buoyancy-object-summary .buoyancy-summary-value {
+  fill: #173f43;
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+}
+
+.buoyancy-object-summary .buoyancy-summary-small {
+  fill: #587376;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.buoyancy-tank-label {
+  fill: #233e42;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.buoyancy-outcome-badge text {
+  fill: #fff;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.buoyancy-outcome-badge.highlighted rect {
+  stroke: #183b3f;
+  stroke-width: 3px;
+}
+
+.buoyancy-tank-glass {
+  fill: rgb(255 255 255 / 45%);
+  stroke: #769398;
+  stroke-width: 3px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.buoyancy-fluid {
+  opacity: 0.34;
+}
+
+.buoyancy-surface {
+  fill: none;
+  stroke: #3c8995;
+  stroke-width: 2.2px;
+}
+
+.buoyancy-equilibrium line {
+  stroke: #4b777d;
+  stroke-width: 1.5px;
+  stroke-dasharray: 7 6;
+}
+
+.buoyancy-equilibrium text {
+  fill: #41676c;
+  paint-order: stroke;
+  stroke: #f6faf9;
+  stroke-width: 4px;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.buoyancy-object {
+  fill: #e9ad58;
+  stroke: #8c5925;
+  stroke-width: 2.5px;
+}
+
+.buoyancy-object-submerged {
+  fill: #c57c35;
+  opacity: 0.72;
+}
+
+.buoyancy-object-submerged.highlighted {
+  fill: #a96025;
+  stroke: #723b16;
+  stroke-width: 4px;
+  opacity: 0.9;
+}
+
+.buoyancy-object-center {
+  stroke: #6c431f;
+  stroke-width: 1.5px;
+  stroke-dasharray: 3 3;
+}
+
+.buoyancy-object-density {
+  fill: #543317;
+  paint-order: stroke;
+  stroke: #edbd78;
+  stroke-width: 4px;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.buoyancy-displacement-readout text:first-child {
+  fill: #4d6e72;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.buoyancy-displacement-readout text:last-child {
+  fill: #1b4d54;
+  font-size: 12px;
+  font-weight: 820;
+  font-variant-numeric: tabular-nums;
+}
+
+.buoyancy-fluid-density,
+.buoyancy-phase {
+  fill: #345f65;
+  font-size: 9px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.buoyancy-phase {
+  fill: #294b50;
+}
+
+.buoyancy-tank-density {
+  fill: #4a696d;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.buoyancy-force-arrow line {
+  stroke-width: 3.5px;
+}
+
+.buoyancy-force-arrow text {
+  paint-order: stroke;
+  stroke: #f6faf9;
+  stroke-width: 4px;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.buoyancy-forces.highlighted .buoyancy-force-arrow line {
+  stroke-width: 5px;
+}
+
+.buoyancy-formula-panel rect {
+  fill: #163c40;
+  stroke: #315e62;
+}
+
+.buoyancy-formula-panel.highlighted rect {
+  fill: #0f5b64;
+  stroke: #4d969d;
+  stroke-width: 3px;
+}
+
+.buoyancy-formula-kicker {
+  fill: #9bc9c7;
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.buoyancy-formula,
+.buoyancy-density-formula {
+  fill: #f3f9f8;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 23px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.buoyancy-density-formula {
+  fill: #d7e7e6;
+  font-size: 17px;
+}
+
+.buoyancy-formula-result {
+  fill: #b8deda;
+  font-size: 12px;
+  font-weight: 760;
+  font-variant-numeric: tabular-nums;
+}
+
+.buoyancy-formula-result.comparison {
+  fill: #e1c690;
+}
+
+.buoyancy-narration-overlay .narration-step-title {
+  fill: #173033;
+}
+
+.buoyancy-narration-overlay .narration-step-caption {
+  fill: #526d70;
+}
+
+.buoyancy-liquid-presets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 9px;
+}
+
+.buoyancy-liquid-presets button {
+  min-width: 0;
+  height: 25px;
+  padding: 0 5px;
+  border: 1px solid #4b4e48;
+  border-radius: 4px;
+  color: #aeb2aa;
+  background: #272825;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.buoyancy-liquid-presets button:hover:not(:disabled) {
+  border-color: #6a6f67;
+  color: #e2e5dd;
+}
+
+.buoyancy-liquid-presets button.active {
+  border-color: #4a8684;
+  color: #9ed2ce;
+  background: #203a3a;
+}
+
+.buoyancy-toggle-parameter {
+  padding-bottom: 17px;
+}
+
+.buoyancy-control-label {
+  display: block;
+  margin-bottom: 9px;
+  color: #dfe1db;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.buoyancy-switch-control {
+  width: 100%;
+  height: 38px;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 38px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px 0 8px;
+  border: 1px solid #4a4c47;
+  border-radius: 6px;
+  color: #d9dcd4;
+  background: #292a27;
+  font-size: 12px;
+  font-weight: 680;
+  text-align: left;
+}
+
+.buoyancy-switch-control:hover {
+  border-color: #646760;
+  background: #30312e;
+}
+
+.buoyancy-switch-control.enabled {
+  border-color: #3f726c;
+}
+
+.buoyancy-switch-control > svg {
+  color: #747a72;
+}
+
+.buoyancy-switch-control.enabled > svg {
+  color: #75bcb5;
+}
+
+.buoyancy-switch-track {
+  width: 34px;
+  height: 18px;
+  display: block;
+  padding: 2px;
+  border: 1px solid #565953;
+  border-radius: 9px;
+  background: #1f201e;
+}
+
+.buoyancy-switch-track span {
+  width: 12px;
+  height: 12px;
+  display: block;
+  border-radius: 50%;
+  background: #8c9087;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+
+.buoyancy-switch-control.enabled .buoyancy-switch-track span {
+  background: #61aaa2;
+  transform: translateX(16px);
+}
+
+.buoyancy-measurements .buoyancy-measurement-heading {
+  grid-column: 1 / -1;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 9px;
+  background: #203a3d;
+}
+
+.buoyancy-measurements .buoyancy-measurement-heading dt,
+.buoyancy-measurements .buoyancy-measurement-heading dd {
+  color: #87cbc7;
+}
+
+.buoyancy-measurements .buoyancy-measurement-heading.object {
+  background: #3b3022;
+}
+
+.buoyancy-measurements .buoyancy-measurement-heading.object dt,
+.buoyancy-measurements .buoyancy-measurement-heading.object dd {
+  color: #e5bd7a;
+}
+
+.buoyancy-measurements .buoyancy-measurement-heading.comparison {
+  background: #2e3c2c;
+}
+
+.buoyancy-measurements .buoyancy-measurement-heading.comparison dt,
+.buoyancy-measurements .buoyancy-measurement-heading.comparison dd {
+  color: #b8d09c;
+}
+
+.buoyancy-measurements .buoyancy-measurement-heading dd {
+  font-size: 13px;
+}
+
+.buoyancy-workbench:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 68px;
+  overflow: hidden;
+}
+
+.buoyancy-workbench:fullscreen .topbar,
+.buoyancy-workbench:fullscreen .parameter-panel {
+  display: none;
+}
+
+.buoyancy-workbench:fullscreen .workspace {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.buoyancy-workbench:fullscreen .buoyancy-stage-area {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  order: initial;
+  display: flex;
+  padding: 54px 32px 24px;
+  background-color: var(--surface-app);
+  background-image: radial-gradient(#343631 0.8px, transparent 0.8px);
+  background-size: 16px 16px;
+}
+
+.buoyancy-workbench:fullscreen .buoyancy-canvas-transform {
+  max-height: calc(100vh - 146px);
+}
+
+.buoyancy-workbench:fullscreen .buoyancy-canvas-transform.is-landscape {
+  max-width: calc((100vh - 146px) * 16 / 9);
+}
+
+.buoyancy-workbench:fullscreen .buoyancy-stage-meta {
+  top: 14px;
+}
+
+.buoyancy-workbench:fullscreen .playback-bar {
+  position: relative;
+  order: initial;
+  display: grid;
+  height: 68px;
+}
+
+@media (max-width: 1100px) {
+  .buoyancy-pack-badge {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .buoyancy-workbench .stage-area {
+    min-height: 520px;
+  }
+
+  .buoyancy-workbench.ratio-landscape .stage-area {
+    height: 340px;
+    min-height: 340px;
+  }
+
+  .buoyancy-stage-meta > span {
+    display: none;
+  }
+
+  .buoyancy-stage-meta {
+    justify-content: flex-end;
+  }
+
+  .buoyancy-canvas-toolbar {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .buoyancy-canvas-transform,
+  .buoyancy-switch-track span {
+    transition: none;
   }
 }

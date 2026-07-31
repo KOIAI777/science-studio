@@ -137,13 +137,13 @@ P0 不允许自由添加物体、关节或约束。
 | 产品 | 权益 | 状态 |
 |---|---|---|
 | Free Starter | 4 个基础实验和完整课堂展示 | 四个初中力学与电学实验现已开放 |
-| Middle School Physics Foundations | 约 8 个初中物理实验 | Early Access 已开放；`DC Circuits: Series and Parallel` 现可解锁，后续通过验证的同包实验加入 |
+| Middle School Physics Foundations | 计划约 15 个初中物理实验 | Early Access 已开放；DC Circuits、Waves 与 Density & Buoyancy 已发布，后续通过验证的同包实验继续加入 |
 | High School Mechanics | 约 8 个高中力学实验 | 后续验证 |
 | Mechanics Complete | 初中与高中力学合集 | 后续验证 |
 
 Free Starter 固定为四个实验：Inclined Plane & Friction、Energy Track、Forces & Motion 和 Ohm's Law Lab。Ohm's Law Lab 只提供一个 source、一个 resistor、一个 switch 的理想单回路；不包含串联、并联、混联、多电阻、任意布线或探针表。这些能力保留给付费旗舰 `DC Circuits: Series and Parallel`。
 
-四个免费实验保持匿名开放。教师邮箱 Magic Link、一次性 Waffo Pancake Checkout、签名 Webhook、订单与 entitlement 已接入，`DC Circuits: Series and Parallel` 通过教师账户的 active entitlement 打开。当前不销售订阅；同包后续实验只有在完成课堂和科学验证后才加入。
+四个免费实验保持匿名开放。教师邮箱 Magic Link、一次性 Waffo Pancake Checkout、签名 Webhook、订单与 entitlement 已接入；DC Circuits、Waves 和 Density & Buoyancy 共用教师账户的 active 实验包权益。当前不销售订阅；同包后续实验只有在完成课堂和科学验证后才加入。
 
 初步价格假设：
 
@@ -170,7 +170,7 @@ P0 不实现：
 - 学生账户、作业、提交、成绩和统计。
 - 完整教师仪表板或学校采购流程。
 
-当前已进入 P1 内容生产：完成 `DC Circuits: Series & Parallel` 的三种固定拓扑、支路测量、等效电阻、KCL/KVL 对照和双语讲解。它作为 `Middle School Physics Foundations` 的第 1 个付费内容模板存在，使用 Waffo Pancake 测试 Checkout 验证教师购买闭环。
+当前已进入 P1 内容生产：`DC Circuits: Series & Parallel`、`Waves: Frequency, Wavelength & Speed` 和 `Density & Buoyancy: Float, Sink or Suspend` 是前三个付费模板。浮力实验提供同一物体的双流体对照、真实排液体积、动态受力与漂浮/悬浮/下沉过程。三个实验共用 `Middle School Physics Foundations` 权益，并使用同一 Waffo Pancake Checkout 验证教师购买闭环。
 
 ## 7. 验收条件
 
@@ -182,6 +182,7 @@ P0 不实现：
 - 同一参数和绝对时间重复采样得到相同结果。
 - 教师可以完成每个实验的引导式讲解并返回目录。
 - DC Circuits 在 single、series、parallel 三种拓扑下满足 Ohm's law、KCL、KVL 与功率守恒；目录卡明确显示实验包权益但不提供未开放的购买操作。
+- Density & Buoyancy 的浮力、排液体积、阻力和槽底支持力来自同一求解状态，默认水中上浮、油中下沉，受力方向与运动状态一致。
 
 ## 8. 下一步验证
 
@@ -189,6 +190,6 @@ P0 不实现：
 2. 找 5 位英语物理教师观察他们如何在真实讲解中使用。
 3. 找教师验证 `Energy Track` 的能量账本、`Forces & Motion` 的静摩擦阈值，以及 Ohm's Law Lab 的单回路讲解是否清楚。
 4. 验证教师是否能区分免费 Ohm's Law Lab 与付费 `DC Circuits: Series and Parallel` 的拓扑、分支和测量能力。
-5. 验证教师是否能按主题找到内容，以及是否愿意购买 5-8 个实验组成的学段实验包。
+5. 验证教师是否能按主题找到内容，以及是否愿意购买逐步扩展至约 15 个实验的完整初中物理包。
 
 北极星指标暂定为：每周完成的课堂实验演示次数。

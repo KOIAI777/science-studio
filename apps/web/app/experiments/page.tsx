@@ -9,9 +9,11 @@ export const metadata: Metadata = {
   alternates: {canonical: "/experiments"},
   openGraph: {
     title: "Interactive Physics Experiment Library",
-    description: "Classroom-ready middle-school physics experiments across mechanics and electricity.",
+    description: "Classroom-ready middle-school physics experiments across mechanics, electricity, waves, and fluids.",
     url: "/experiments",
+    images: [{url: "/opengraph-image", width: 1200, height: 630, alt: "Science Studio interactive physics experiment library"}],
   },
+  twitter: {card: "summary_large_image", title: "Interactive Physics Experiment Library", description: "Classroom-ready middle-school physics experiments across mechanics, electricity, waves, and fluids.", images: ["/opengraph-image"]},
 };
 
 interface ExperimentsPageProps {
@@ -19,7 +21,7 @@ interface ExperimentsPageProps {
 }
 
 const grades = new Set<GradeLevel>(["elementary", "middle", "high"]);
-const subjects = new Set<SubjectArea>(["mechanics", "electricity", "waves"]);
+const subjects = new Set<SubjectArea>(["mechanics", "electricity", "waves", "fluids"]);
 
 function first(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] : value;

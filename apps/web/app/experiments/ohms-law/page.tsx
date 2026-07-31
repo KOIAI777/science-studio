@@ -1,4 +1,5 @@
 import type {Metadata} from "next";
+import {ExperimentStructuredData} from "../../../components/experiment-structured-data";
 import {OhmsLawWorkbench} from "../../../components/ohms-law-workbench";
 
 const pageTitle = "Free Ohm's Law Lab";
@@ -31,5 +32,5 @@ export const metadata: Metadata = {
 };
 
 export default function OhmsLawExperimentPage() {
-  return <OhmsLawWorkbench />;
+  return <><ExperimentStructuredData name={pageTitle} description={description} path="/experiments/ohms-law" image={previewImage.url} teaches={["Voltage", "Current", "Resistance", "Ohm's law"]} lessonMinutes={10} isFree /><OhmsLawWorkbench /></>;
 }

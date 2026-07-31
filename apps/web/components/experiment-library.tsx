@@ -26,10 +26,11 @@ const subjectLabels: Record<SubjectArea, string> = {
   mechanics: "Mechanics",
   electricity: "Electricity",
   waves: "Waves",
+  fluids: "Fluids",
 };
 
 // Only expose a filter when the public library has released work in that category.
-const visibleSubjects: SubjectArea[] = ["mechanics", "electricity"];
+const visibleSubjects: SubjectArea[] = ["mechanics", "electricity", "waves", "fluids"];
 
 function buildCatalogHref(filters: CatalogQuery, overrides: Partial<CatalogQuery>) {
   const next = {...filters, ...overrides};
@@ -62,6 +63,14 @@ const experimentPreviewImages: Record<string, {src: string; alt: string}> = {
   "dc-circuits": {
     src: "/experiments/dc-circuits-diagram.png",
     alt: "Actual Science Studio output comparing a series circuit, equivalent resistance, total current, and selected component measurements.",
+  },
+  waves: {
+    src: "/experiments/waves-classroom-diagram.png",
+    alt: "Actual Science Studio traveling-wave output comparing frequency, wavelength, and wave speed.",
+  },
+  "density-buoyancy": {
+    src: "/experiments/density-buoyancy-classroom-diagram.png",
+    alt: "Actual Science Studio density and buoyancy output comparing the same object in water and oil.",
   },
 };
 
@@ -124,7 +133,7 @@ export function ExperimentLibrary({catalog, filters}: {catalog: CatalogPage; fil
         <div className="library-breadcrumb"><Link href="/"><ArrowLeft size={14} />Home</Link><span>/</span><span>Experiment library</span></div>
         <section className="library-heading">
           <div><span className="section-kicker">Experiment library</span><h1>Interactive physics experiments, ready for class.</h1></div>
-          <p>Four free middle-school lessons are ready to present today. Browse the released mechanics and electricity topics; new subjects appear here only when they are classroom-ready.</p>
+          <p>Four free middle-school lessons and three paid pack experiments are ready to present. Browse mechanics, electricity, waves, and fluids; new topics appear here only when they are classroom-ready.</p>
         </section>
 
         <section className="library-toolbar" aria-label="Experiment filters">

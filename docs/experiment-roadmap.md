@@ -68,15 +68,25 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 
 现有 `Middle School Mechanics` 名称不能准确容纳电路和波。开始销售前应评估改名为 `Middle School Physics Foundations`。
 
-首批候选：
+计划约 15 个付费实验，按课堂需求分批发布。当前优先候选：
 
 1. DC Circuits: Series and Parallel。
 2. Waves: Frequency, Wavelength and Speed。
 3. Density and Buoyancy。
 4. Levers and Balance。
 5. Momentum and Collisions: Basics。
+6. Electrical Power and Energy。
+7. Electromagnets。
+8. Magnetic Fields and Current。
+9. Sound: Pitch, Loudness and Speed。
+10. Reflection and Refraction。
+11. Lenses and Image Formation。
+12. Springs and Hooke's Law。
+13. Heat Transfer。
+14. Particle Model of Matter。
+15. Gas Pressure and Temperature。
 
-至少完成其中 5 个并通过教师试用后，才开放 Early Access。实验包权益是内容访问权，不包含学生账户、成绩或班级管理。
+Early Access 已开放，当前包含前三个实验；达到 5 个后再根据教师重复使用和付费反馈调整价格。实验包权益是内容访问权，不包含学生账户、成绩或班级管理。
 
 ### 3.3 High School Mechanics
 
@@ -122,7 +132,9 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 - 模板 ID：`mechanics.energy-track`
 - 主要学段：Elementary / Middle school；高中可切换定量模式
 - 权益：Free Starter
-- 建议时长：10-12 分钟
+- 建议时长：15 分钟
+- 状态：第三个付费实验 MVP 已实现
+- 详细合同：[density-buoyancy.md](templates/density-buoyancy.md)
 - 状态：已实现首版
 - 详细合同：[energy-track.md](templates/energy-track.md)
 
@@ -263,6 +275,8 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 - 主要学段：Middle school / High school
 - 权益：Middle School Physics Foundations
 - 建议时长：10-12 分钟
+- 状态：第二个付费实验 MVP 已实现
+- 详细合同：[traveling-wave.md](templates/traveling-wave.md)
 
 教学目标：建立 amplitude、frequency、period、wavelength 和 wave speed 的关系，并区分介质运动与波的传播。
 
@@ -279,17 +293,19 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 - 模板 ID：`fluids.density-buoyancy`
 - 主要学段：Elementary / Middle school
 - 权益：Middle School Physics Foundations
-- 建议时长：10-12 分钟
+- 建议时长：15 分钟
+- 状态：第三个付费实验 MVP 已实现
+- 详细合同：[density-buoyancy.md](templates/density-buoyancy.md)
 
 教学目标：区分 mass、volume 和 density，使用 Archimedes' principle 预测浮起、悬浮或下沉。
 
-参数：物体质量、体积或材料预设、流体密度和重力加速度。物体形状使用固定规则几何体，不做流体动力学。
+参数：物体质量、体积、两种流体密度和重力加速度。物体形状使用固定立方体，提供 oil、water 与 salt water 流体预设。
 
-测量值：物体密度、排开体积、浮力、重力、视重和浸没比例。画面显示液面、排液体积和竖直受力图。
+测量值：物体密度、排开体积、浮力、重力、合力和浸没比例。画面显示液面、排液体积、漂浮平衡线和竖直受力图。
 
 默认讲解：计算密度 -> 比较物体与流体 -> 预测状态 -> 标注浮力和重力 -> 观察平衡位置 -> 验证排液关系。
 
-模型边界：只计算静水平衡；不模拟波浪、黏性阻力、倾覆、渗水或不规则自由表面。
+模型边界：均匀刚性立方体在静止、均匀、不可压缩流体中做一维竖直运动；包含固定系数二次阻力和槽底支持力，不模拟波浪、飞溅、表面张力、倾覆、渗水、旋转、水平运动或不规则自由表面。
 
 ### 5.10 Rotation & Torque
 
@@ -375,10 +391,11 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 ### 阶段 2：验证首批付费内容
 
 1. DC Circuits 首个付费 MVP 已完成，进入教师验证。
-2. 开发 Projectile Motion。
-3. 开发 Collision Lab。
-4. 根据初中教师反馈在 Waves 与 Density/Buoyancy 中选择下一项。
-5. 满足 5 个同包实验、重复课堂使用和教师付费反馈后再接 Waffo Pancake。
+2. Waves 第二个付费 MVP 已完成，进入教师验证。
+3. Density and Buoyancy 第三个付费 MVP 已完成，进入教师验证。
+4. 开发 Momentum and Collisions: Basics。
+5. 开发 Levers and Balance。
+6. 达到 5 个同包实验后，根据重复课堂使用和教师付费反馈决定下一批顺序与价格。
 
 ### 阶段 3：扩展高阶实验
 

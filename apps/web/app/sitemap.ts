@@ -10,5 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {url: `${siteUrl}/experiments/energy-track`, changeFrequency: "monthly", priority: 0.9},
     {url: `${siteUrl}/experiments/forces-and-motion`, changeFrequency: "monthly", priority: 0.9},
     {url: `${siteUrl}/experiments/ohms-law`, changeFrequency: "monthly", priority: 0.9},
+    {url: `${siteUrl}/experiments/dc-circuits`, changeFrequency: "monthly", priority: 0.8},
+    {url: `${siteUrl}/experiments/waves`, changeFrequency: "monthly", priority: 0.8},
+    {url: `${siteUrl}/experiments/density-buoyancy`, changeFrequency: "monthly", priority: 0.8},
   ];
 }

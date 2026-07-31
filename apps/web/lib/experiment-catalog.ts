@@ -1,5 +1,5 @@
 export type GradeLevel = "elementary" | "middle" | "high";
-export type SubjectArea = "mechanics" | "electricity" | "waves";
+export type SubjectArea = "mechanics" | "electricity" | "waves" | "fluids";
 export type ExperimentAvailability = "free" | "pack" | "planned";
 
 export interface ExperimentCatalogItem {
@@ -12,7 +12,7 @@ export interface ExperimentCatalogItem {
   availability: ExperimentAvailability;
   lessonMinutes: number;
   concepts: string[];
-  preview: "incline" | "lever" | "motion" | "energy" | "circuit" | "projectile" | "collision" | "orbit" | "waves";
+  preview: "incline" | "lever" | "motion" | "energy" | "circuit" | "projectile" | "collision" | "orbit" | "waves" | "buoyancy";
   published?: boolean;
   sortOrder?: number;
 }
@@ -77,6 +77,30 @@ export const experimentCatalog: ExperimentCatalogItem[] = [
     lessonMinutes: 15,
     concepts: ["Series Circuits", "Parallel Circuits", "Equivalent Resistance", "Kirchhoff's Laws"],
     preview: "circuit",
+  },
+  {
+    id: "middle-traveling-wave",
+    slug: "waves",
+    title: "Waves: Frequency, Wavelength & Speed",
+    summary: "Measure a traveling wave and compare how frequency changes wavelength at a fixed speed.",
+    gradeLevel: "middle",
+    subject: "waves",
+    availability: "pack",
+    lessonMinutes: 12,
+    concepts: ["Amplitude", "Frequency", "Wavelength", "Wave Speed"],
+    preview: "waves",
+  },
+  {
+    id: "middle-density-buoyancy",
+    slug: "density-buoyancy",
+    title: "Density & Buoyancy: Float, Sink or Suspend",
+    summary: "Compare the same object in two fluids and connect displaced volume to buoyant force.",
+    gradeLevel: "middle",
+    subject: "fluids",
+    availability: "pack",
+    lessonMinutes: 15,
+    concepts: ["Density", "Buoyant Force", "Displacement", "Archimedes' Principle"],
+    preview: "buoyancy",
   },
 ];
 

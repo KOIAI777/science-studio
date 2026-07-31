@@ -305,7 +305,7 @@ GET    /api/entitlements
 
 ### 阶段 D：验证后扩展
 
-模板扩展遵循 [实验模板路线](experiment-roadmap.md)：先用 Energy Track 和 Forces & Motion 完成 Free Starter，再依次验证 DC Circuits、Projectile Motion 和 One-dimensional Collision。根据重复课堂使用、模板请求和付费数据决定后续内容，不预先建设通用编辑器。
+模板扩展遵循 [实验模板路线](experiment-roadmap.md)：Free Starter 已由四个实验组成；付费内容已有 DC Circuits、Waves 与 Density/Buoyancy，下一批依次验证 Momentum/Collisions 和 Levers/Balance。根据重复课堂使用、模板请求和付费数据决定后续内容，不预先建设通用编辑器。
 
 ## 15. 主要风险
 
