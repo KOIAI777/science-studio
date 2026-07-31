@@ -1,5 +1,5 @@
 import {describe, expect, it} from "vitest";
-import {formatAccountRole, normalizeAuthReturnPath} from "./auth";
+import {formatAccountRole, normalizeAuthReturnPath, parseAuthConfirmation} from "./auth";
 
 describe("normalizeAuthReturnPath", () => {
   it("keeps local application paths", () => {
@@ -18,6 +18,33 @@ describe("normalizeAuthReturnPath", () => {
 
   it("defaults missing return paths to the account page", () => {
     expect(normalizeAuthReturnPath(undefined)).toBe("/account");
+  });
+});
+
+describe("parseAuthConfirmation", () => {
+  it("accepts an email token hash", () => {
+    expect(parseAuthConfirmation({tokenHash: "token-hash", type: "email"})).toEqual({
+      kind: "token_hash",
+      tokenHash: "token-hash",
+    });
+  });
+
+  it("keeps compatibility with PKCE authorization codes", () => {
+    expect(parseAuthConfirmation({code: "authorization-code"})).toEqual({
+      kind: "code",
+      code: "authorization-code",
+    });
+  });
+
+  it("rejects token hashes without the email verification type", () => {
+    expect(parseAuthConfirmation({tokenHash: "token-hash", type: "recovery"})).toBeNull();
+    expect(parseAuthConfirmation({tokenHash: "token-hash"})).toBeNull();
+  });
+
+  it("rejects missing, file, and oversized credentials", () => {
+    expect(parseAuthConfirmation({})).toBeNull();
+    expect(parseAuthConfirmation({code: new File([], "code")})).toBeNull();
+    expect(parseAuthConfirmation({code: "x".repeat(2049)})).toBeNull();
   });
 });
 
