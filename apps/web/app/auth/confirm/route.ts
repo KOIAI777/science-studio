@@ -4,6 +4,7 @@ import {normalizeAuthReturnPath} from "../../../lib/auth";
 import {getSupabaseEnvironment, isSupabaseConfigured} from "../../../lib/supabase/config";
 
 export async function GET(request: NextRequest) {
+  const code = request.nextUrl.searchParams.get("code");
   const tokenHash = request.nextUrl.searchParams.get("token_hash");
   const type = request.nextUrl.searchParams.get("type");
   const next = normalizeAuthReturnPath(request.nextUrl.searchParams.get("next"));
@@ -12,7 +13,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL("/login?error=configuration", request.url));
   }
 
-  if (!tokenHash || type !== "email") {
+  const hasTokenHash = Boolean(tokenHash && type === "email");
+  if (!code && !hasTokenHash) {
     return NextResponse.redirect(new URL("/auth/error", request.url));
   }
 
@@ -30,6 +32,8 @@ export async function GET(request: NextRequest) {
     },
   });
 
-  const {error} = await supabase.auth.verifyOtp({type: "email", token_hash: tokenHash});
+  const {error} = code
+    ? await supabase.auth.exchangeCodeForSession(code)
+    : await supabase.auth.verifyOtp({type: "email", token_hash: tokenHash as string});
   return error ? NextResponse.redirect(new URL("/auth/error", request.url)) : response;
 }

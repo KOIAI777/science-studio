@@ -21,8 +21,8 @@
 
 1. 用户在 `/login` 输入邮箱。
 2. 服务端调用 Supabase `signInWithOtp` 发送 Magic Link。
-3. 邮件模板把 `TokenHash` 发送到 `/auth/confirm`。
-4. Route Handler 调用 `verifyOtp`，把认证会话写入 HTTP-only 相关 Cookie。
+3. 免费层默认邮件模板把 PKCE `code` 带回 `/auth/confirm`；配置自有 SMTP 后，也可启用仓库中的 `TokenHash` 模板。
+4. Route Handler 分别调用 `exchangeCodeForSession` 或 `verifyOtp`，把认证会话写入 HTTP-only 相关 Cookie。
 5. Next.js `proxy.ts` 在请求期间调用 `getClaims()` 验证并刷新会话。
 6. `/account` 再调用 `getUser()` 获取当前用户，并通过 RLS 读取其 profile。
 
@@ -52,9 +52,9 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<local publishable or anon key>
 1. 在 Supabase Dashboard 创建项目。
 2. 从 Connect 面板复制 Project URL 与 Publishable key；不要把 secret/service role key 放入 `NEXT_PUBLIC_*`。
 3. Auth URL Configuration 中把正式站点设为 Site URL，并加入本地和正式 `/auth/confirm` Redirect URL。
-4. Auth Email Templates 的 Magic Link 模板复制 `supabase/templates/magic-link.html` 内容。
+4. 免费层先保留 Supabase 默认 Magic Link 模板；应用回调已支持其 PKCE `code` 流程。
 5. 执行 `supabase/migrations/20260731045101_create_auth_profiles.sql`，或通过正式 migration 流程推送。
-6. 正式发送邮件前配置自有 SMTP；Supabase 默认邮件服务只适合低频测试。
+6. 正式发送邮件前配置自有 SMTP，再启用 `supabase/templates/magic-link.html` 品牌模板；Supabase 默认邮件服务只适合低频测试。
 
 ## 5. 支付接入顺序
 
