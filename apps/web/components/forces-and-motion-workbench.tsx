@@ -43,6 +43,7 @@ import {
   getNarrationStepStart,
   resolveNarrationFrame,
 } from "../lib/narration";
+import {CanvasTextSizeControls} from "./canvas-text-size-controls";
 
 const FPS = 30;
 
@@ -1142,6 +1143,7 @@ export function ForcesAndMotionWorkbench() {
                   >{ratio}</button>
                 ))}
               </div>
+              <CanvasTextSizeControls locale={locale} />
               <button className="canvas-tool-button" type="button" onClick={() => changeZoom(-0.25)} disabled={zoom <= 0.5} aria-label={copy.viewport.zoomOut} title={copy.viewport.zoomOut}><ZoomOut /></button>
               <output className="canvas-zoom-value" aria-live="polite">{Math.round(zoom * 100)}%</output>
               <button className="canvas-tool-button" type="button" onClick={() => changeZoom(0.25)} disabled={zoom >= 2.5} aria-label={copy.viewport.zoomIn} title={copy.viewport.zoomIn}><ZoomIn /></button>

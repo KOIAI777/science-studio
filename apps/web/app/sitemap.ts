@@ -13,5 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {url: `${siteUrl}/experiments/dc-circuits`, changeFrequency: "monthly", priority: 0.8},
     {url: `${siteUrl}/experiments/waves`, changeFrequency: "monthly", priority: 0.8},
     {url: `${siteUrl}/experiments/density-buoyancy`, changeFrequency: "monthly", priority: 0.8},
+    {url: `${siteUrl}/experiments/momentum-collisions`, changeFrequency: "monthly", priority: 0.8},
   ];
 }

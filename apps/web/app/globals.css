@@ -1020,6 +1020,134 @@ a {
   text-transform: uppercase;
 }
 
+.stage-meta-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stage-area svg text {
+  transform-box: fill-box;
+  transform-origin: left center;
+  scale: var(--canvas-text-local-scale, var(--canvas-text-scale, 1));
+}
+
+.stage-area svg text[text-anchor="middle"] {
+  transform-origin: center;
+}
+
+.stage-area svg text[text-anchor="end"] {
+  transform-origin: right center;
+}
+
+/* Keep structural copy stable while teachers enlarge readings and equations. */
+.stage-area svg :is(
+  .canvas-kicker,
+  .canvas-eyebrow,
+  .canvas-title,
+  .canvas-subtitle,
+  .canvas-footnote,
+  .dc-assumptions,
+  .dc-footnote,
+  .dc-section-label,
+  .track-height-label,
+  .track-return-label,
+  .ohms-status-pill,
+  .ohms-section-heading,
+  .ohms-section-note,
+  .ohms-meter-formula,
+  .wave-canvas-heading,
+  .buoyancy-eyebrow,
+  .buoyancy-title,
+  .buoyancy-subtitle,
+  .buoyancy-object-summary,
+  .collision-eyebrow,
+  .collision-title,
+  .collision-subtitle,
+  .collision-status,
+  .collision-conserved-badge,
+  .collision-panel-kicker,
+  .collision-column-title,
+  .collision-track-label,
+  .collision-cart-label,
+  .narration-step-number,
+  .narration-step-title,
+  .narration-step-caption,
+  .canvas-text-static
+) {
+  --canvas-text-local-scale: 1;
+}
+
+.stage-area svg :is(
+  .dc-comparison,
+  .dc-equation-card,
+  .energy-force-guide,
+  .energy-legend,
+  .energy-equation-visual,
+  .formula-block,
+  .ohms-circuit,
+  .ohms-graph,
+  .ohms-equation-readout,
+  .forces-threshold,
+  .forces-motion-scene,
+  .forces-equation,
+  .forces-graphs,
+  .wave-formula-panel,
+  .buoyancy-formula-panel,
+  .collision-formula-panel
+) {
+  --canvas-text-local-scale: clamp(0.9, var(--canvas-text-scale, 1), 1.25);
+}
+
+.canvas-text-controls {
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  padding: 1px;
+  border: 1px solid #4b4e48;
+  border-radius: 5px;
+  color: #d4d7cf;
+  background: #20211f;
+  pointer-events: auto;
+}
+
+.canvas-text-button {
+  width: 26px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  color: #d7dad2;
+  background: transparent;
+  font-size: 10px;
+  font-weight: 780;
+}
+
+.canvas-text-button:hover:not(:disabled) {
+  color: #fff;
+  background: #3a3c37;
+}
+
+.canvas-text-button:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+.canvas-text-button:disabled {
+  color: #666962;
+}
+
+.canvas-text-value {
+  width: 35px;
+  color: #b8bcb3;
+  font-size: 9px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
 .output-frame {
   position: relative;
   height: 100%;
@@ -4849,6 +4977,576 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .buoyancy-canvas-transform,
   .buoyancy-switch-track span {
+    transition: none;
+  }
+}
+
+/* Momentum collision cart laboratory */
+.collision-pack-badge {
+  min-height: 21px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  border: 1px solid #4a7271;
+  border-radius: 4px;
+  color: #a9d8d3;
+  background: #1d3030;
+  font-size: 9px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.collision-stage-area {
+  isolation: isolate;
+}
+
+.collision-stage-meta {
+  z-index: 4;
+  align-items: center;
+  pointer-events: none;
+}
+
+.collision-canvas-toolbar {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px;
+  border: 1px solid #4b4e48;
+  border-radius: 6px;
+  color: #cfd2ca;
+  background: rgb(24 25 23 / 94%);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 18%);
+  pointer-events: auto;
+}
+
+.collision-canvas-transform {
+  position: relative;
+  height: 100%;
+  max-height: 680px;
+  aspect-ratio: 9 / 16;
+  flex: 0 1 auto;
+  transform-origin: center;
+  transition: transform 140ms ease;
+  outline: none;
+}
+
+.collision-canvas-transform.is-landscape {
+  width: 100%;
+  height: auto;
+  max-width: 1200px;
+  max-height: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.collision-canvas-transform.can-pan {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.collision-canvas-transform.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.collision-canvas-transform:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.collision-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+  border: 1px solid #bdc8c1;
+  box-shadow: 0 22px 50px rgb(22 37 38 / 15%);
+}
+
+.collision-canvas text {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+.collision-eyebrow {
+  fill: #55716e;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.collision-title {
+  fill: #192f31;
+  font-size: 34px;
+  font-weight: 790;
+}
+
+.collision-subtitle {
+  fill: #607370;
+  font-size: 13px;
+  font-weight: 540;
+}
+
+.collision-status rect {
+  fill: #263c42;
+  stroke: #48636a;
+}
+
+.collision-status circle {
+  fill: #efb158;
+}
+
+.collision-status text {
+  fill: #f1f6f4;
+  font-size: 10px;
+  font-weight: 820;
+}
+
+.collision-status .collision-status-phase {
+  fill: #b9cbc8;
+  font-size: 9px;
+  font-weight: 680;
+}
+
+.collision-track-scene {
+  transition: opacity 150ms ease;
+}
+
+.collision-track-scene.highlighted .collision-track {
+  stroke: #456a6d;
+  stroke-width: 7px;
+}
+
+.collision-track {
+  stroke: #6d7977;
+  stroke-width: 5px;
+  stroke-linecap: round;
+}
+
+.collision-track-tick {
+  stroke: #8d9996;
+  stroke-width: 1.5px;
+}
+
+.collision-track-label {
+  fill: #667470;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.collision-cart {
+  filter: drop-shadow(0 7px 6px rgb(37 50 49 / 15%));
+}
+
+.collision-cart-window {
+  fill: rgb(240 248 245 / 78%);
+  stroke: rgb(18 48 48 / 26%);
+}
+
+.collision-cart-label {
+  fill: #fff;
+  font-size: 9px;
+  font-weight: 820;
+}
+
+.collision-wheel {
+  fill: #273438;
+  stroke: #f1f4f1;
+  stroke-width: 3px;
+}
+
+.collision-velocity line {
+  stroke-width: 4px;
+  stroke-linecap: round;
+}
+
+.collision-velocity text {
+  paint-order: stroke;
+  stroke: #f6f9f5;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  font-size: 11px;
+  font-weight: 820;
+}
+
+.collision-velocity.zero text {
+  fill: #66716e;
+}
+
+.collision-impact circle:first-child {
+  fill: #efb158;
+  opacity: 0.18;
+  stroke: #d2852f;
+  stroke-width: 3px;
+}
+
+.collision-impact circle:nth-child(2) {
+  fill: #fff3d8;
+  stroke: #d2852f;
+  stroke-width: 2px;
+}
+
+.collision-impact text {
+  fill: #8b541b;
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.collision-no-impact {
+  fill: #a54634;
+  paint-order: stroke;
+  stroke: #f6f9f5;
+  stroke-width: 6px;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.collision-ledger > rect {
+  fill: #f8faf8;
+  stroke: #b9c6c2;
+}
+
+.collision-ledger.highlighted > rect {
+  fill: #eef8f5;
+  stroke: #4d8b86;
+  stroke-width: 3px;
+}
+
+.collision-panel-kicker {
+  fill: #4c6865;
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.collision-column-title {
+  fill: #273f40;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.collision-momentum-row > text:first-child {
+  fill: #475b59;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.collision-momentum-row > line:first-of-type {
+  stroke: #d0d9d5;
+  stroke-width: 1.5px;
+}
+
+.collision-momentum-row .collision-zero-axis {
+  stroke: #879591;
+  stroke-width: 1.5px;
+}
+
+.collision-momentum-value {
+  fill: #293d3d;
+  paint-order: stroke;
+  stroke: #f8faf8;
+  stroke-width: 4px;
+  font-size: 8px;
+  font-weight: 760;
+  font-variant-numeric: tabular-nums;
+}
+
+.collision-conserved-badge {
+  color: #287d70;
+}
+
+.collision-conserved-badge text {
+  fill: #287d70;
+  font-size: 9px;
+  font-weight: 820;
+}
+
+.collision-formula-panel > rect {
+  fill: #263c42;
+  stroke: #48636a;
+}
+
+.collision-formula-panel.highlighted > rect {
+  fill: #214f50;
+  stroke: #5ba29b;
+  stroke-width: 3px;
+}
+
+.collision-formula-panel .collision-panel-kicker {
+  fill: #a8c8c4;
+}
+
+.collision-equation {
+  fill: #f6faf8;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 26px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.collision-equation.secondary {
+  fill: #cfdbd8;
+  font-size: 19px;
+}
+
+.collision-formula-result {
+  fill: #75d2c8;
+  font-size: 13px;
+  font-weight: 780;
+  font-variant-numeric: tabular-nums;
+}
+
+.collision-formula-result.cart-b {
+  fill: #f1a27d;
+}
+
+.collision-formula-panel line {
+  stroke: #526970;
+}
+
+.collision-energy-result {
+  fill: #f0cc8e;
+  font-size: 9px;
+  font-weight: 720;
+  font-variant-numeric: tabular-nums;
+}
+
+.collision-narration-overlay .narration-step-title {
+  fill: #193234;
+}
+
+.collision-narration-overlay .narration-step-caption {
+  fill: #526c69;
+}
+
+.collision-presets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 9px;
+}
+
+.collision-presets button {
+  min-width: 0;
+  min-height: 28px;
+  padding: 3px 4px;
+  border: 1px solid #4b4e48;
+  border-radius: 4px;
+  color: #aeb2aa;
+  background: #272825;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.collision-presets button:hover {
+  border-color: #6a6f67;
+  color: #e2e5dd;
+}
+
+.collision-presets button.active {
+  border-color: #4d8882;
+  color: #a8d7d1;
+  background: #203a39;
+}
+
+.collision-toggle-parameter {
+  padding-bottom: 17px;
+}
+
+.collision-control-label {
+  display: block;
+  margin-bottom: 9px;
+  color: #dfe1db;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.collision-switch-control {
+  width: 100%;
+  height: 38px;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 38px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px 0 8px;
+  border: 1px solid #4a4c47;
+  border-radius: 6px;
+  color: #d9dcd4;
+  background: #292a27;
+  font-size: 12px;
+  font-weight: 680;
+  text-align: left;
+}
+
+.collision-switch-control:hover {
+  border-color: #646760;
+  background: #30312e;
+}
+
+.collision-switch-control.enabled {
+  border-color: #42766f;
+}
+
+.collision-switch-control > svg {
+  color: #747a72;
+}
+
+.collision-switch-control.enabled > svg {
+  color: #75bcb5;
+}
+
+.collision-switch-track {
+  width: 34px;
+  height: 18px;
+  display: block;
+  padding: 2px;
+  border: 1px solid #565953;
+  border-radius: 9px;
+  background: #1f201e;
+}
+
+.collision-switch-track span {
+  width: 12px;
+  height: 12px;
+  display: block;
+  border-radius: 50%;
+  background: #8c9087;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+
+.collision-switch-control.enabled .collision-switch-track span {
+  background: #61aaa2;
+  transform: translateX(16px);
+}
+
+.collision-measurements .collision-measurement-heading {
+  grid-column: 1 / -1;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 9px;
+}
+
+.collision-measurements .collision-measurement-heading dt,
+.collision-measurements .collision-measurement-heading dd {
+  color: inherit;
+}
+
+.collision-measurements .collision-measurement-heading.system {
+  color: #c3d8d4;
+  background: #293d40;
+}
+
+.collision-measurements .collision-measurement-heading.cart-a {
+  color: #8ed8d0;
+  background: #203b3b;
+}
+
+.collision-measurements .collision-measurement-heading.cart-b {
+  color: #efaa87;
+  background: #402d27;
+}
+
+.collision-measurements .collision-measurement-heading dd {
+  font-size: 12px;
+}
+
+.collision-measurements .collision-energy-measurement {
+  grid-column: 1 / -1;
+}
+
+.collision-measurements .collision-energy-measurement dd {
+  color: #e7bf7e;
+}
+
+.momentum-collision-workbench:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 68px;
+  overflow: hidden;
+}
+
+.momentum-collision-workbench:fullscreen .topbar,
+.momentum-collision-workbench:fullscreen .parameter-panel {
+  display: none;
+}
+
+.momentum-collision-workbench:fullscreen .workspace {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.momentum-collision-workbench:fullscreen .collision-stage-area {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  order: initial;
+  display: flex;
+  padding: 54px 32px 24px;
+  background-color: var(--surface-app);
+  background-image: radial-gradient(#343631 0.8px, transparent 0.8px);
+  background-size: 16px 16px;
+}
+
+.momentum-collision-workbench:fullscreen .collision-canvas-transform {
+  max-height: calc(100vh - 146px);
+}
+
+.momentum-collision-workbench:fullscreen .collision-canvas-transform.is-landscape {
+  max-width: calc((100vh - 146px) * 16 / 9);
+}
+
+.momentum-collision-workbench:fullscreen .collision-stage-meta {
+  top: 14px;
+}
+
+.momentum-collision-workbench:fullscreen .playback-bar {
+  position: relative;
+  order: initial;
+  display: grid;
+  height: 68px;
+}
+
+@media (max-width: 1100px) {
+  .collision-pack-badge {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .momentum-collision-workbench .stage-area {
+    min-height: 520px;
+  }
+
+  .momentum-collision-workbench.ratio-landscape .stage-area {
+    height: 340px;
+    min-height: 340px;
+  }
+
+  .collision-stage-meta > span {
+    display: none;
+  }
+
+  .collision-stage-meta {
+    justify-content: flex-end;
+  }
+
+  .collision-canvas-toolbar {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collision-canvas-transform,
+  .collision-switch-track span,
+  .collision-track-scene {
     transition: none;
   }
 }

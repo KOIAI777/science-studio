@@ -18,7 +18,7 @@ function first(value: string | string[] | undefined) {
 }
 
 function experimentPath(value: string | undefined) {
-  return value === "/experiments/waves" || value === "/experiments/density-buoyancy"
+  return value === "/experiments/waves" || value === "/experiments/density-buoyancy" || value === "/experiments/momentum-collisions"
     ? value
     : "/experiments/dc-circuits";
 }
@@ -26,6 +26,7 @@ function experimentPath(value: string | undefined) {
 function experimentLabel(path: string) {
   if (path === "/experiments/waves") return "Open Waves";
   if (path === "/experiments/density-buoyancy") return "Open Density & Buoyancy";
+  if (path === "/experiments/momentum-collisions") return "Open Momentum & Collisions";
   return "Open DC Circuits";
 }
 

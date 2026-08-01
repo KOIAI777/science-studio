@@ -44,6 +44,7 @@ import {
   type NarrationStepId,
   type NarrationTextOverrides,
 } from "../lib/narration";
+import {CanvasTextSizeControls} from "./canvas-text-size-controls";
 
 const FPS = 30;
 
@@ -662,7 +663,7 @@ export function ExperimentWorkbench() {
         <div className="stage-area">
           <div className="stage-meta">
             <span>{copy.stage.outputCanvas}</span>
-            <span>{copy.stage.format}</span>
+            <div className="stage-meta-actions"><span>{copy.stage.format}</span><CanvasTextSizeControls locale={locale} /></div>
           </div>
           <InclinedPlaneCanvas
             parameters={parameters}

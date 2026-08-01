@@ -7,7 +7,8 @@ values
   ('middle-ohms-law', 'ohms-law', 'Ohm''s Law Lab', 'Close a single circuit, measure current, and test how voltage and resistance are related.', 'middle', 'electricity', 'free', 10, array['Voltage', 'Current', 'Resistance', 'Ohm''s Law'], 'circuit', true, 40),
   ('middle-dc-circuits', 'dc-circuits', 'DC Circuits: Series & Parallel', 'Compare current, voltage, and power in three fixed DC circuit topologies.', 'middle', 'electricity', 'pack', 15, array['Series Circuits', 'Parallel Circuits', 'Equivalent Resistance', 'Kirchhoff''s Laws'], 'circuit', true, 50),
   ('middle-traveling-wave', 'waves', 'Waves: Frequency, Wavelength & Speed', 'Measure a traveling wave and compare how frequency changes wavelength at a fixed speed.', 'middle', 'waves', 'pack', 12, array['Amplitude', 'Frequency', 'Wavelength', 'Wave Speed'], 'waves', true, 60),
-  ('middle-density-buoyancy', 'density-buoyancy', 'Density & Buoyancy: Float, Sink or Suspend', 'Compare the same object in two fluids and connect displaced volume to buoyant force.', 'middle', 'fluids', 'pack', 15, array['Density', 'Buoyant Force', 'Displacement', 'Archimedes'' Principle'], 'buoyancy', true, 70)
+  ('middle-density-buoyancy', 'density-buoyancy', 'Density & Buoyancy: Float, Sink or Suspend', 'Compare the same object in two fluids and connect displaced volume to buoyant force.', 'middle', 'fluids', 'pack', 15, array['Density', 'Buoyant Force', 'Displacement', 'Archimedes'' Principle'], 'buoyancy', true, 70),
+  ('middle-momentum-collisions', 'momentum-collisions', 'Momentum & Collisions', 'Compare elastic and inelastic cart collisions using momentum, impulse, and kinetic energy.', 'middle', 'mechanics', 'pack', 15, array['Momentum', 'Impulse', 'Collisions', 'Energy Transfer'], 'collision', true, 80)
 on conflict (id) do update set
   slug = excluded.slug,
   title = excluded.title,

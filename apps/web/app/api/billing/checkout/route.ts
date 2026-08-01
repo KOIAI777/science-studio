@@ -13,6 +13,7 @@ const PACK_EXPERIMENT_PATHS = new Set([
   "/experiments/dc-circuits",
   "/experiments/waves",
   "/experiments/density-buoyancy",
+  "/experiments/momentum-collisions",
 ]);
 
 function normalizeReturnTo(value: FormDataEntryValue | string | null | undefined) {

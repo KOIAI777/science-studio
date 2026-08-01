@@ -40,6 +40,7 @@ import Link from "next/link";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {workbenchCopy, type Locale} from "../lib/i18n";
 import {getNarrationDuration, getNarrationStepStart, resolveNarrationFrame} from "../lib/narration";
+import {CanvasTextSizeControls} from "./canvas-text-size-controls";
 
 const FPS = 30;
 const EXPERIMENT_DURATION_SECONDS = 8;
@@ -794,6 +795,7 @@ export function DcCircuitsWorkbench() {
             <div className="canvas-ratio-switch" role="group" aria-label={copy.viewport.ratio}>
               {(["9:16", "16:9"] as CanvasAspectRatio[]).map((ratio) => <button className={aspectRatio === ratio ? "active" : ""} type="button" aria-pressed={aspectRatio === ratio} title={ratio === "9:16" ? copy.viewport.portrait : copy.viewport.landscape} onClick={() => changeAspectRatio(ratio)} key={ratio}>{ratio}</button>)}
             </div>
+            <CanvasTextSizeControls locale={locale} />
             <button className="canvas-tool-button" type="button" onClick={() => changeZoom(-0.25)} disabled={zoom <= 0.5} aria-label={copy.viewport.zoomOut}><ZoomOut /></button>
             <output className="canvas-zoom-value" aria-live="polite">{Math.round(zoom * 100)}%</output>
             <button className="canvas-tool-button" type="button" onClick={() => changeZoom(0.25)} disabled={zoom >= 2.5} aria-label={copy.viewport.zoomIn}><ZoomIn /></button>

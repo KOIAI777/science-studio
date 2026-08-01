@@ -102,6 +102,18 @@ export const experimentCatalog: ExperimentCatalogItem[] = [
     concepts: ["Density", "Buoyant Force", "Displacement", "Archimedes' Principle"],
     preview: "buoyancy",
   },
+  {
+    id: "middle-momentum-collisions",
+    slug: "momentum-collisions",
+    title: "Momentum & Collisions",
+    summary: "Compare elastic and inelastic cart collisions using momentum, impulse, and kinetic energy.",
+    gradeLevel: "middle",
+    subject: "mechanics",
+    availability: "pack",
+    lessonMinutes: 15,
+    concepts: ["Momentum", "Impulse", "Collisions", "Energy Transfer"],
+    preview: "collision",
+  },
 ];
 
 export const EXPERIMENTS_PER_PAGE = 6;

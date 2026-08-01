@@ -42,6 +42,7 @@ import {
   getNarrationStepStart,
   resolveNarrationFrame,
 } from "../lib/narration";
+import {CanvasTextSizeControls} from "./canvas-text-size-controls";
 
 const FPS = 30;
 const EXPERIMENT_DURATION_SECONDS = 8;
@@ -442,8 +443,8 @@ function CircuitDiagram({x, y, width, height, state, locale, focus, compact = fa
         <line x1={left - 19} y1={batteryBottom} x2={left + 19} y2={batteryBottom} className="ohms-battery-negative" />
         <text x={left + 47} y={batteryTop + 6} className="ohms-polarity positive">+</text>
         <text x={left + 47} y={batteryBottom + 6} className="ohms-polarity">−</text>
-        <text x={compact ? left + 50 : left - 48} y={(batteryTop + batteryBottom) / 2 - 8} textAnchor={compact ? "start" : "end"} className="ohms-component-label">{copy.source}</text>
-        <text x={compact ? left + 50 : left - 48} y={(batteryTop + batteryBottom) / 2 + 17} textAnchor={compact ? "start" : "end"} className="ohms-component-value">{state ? `${formatNumber(state.sourceVoltageV, locale, 1)} V` : "--"}</text>
+        <text x={compact ? left + 50 : left - 4} y={(batteryTop + batteryBottom) / 2 - 8} textAnchor={compact ? "start" : "end"} className="ohms-component-label">{copy.source}</text>
+        <text x={compact ? left + 50 : left - 4} y={(batteryTop + batteryBottom) / 2 + 17} textAnchor={compact ? "start" : "end"} className="ohms-component-value">{state ? `${formatNumber(state.sourceVoltageV, locale, 1)} V` : "--"}</text>
         {!compact ? <text x={left + 47} y={batteryTop - 12} className="ohms-component-note">{copy.positiveTerminal}</text> : null}
       </g>
 
@@ -890,6 +891,7 @@ export function OhmsLawWorkbench() {
                   <button className={aspectRatio === ratio ? "active" : ""} type="button" aria-pressed={aspectRatio === ratio} title={ratio === "9:16" ? copy.viewport.portrait : copy.viewport.landscape} onClick={() => changeAspectRatio(ratio)} key={ratio}>{ratio}</button>
                 ))}
               </div>
+              <CanvasTextSizeControls locale={locale} />
               <button className="canvas-tool-button" type="button" onClick={() => changeZoom(-0.25)} disabled={zoom <= 0.5} aria-label={copy.viewport.zoomOut} title={copy.viewport.zoomOut}><ZoomOut /></button>
               <output className="canvas-zoom-value" aria-live="polite">{Math.round(zoom * 100)}%</output>
               <button className="canvas-tool-button" type="button" onClick={() => changeZoom(0.25)} disabled={zoom >= 2.5} aria-label={copy.viewport.zoomIn} title={copy.viewport.zoomIn}><ZoomIn /></button>

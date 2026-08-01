@@ -11,7 +11,8 @@
     "./ohms-law": "./src/ohms-law/index.ts",
     "./dc-circuits": "./src/dc-circuits/index.ts",
     "./traveling-wave": "./src/traveling-wave/index.ts",
-    "./buoyancy": "./src/buoyancy/index.ts"
+    "./buoyancy": "./src/buoyancy/index.ts",
+    "./momentum-collision": "./src/momentum-collision/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

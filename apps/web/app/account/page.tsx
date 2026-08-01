@@ -63,7 +63,7 @@ export default async function AccountPage() {
           </article>
           <article className="account-section">
             <span className="account-section-icon"><BookOpen size={18} /></span>
-            <div><span className="account-label">Your library</span><h2>{entitlement ? "Middle School Physics Foundations" : "Free Starter"}</h2><p>{entitlement ? "Your paid pack is active. DC Circuits, Waves, and Density & Buoyancy are ready in the released experiment library." : "Four classroom experiments are available without a purchase. Your paid packs will appear here after checkout."}</p><Link href="/experiments">Open experiment library</Link></div>
+            <div><span className="account-label">Your library</span><h2>{entitlement ? "Middle School Physics Foundations" : "Free Starter"}</h2><p>{entitlement ? "Your paid pack is active. DC Circuits, Waves, Density & Buoyancy, and Momentum & Collisions are ready in the released experiment library." : "Four classroom experiments are available without a purchase. Your paid packs will appear here after checkout."}</p><Link href="/experiments">Open experiment library</Link></div>
           </article>
         </section>
       </main>

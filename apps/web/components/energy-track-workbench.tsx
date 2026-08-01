@@ -36,6 +36,7 @@ import {
   getNarrationStepStart,
   resolveNarrationFrame,
 } from "../lib/narration";
+import {CanvasTextSizeControls} from "./canvas-text-size-controls";
 
 const FPS = 30;
 
@@ -524,7 +525,7 @@ function EnergyTrackCanvas({
             <rect x={budgetX + potentialWidth} y="868" width={kineticWidth} height="34" fill="#ef6548" />
             <rect x={budgetX + potentialWidth + kineticWidth} y="868" width={thermalWidth} height="34" fill="#d8972f" />
           </g>
-          <g transform="translate(72 936)">
+          <g className="energy-legend" transform="translate(72 936)">
             <rect width="12" height="12" rx="2" fill="#2b63ad" /><text x="20" y="11" className="energy-legend-label">{copy.potential}</text><text x="176" y="11" textAnchor="end" className="energy-legend-value">{state ? formatNumber(state.potentialEnergyJ, locale, 1) : "--"} J</text>
             <rect x="204" width="12" height="12" rx="2" fill="#ef6548" /><text x="224" y="11" className="energy-legend-label">{copy.kinetic}</text><text x="376" y="11" textAnchor="end" className="energy-legend-value">{state ? formatNumber(state.kineticEnergyJ, locale, 1) : "--"} J</text>
             <rect x="404" width="12" height="12" rx="2" fill="#d8972f" /><text x="424" y="11" className="energy-legend-label">{copy.thermal}</text><text x="576" y="11" textAnchor="end" className="energy-legend-value">{state ? formatNumber(state.thermalEnergyJ, locale, 1) : "--"} J</text>
@@ -726,7 +727,7 @@ export function EnergyTrackWorkbench() {
 
       <section className="workspace">
         <div className="stage-area">
-          <div className="stage-meta"><span>{commonCopy.stage.outputCanvas}</span><span>{commonCopy.stage.format}</span></div>
+          <div className="stage-meta"><span>{commonCopy.stage.outputCanvas}</span><div className="stage-meta-actions"><span>{commonCopy.stage.format}</span><CanvasTextSizeControls locale={locale} /></div></div>
           <EnergyTrackCanvas parameters={parameters} state={state} locale={locale} narrationStep={mode === "narration" ? narrationFrame.step : undefined} narrationStepIndex={mode === "narration" ? narrationFrame.index : undefined} narrationStepCount={mode === "narration" ? narrationSteps.length : undefined} />
         </div>
 
