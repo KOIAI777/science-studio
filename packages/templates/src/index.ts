@@ -6,3 +6,5 @@ export * from "./dc-circuits/index";
 export * from "./traveling-wave/index";
 export * from "./buoyancy/index";
 export * from "./momentum-collision/index";
+export * from "./ray-optics/index";
+export * from "./lever-balance/index";

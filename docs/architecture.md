@@ -2,7 +2,7 @@
 
 更新日期：2026-07-30
 
-> 当前产品边界以 [product-spec.md](product-spec.md) 为准：教师直接在网页中匿名使用四个免费实验；`DC Circuits: Series & Parallel` 是 Middle School Physics Foundations 的首个 Early Access 内容。Waffo Pancake 测试 Checkout、签名 Webhook、订单和线上权益校验已实现；视频导出、云渲染和生产支付发布仍未实现。
+> 当前产品边界以 [product-spec.md](product-spec.md) 为准：教师直接在网页中匿名使用四个免费实验；Middle School Physics Foundations 已发布 DC Circuits、Waves、Density & Buoyancy、Momentum & Collisions、Refraction & Total Internal Reflection 和 Levers & Balance 六个 Early Access 实验。Waffo Pancake 测试 Checkout、签名 Webhook、订单和线上权益校验已实现；视频导出、云渲染和生产支付发布仍未实现。
 
 ## 1. 架构目标
 
@@ -107,6 +107,7 @@ P0 原则：
 - 自由落体、抛体和斜面优先使用解析解。
 - 需要积分时使用固定时间步和固定迭代次数。
 - 一维碰撞使用守恒关系和恢复系数直接计算。
+- 杠杆平衡先使用 `tau = F d_perpendicular` 解析水平释放状态，再以 `1/240 s` 固定步长积分 `I alpha = sum(tau)`；载荷重力保持竖直，力臂按 `d cos(theta)` 更新，并在 `±12°` 完全非弹性机械限位处停止。
 - 验证版不接 Rapier 或 myPhysicsLab；只有解析解无法覆盖真实需求时才增加适配器。
 - 项目记录 `templateVersion` 和 `engineVersion`。
 - 时间使用整数帧或整数微秒，避免累积浮点时间漂移。
@@ -305,7 +306,7 @@ GET    /api/entitlements
 
 ### 阶段 D：验证后扩展
 
-模板扩展遵循 [实验模板路线](experiment-roadmap.md)：Free Starter 已由四个实验组成；付费内容已有 DC Circuits、Waves 与 Density/Buoyancy，下一批依次验证 Momentum/Collisions 和 Levers/Balance。根据重复课堂使用、模板请求和付费数据决定后续内容，不预先建设通用编辑器。
+模板扩展遵循 [实验模板路线](experiment-roadmap.md)：Free Starter 固定为四个实验；付费内容已完成 DC Circuits、Waves、Density/Buoyancy、Momentum/Collisions、Refraction/Total Internal Reflection 与 Levers/Balance 六个模板。后续根据重复课堂使用、模板请求和付费数据决定第七个主题，不预先建设通用编辑器。
 
 ## 15. 主要风险
 

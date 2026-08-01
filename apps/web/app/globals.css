@@ -1070,6 +1070,21 @@ a {
   .collision-column-title,
   .collision-track-label,
   .collision-cart-label,
+  .optics-canvas-heading,
+  .optics-index-card,
+  .optics-interface-label,
+  .optics-medium-label,
+  .optics-normal-label,
+  .optics-panel-kicker,
+  .optics-regime-label,
+  .optics-brightness-note,
+  .optics-construction-note,
+  .lever-canvas-heading,
+  .lever-release-card,
+  .lever-panel-kicker,
+  .lever-outcome-label,
+  .lever-formula-note,
+  .lever-construction-note,
   .narration-step-number,
   .narration-step-title,
   .narration-step-caption,
@@ -1094,9 +1109,24 @@ a {
   .forces-graphs,
   .wave-formula-panel,
   .buoyancy-formula-panel,
-  .collision-formula-panel
+  .collision-formula-panel,
+  .optics-formula-panel,
+  .lever-load-value,
+  .lever-forces,
+  .lever-arm-layer,
+  .lever-moment-layer,
+  .lever-formula-panel
 ) {
   --canvas-text-local-scale: clamp(0.9, var(--canvas-text-scale, 1), 1.25);
+}
+
+.stage-area svg :is(
+  .lever-beam-label,
+  .lever-pivot-label,
+  .lever-stop-label,
+  .lever-load-kicker
+) {
+  --canvas-text-local-scale: clamp(0.9, var(--canvas-text-scale, 1), 1.5);
 }
 
 .canvas-text-controls {
@@ -5547,6 +5577,1359 @@ a {
   .collision-canvas-transform,
   .collision-switch-track span,
   .collision-track-scene {
+    transition: none;
+  }
+}
+
+/* Refraction and total internal reflection ray laboratory */
+.optics-pack-badge {
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 7px;
+  border: 1px solid #4f625f;
+  border-radius: 4px;
+  color: #b8d4d0;
+  background: #253634;
+  font-size: 9px;
+  font-weight: 760;
+  white-space: nowrap;
+}
+
+.optics-stage-area {
+  isolation: isolate;
+}
+
+.optics-stage-meta {
+  z-index: 4;
+  align-items: center;
+  pointer-events: none;
+}
+
+.optics-canvas-toolbar {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px;
+  border: 1px solid #4b4e48;
+  border-radius: 6px;
+  color: #cfd2ca;
+  background: rgb(24 25 23 / 94%);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 18%);
+  pointer-events: auto;
+}
+
+.optics-canvas-transform {
+  position: relative;
+  height: 100%;
+  max-height: 680px;
+  aspect-ratio: 9 / 16;
+  flex: 0 1 auto;
+  transform-origin: center;
+  transition: transform 140ms ease;
+  outline: none;
+}
+
+.optics-canvas-transform.is-landscape {
+  width: 100%;
+  height: auto;
+  max-width: 1200px;
+  max-height: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.optics-canvas-transform.can-pan {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.optics-canvas-transform.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.optics-canvas-transform:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.optics-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+  border: 1px solid #bdc8c1;
+  background: #f7f8f4;
+  box-shadow: 0 22px 50px rgb(22 37 38 / 15%);
+}
+
+.optics-canvas text {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+.optics-eyebrow {
+  fill: #55716e;
+  font-size: 11px;
+  font-weight: 820;
+}
+
+.optics-title {
+  fill: #192f31;
+  font-size: 32px;
+  font-weight: 790;
+}
+
+.optics-subtitle {
+  fill: #607370;
+  font-size: 12px;
+  font-weight: 540;
+}
+
+.optics-index-card rect {
+  fill: #263c42;
+  stroke: #48636a;
+}
+
+.optics-index-card text {
+  fill: #e9f2ef;
+  font-size: 11px;
+  font-weight: 740;
+  font-variant-numeric: tabular-nums;
+}
+
+.optics-interface {
+  stroke: #435a58;
+  stroke-width: 5px;
+}
+
+.optics-medium-label {
+  fill: #3f5d59;
+  paint-order: stroke;
+  stroke: #f7f8f4;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  font-size: 10px;
+  font-weight: 820;
+}
+
+.optics-interface-group .optics-medium-label:nth-of-type(2) {
+  stroke: #dcefed;
+}
+
+.optics-interface-label,
+.optics-normal-label {
+  fill: #667a77;
+  font-size: 9px;
+  font-weight: 810;
+}
+
+.optics-incidence-point {
+  fill: #fff;
+  stroke: #253e3d;
+  stroke-width: 4px;
+}
+
+.optics-normal {
+  stroke: #708581;
+  stroke-width: 2px;
+  stroke-dasharray: 9 8;
+}
+
+.optics-ray line {
+  stroke-width: 5px;
+  stroke-linecap: round;
+}
+
+.optics-ray text {
+  paint-order: stroke;
+  stroke-width: 6px;
+  stroke-linejoin: round;
+  font-size: 9px;
+  font-weight: 860;
+}
+
+.optics-ray.incident line,
+.optics-angle-arc.incident {
+  stroke: #d8892d;
+}
+
+.optics-ray.incident text,
+.optics-angle-value.incident {
+  fill: #a96420;
+  stroke: #f7f8f4;
+}
+
+.optics-ray.reflected line,
+.optics-angle-arc.reflected {
+  stroke: #d85f45;
+}
+
+.optics-ray.reflected text,
+.optics-angle-value.reflected {
+  fill: #b34531;
+  stroke: #f7f8f4;
+}
+
+.optics-ray.refracted line,
+.optics-angle-arc.refracted {
+  stroke: #168d8b;
+}
+
+.optics-ray.refracted text,
+.optics-angle-value.refracted {
+  fill: #087572;
+  stroke: #dcefed;
+}
+
+.optics-angle-arc {
+  fill: none;
+  stroke-width: 2.5px;
+}
+
+.optics-angle-value {
+  paint-order: stroke;
+  stroke-width: 6px;
+  stroke-linejoin: round;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 760;
+  font-variant-numeric: tabular-nums;
+}
+
+.optics-tir-badge {
+  color: #a64634;
+}
+
+.optics-tir-badge text {
+  fill: #a64634;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.optics-formula-panel > rect {
+  fill: #263c42;
+  stroke: #48636a;
+  stroke-width: 2px;
+}
+
+.optics-formula-panel.regime-critical > rect,
+.optics-formula-panel.regime-total-internal-reflection > rect {
+  fill: #324044;
+  stroke: #d8892d;
+}
+
+.optics-formula-panel > line {
+  stroke: #526970;
+  stroke-width: 1.5px;
+}
+
+.optics-panel-kicker,
+.optics-regime-label {
+  fill: #a8c8c4;
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.optics-regime-label {
+  fill: #efc381;
+}
+
+.optics-equation {
+  fill: #f6faf8;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 25px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.optics-substitution {
+  fill: #bdceca;
+  font-size: 11px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.optics-result {
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.optics-result.reflection {
+  fill: #f09a83;
+}
+
+.optics-result.refraction {
+  fill: #75d2c8;
+}
+
+.optics-critical-label,
+.optics-critical-value {
+  fill: #d4dfdc;
+  font-size: 10px;
+  font-weight: 780;
+  font-variant-numeric: tabular-nums;
+}
+
+.optics-bend-result {
+  fill: #f0cc8e;
+  font-size: 12px;
+  font-weight: 760;
+}
+
+.optics-brightness-note {
+  fill: #9eb0ad;
+  font-size: 8px;
+  font-weight: 620;
+}
+
+.optics-construction-note {
+  fill: #617773;
+  font-size: 8px;
+  font-weight: 820;
+}
+
+.optics-narration-overlay .narration-step-title {
+  fill: #193234;
+}
+
+.optics-narration-overlay .narration-step-caption {
+  fill: #526c69;
+}
+
+.optics-preset-parameter,
+.optics-toggle-parameter {
+  padding-bottom: 17px;
+}
+
+.optics-control-label {
+  display: block;
+  margin-bottom: 9px;
+  color: #dfe1db;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.optics-presets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.optics-presets button {
+  min-width: 0;
+  min-height: 30px;
+  padding: 4px;
+  border: 1px solid #4b4e48;
+  border-radius: 4px;
+  color: #aeb2aa;
+  background: #272825;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.optics-presets button:hover {
+  border-color: #6a6f67;
+  color: #e2e5dd;
+}
+
+.optics-presets button.active {
+  border-color: #4d8882;
+  color: #a8d7d1;
+  background: #203a39;
+}
+
+.optics-critical-preset {
+  width: 100%;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 5px;
+  padding: 5px 8px;
+  border: 1px solid #625b48;
+  border-radius: 4px;
+  color: #dbc8a6;
+  background: #302e27;
+  font-size: 9px;
+  font-weight: 720;
+  text-align: left;
+}
+
+.optics-critical-preset:hover,
+.optics-critical-preset.active {
+  border-color: #a88147;
+  color: #f0cc8e;
+  background: #40372b;
+}
+
+.optics-critical-preset span {
+  flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
+}
+
+.optics-switch-control {
+  width: 100%;
+  height: 38px;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 38px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px 0 8px;
+  border: 1px solid #4a4c47;
+  border-radius: 6px;
+  color: #d9dcd4;
+  background: #292a27;
+  font-size: 12px;
+  font-weight: 680;
+  text-align: left;
+}
+
+.optics-switch-control:hover {
+  border-color: #646760;
+  background: #30312e;
+}
+
+.optics-switch-control.enabled {
+  border-color: #42766f;
+}
+
+.optics-switch-control > svg {
+  color: #747a72;
+}
+
+.optics-switch-control.enabled > svg {
+  color: #75bcb5;
+}
+
+.optics-switch-track {
+  width: 34px;
+  height: 18px;
+  display: block;
+  padding: 2px;
+  border: 1px solid #565953;
+  border-radius: 9px;
+  background: #1f201e;
+}
+
+.optics-switch-track span {
+  width: 12px;
+  height: 12px;
+  display: block;
+  border-radius: 50%;
+  background: #8c9087;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+
+.optics-switch-control.enabled .optics-switch-track span {
+  background: #61aaa2;
+  transform: translateX(16px);
+}
+
+.optics-measurements .optics-measurement-heading {
+  grid-column: 1 / -1;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 9px;
+  color: #c3d8d4;
+  background: #293d40;
+}
+
+.optics-measurements .optics-measurement-heading.regime-critical,
+.optics-measurements .optics-measurement-heading.regime-total-internal-reflection {
+  color: #f0cc8e;
+  background: #40372b;
+}
+
+.optics-measurements .optics-measurement-heading dt,
+.optics-measurements .optics-measurement-heading dd {
+  color: inherit;
+}
+
+.optics-measurements .optics-measurement-heading dd {
+  font-size: 11px;
+  text-align: right;
+}
+
+.ray-optics-workbench:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 68px;
+  overflow: hidden;
+}
+
+.ray-optics-workbench:fullscreen .topbar,
+.ray-optics-workbench:fullscreen .parameter-panel {
+  display: none;
+}
+
+.ray-optics-workbench:fullscreen .workspace {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.ray-optics-workbench:fullscreen .optics-stage-area {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  order: initial;
+  display: flex;
+  padding: 54px 32px 24px;
+  background-color: var(--surface-app);
+  background-image: radial-gradient(#343631 0.8px, transparent 0.8px);
+  background-size: 16px 16px;
+}
+
+.ray-optics-workbench:fullscreen .optics-canvas-transform {
+  max-height: calc(100vh - 146px);
+}
+
+.ray-optics-workbench:fullscreen .optics-canvas-transform.is-landscape {
+  max-width: calc((100vh - 146px) * 16 / 9);
+}
+
+.ray-optics-workbench:fullscreen .optics-stage-meta {
+  top: 14px;
+}
+
+.ray-optics-workbench:fullscreen .playback-bar {
+  position: relative;
+  order: initial;
+  display: grid;
+  height: 68px;
+}
+
+@media (max-width: 1100px) {
+  .optics-pack-badge {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .ray-optics-workbench .stage-area {
+    min-height: 520px;
+  }
+
+  .ray-optics-workbench.ratio-landscape .stage-area {
+    height: 340px;
+    min-height: 340px;
+  }
+
+  .optics-stage-meta > span {
+    display: none;
+  }
+
+  .optics-stage-meta {
+    justify-content: flex-end;
+  }
+
+  .optics-canvas-toolbar {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .optics-canvas-transform,
+  .optics-switch-track span {
+    transition: none;
+  }
+}
+
+/* Levers & Balance */
+
+.lever-pack-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 24px;
+  padding: 3px 8px;
+  border: 1px solid #6a5738;
+  border-radius: 4px;
+  color: #e3c18b;
+  background: #342f27;
+  font-size: 9px;
+  font-weight: 760;
+  white-space: nowrap;
+}
+
+.lever-stage-area {
+  container-type: size;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.lever-stage-meta {
+  right: 18px;
+  left: 18px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lever-canvas-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  padding: 3px;
+  border: 1px solid #474a44;
+  border-radius: 6px;
+  background: rgb(35 36 33 / 94%);
+  box-shadow: 0 8px 22px rgb(10 11 10 / 18%);
+}
+
+.lever-canvas-transform {
+  overflow: hidden;
+  border: 1px solid #b9c9c5;
+  border-radius: 5px;
+  background: #f7f8f4;
+  box-shadow: 0 18px 48px rgb(20 38 35 / 13%);
+  transform-origin: center;
+  transition: transform 180ms ease;
+  user-select: none;
+  outline: none;
+}
+
+.lever-canvas-transform.is-landscape {
+  width: min(calc(100cqw - 42px), calc((100cqh - 78px) * 16 / 9), 1120px);
+  max-height: none;
+  aspect-ratio: 16 / 9;
+}
+
+.lever-canvas-transform.is-portrait {
+  width: min(calc(100cqw - 42px), calc((100cqh - 78px) * 9 / 16), 430px);
+  max-height: none;
+  aspect-ratio: 9 / 16;
+}
+
+.lever-canvas-transform.can-pan {
+  cursor: grab;
+}
+
+.lever-canvas-transform.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.lever-canvas-transform:focus-visible {
+  box-shadow: 0 0 0 2px #6eb9b1, 0 18px 48px rgb(20 38 35 / 13%);
+}
+
+.lever-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.lever-canvas text {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: 0;
+}
+
+.lever-eyebrow {
+  fill: #51706b;
+  font-size: 11px;
+  font-weight: 820;
+}
+
+.lever-title {
+  fill: #17312e;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 29px;
+  font-weight: 700;
+}
+
+.lever-subtitle {
+  fill: #607873;
+  font-size: 11px;
+  font-weight: 580;
+}
+
+.lever-release-card rect {
+  fill: rgb(255 255 252 / 88%);
+  stroke: #b9cbc7;
+  stroke-width: 1.4px;
+}
+
+.lever-release-card.phase-rotating rect,
+.lever-release-card.phase-left-stop rect {
+  stroke: #d5a15e;
+}
+
+.lever-release-card.phase-right-stop rect {
+  stroke: #dc8c79;
+}
+
+.lever-release-card.phase-balanced rect {
+  stroke: #69aaa4;
+}
+
+.lever-release-card .lever-release-heading {
+  fill: #214f49;
+  font-size: 10px;
+  font-weight: 820;
+}
+
+.lever-release-card .lever-release-status {
+  fill: #214f49;
+  font-size: 13px;
+  font-weight: 880;
+}
+
+.lever-release-card.phase-rotating .lever-release-status,
+.lever-release-card.phase-left-stop .lever-release-status {
+  fill: #a56014;
+}
+
+.lever-release-card.phase-right-stop .lever-release-status {
+  fill: #b3422b;
+}
+
+.lever-release-card.phase-balanced .lever-release-status {
+  fill: #168d8b;
+}
+
+.lever-release-card .lever-release-angle {
+  fill: #17312e;
+  font-size: 12px;
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+}
+
+.lever-release-card .lever-release-note {
+  fill: #6a7b77;
+  font-size: 10px;
+  font-weight: 640;
+}
+
+.lever-beam {
+  stroke: #f9faf6;
+  stroke-width: 24px;
+  stroke-linecap: square;
+  filter: drop-shadow(0 4px 2px rgb(33 56 51 / 20%));
+}
+
+.lever-beam-tick {
+  stroke: #314641;
+  stroke-width: 1.5px;
+}
+
+.lever-beam-label {
+  fill: #4c625d;
+  font-size: 11px;
+  font-weight: 820;
+}
+
+.lever-pivot-label {
+  fill: #f3f8f5;
+  font-size: 11px;
+  font-weight: 860;
+}
+
+.lever-pivot {
+  fill: #203e3a;
+  stroke: #142c29;
+  stroke-width: 2px;
+}
+
+.lever-pivot-pin {
+  fill: #e8b861;
+  stroke: #17312e;
+  stroke-width: 4px;
+}
+
+.lever-ground {
+  stroke: #17312e;
+  stroke-width: 5px;
+  stroke-linecap: round;
+}
+
+.lever-stop-pad {
+  stroke: #82938f;
+  stroke-width: 9px;
+  stroke-linecap: square;
+}
+
+.lever-stop-pad.left.active {
+  stroke: #d8892d;
+  filter: drop-shadow(0 0 5px rgb(216 137 45 / 55%));
+}
+
+.lever-stop-pad.right.active {
+  stroke: #d85f45;
+  filter: drop-shadow(0 0 5px rgb(216 95 69 / 55%));
+}
+
+.lever-stop-label {
+  fill: #647873;
+  font-size: 11px;
+  font-weight: 820;
+}
+
+.lever-hanger {
+  stroke: #526a65;
+  stroke-width: 2px;
+  stroke-dasharray: 4 3;
+}
+
+.lever-load rect {
+  stroke-width: 2px;
+}
+
+.lever-load-left rect {
+  fill: #fbf2e5;
+  stroke: #d8892d;
+}
+
+.lever-load-right rect {
+  fill: #faece8;
+  stroke: #d85f45;
+}
+
+.lever-load-kicker {
+  fill: #61716d;
+  font-size: 10px;
+  font-weight: 820;
+}
+
+.lever-load-value {
+  fill: #1c3330;
+  font-size: 17px;
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+  paint-order: stroke;
+  stroke: #fffdfa;
+  stroke-width: 3px;
+}
+
+.lever-force line {
+  stroke-width: 4px;
+  stroke-linecap: round;
+}
+
+.lever-force.left line {
+  stroke: #d8892d;
+}
+
+.lever-force.right line {
+  stroke: #d85f45;
+}
+
+.lever-force text {
+  font-size: 11px;
+  font-weight: 820;
+  font-variant-numeric: tabular-nums;
+  paint-order: stroke;
+  stroke: #e5f1ef;
+  stroke-width: 5px;
+}
+
+.lever-force.left text,
+.lever-arm-value.left,
+.lever-moment-label.left {
+  fill: #a56014;
+}
+
+.lever-force.right text,
+.lever-arm-value.right,
+.lever-moment-label.right {
+  fill: #b3422b;
+}
+
+.lever-arm-line,
+.lever-arm-cap {
+  stroke-width: 2px;
+}
+
+.lever-arm-line.left,
+.lever-arm-cap.left {
+  stroke: #d8892d;
+}
+
+.lever-arm-line.right,
+.lever-arm-cap.right {
+  stroke: #d85f45;
+}
+
+.lever-arm-value {
+  font-size: 11px;
+  font-weight: 820;
+  font-variant-numeric: tabular-nums;
+  paint-order: stroke;
+  stroke: #f7f8f4;
+  stroke-width: 5px;
+}
+
+.lever-moment-arc {
+  fill: none;
+  stroke-width: 5px;
+  stroke-linecap: round;
+}
+
+.lever-moment-arc.left {
+  stroke: #d8892d;
+}
+
+.lever-moment-arc.right {
+  stroke: #d85f45;
+}
+
+.lever-moment-label {
+  font-size: 9px;
+  font-weight: 850;
+  paint-order: stroke;
+  stroke: #f7f8f4;
+  stroke-width: 5px;
+}
+
+.lever-formula-panel > rect {
+  fill: rgb(255 255 252 / 94%);
+  stroke: #b7c9c5;
+  stroke-width: 1.5px;
+  filter: drop-shadow(0 8px 12px rgb(31 64 58 / 12%));
+}
+
+.lever-formula-panel.outcome-balanced > rect {
+  stroke: #69aaa4;
+}
+
+.lever-formula-panel.outcome-counterclockwise > rect {
+  stroke: #d5a15e;
+}
+
+.lever-formula-panel.outcome-clockwise > rect {
+  stroke: #dc8c79;
+}
+
+.lever-formula-panel > line {
+  stroke: #d8e1de;
+  stroke-width: 1px;
+}
+
+.lever-panel-kicker,
+.lever-outcome-label {
+  fill: #54716c;
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.lever-formula-panel.outcome-balanced .lever-outcome-label {
+  fill: #168d8b;
+}
+
+.lever-formula-panel.outcome-counterclockwise .lever-outcome-label {
+  fill: #b8731f;
+}
+
+.lever-formula-panel.outcome-clockwise .lever-outcome-label {
+  fill: #bd4d37;
+}
+
+.lever-rule {
+  fill: #17312e;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.lever-calculation {
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.lever-calculation.left {
+  fill: #a56014;
+}
+
+.lever-calculation.right {
+  fill: #b3422b;
+}
+
+.lever-net-result {
+  fill: #17312e;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 21px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.lever-direction-result {
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.lever-comparison-label {
+  fill: #617672;
+  font-size: 8px;
+  font-weight: 820;
+}
+
+.lever-moment-bar-track {
+  fill: #e2e8e6;
+}
+
+.lever-moment-bar.left {
+  fill: #d8892d;
+}
+
+.lever-moment-bar.right {
+  fill: #d85f45;
+}
+
+.lever-question-result {
+  fill: #168d8b;
+  font-size: 12px;
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+}
+
+.lever-formula-note,
+.lever-construction-note {
+  fill: #6b7d79;
+  font-size: 9px;
+  font-weight: 720;
+}
+
+.lever-invalid {
+  fill: #b3422b;
+  font-size: 18px;
+  font-weight: 820;
+}
+
+.lever-narration-overlay .narration-step-title {
+  fill: #17312e;
+}
+
+.lever-narration-overlay .narration-step-caption {
+  fill: #526c67;
+}
+
+.lever-preset-parameter,
+.lever-question-parameter,
+.lever-toggle-parameter {
+  padding-bottom: 17px;
+}
+
+.lever-control-label {
+  display: block;
+  margin-bottom: 9px;
+  color: #dfe1db;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.lever-presets,
+.lever-question-modes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.lever-presets button,
+.lever-question-modes button {
+  min-width: 0;
+  min-height: 32px;
+  padding: 5px 4px;
+  border: 1px solid #4b4e48;
+  border-radius: 4px;
+  color: #afb4ac;
+  background: #272825;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.lever-presets button:hover,
+.lever-question-modes button:hover:not(:disabled) {
+  border-color: #747970;
+  color: #eef0e9;
+}
+
+.lever-question-modes button.active {
+  border-color: #4c8881;
+  color: #b0ddd7;
+  background: #203a38;
+}
+
+.lever-question-modes button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.lever-answer-toggle {
+  width: 100%;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 6px;
+  border: 1px solid #4c8881;
+  border-radius: 4px;
+  color: #b0ddd7;
+  background: #203a38;
+  font-size: 10px;
+  font-weight: 760;
+}
+
+.lever-answer-toggle.revealed {
+  border-color: #75613d;
+  color: #e3c18b;
+  background: #342f27;
+}
+
+.lever-question-help {
+  display: block;
+  margin-top: 7px;
+  color: #9da299;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.lever-masked-parameter .number-field {
+  opacity: 0.72;
+}
+
+.lever-switch-control {
+  width: 100%;
+  height: 38px;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 38px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px 0 8px;
+  border: 1px solid #4a4c47;
+  border-radius: 6px;
+  color: #d9dcd4;
+  background: #292a27;
+  font-size: 12px;
+  font-weight: 680;
+  text-align: left;
+}
+
+.lever-switch-control:hover {
+  border-color: #646760;
+  background: #30312e;
+}
+
+.lever-switch-control.enabled {
+  border-color: #42766f;
+}
+
+.lever-switch-control > svg {
+  color: #747a72;
+}
+
+.lever-switch-control.enabled > svg {
+  color: #75bcb5;
+}
+
+.lever-switch-track {
+  width: 34px;
+  height: 18px;
+  display: block;
+  padding: 2px;
+  border: 1px solid #565953;
+  border-radius: 9px;
+  background: #1f201e;
+}
+
+.lever-switch-track span {
+  width: 12px;
+  height: 12px;
+  display: block;
+  border-radius: 50%;
+  background: #8c9087;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+
+.lever-switch-control.enabled .lever-switch-track span {
+  background: #61aaa2;
+  transform: translateX(16px);
+}
+
+.lever-measurements .lever-measurement-heading {
+  grid-column: 1 / -1;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 9px;
+  color: #c4d9d5;
+  background: #293d40;
+}
+
+.lever-measurements .lever-measurement-heading.outcome-counterclockwise {
+  color: #e7bf82;
+  background: #40352a;
+}
+
+.lever-measurements .lever-measurement-heading.outcome-clockwise {
+  color: #efad9c;
+  background: #412e2b;
+}
+
+.lever-measurements .lever-measurement-heading dt,
+.lever-measurements .lever-measurement-heading dd {
+  color: inherit;
+}
+
+.lever-measurements .lever-measurement-heading dd {
+  font-size: 10px;
+  line-height: 1.25;
+  text-align: right;
+}
+
+.lever-net-measurement dd {
+  color: #9ed5ce;
+}
+
+.lever-timeline-wrap {
+  position: relative;
+  height: 42px;
+  min-width: 0;
+  display: flex;
+  align-items: flex-end;
+}
+
+.lever-timeline-phases {
+  position: absolute;
+  inset: 0 0 13px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2px;
+  pointer-events: none;
+}
+
+.lever-timeline-phases span {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  border: 1px solid #454742;
+  border-radius: 3px 3px 0 0;
+  color: #8c9188;
+  background: #262724;
+  font-size: 8px;
+  font-weight: 760;
+  text-transform: uppercase;
+}
+
+.lever-timeline-phases span:last-child {
+  border-color: #765b3d;
+  color: #e3c18b;
+  background: #342f27;
+}
+
+.lever-timeline {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.lever-balance-workbench:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 68px;
+  overflow: hidden;
+}
+
+.lever-balance-workbench:fullscreen .topbar,
+.lever-balance-workbench:fullscreen .parameter-panel {
+  display: none;
+}
+
+.lever-balance-workbench:fullscreen .workspace {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.lever-balance-workbench:fullscreen .lever-stage-area {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  order: initial;
+  display: flex;
+  padding: 54px 32px 24px;
+  background-color: var(--surface-app);
+  background-image: radial-gradient(#343631 0.8px, transparent 0.8px);
+  background-size: 16px 16px;
+}
+
+.lever-balance-workbench:fullscreen .lever-canvas-transform {
+  max-height: calc(100vh - 146px);
+}
+
+.lever-balance-workbench:fullscreen .lever-canvas-transform.is-landscape {
+  max-width: calc((100vh - 146px) * 16 / 9);
+}
+
+.lever-balance-workbench:fullscreen .lever-stage-meta {
+  top: 14px;
+}
+
+.lever-balance-workbench:fullscreen .playback-bar {
+  position: relative;
+  order: initial;
+  display: grid;
+  height: 68px;
+}
+
+@media (max-width: 1100px) {
+  .lever-pack-badge {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .lever-balance-workbench .stage-area {
+    min-height: 520px;
+  }
+
+  .lever-balance-workbench.ratio-landscape .stage-area {
+    height: 340px;
+    min-height: 340px;
+  }
+
+  .lever-stage-meta > span {
+    display: none;
+  }
+
+  .lever-stage-meta {
+    justify-content: flex-end;
+  }
+
+  .lever-canvas-toolbar {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lever-canvas-transform,
+  .lever-switch-track span {
     transition: none;
   }
 }

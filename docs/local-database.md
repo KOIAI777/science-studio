@@ -12,6 +12,6 @@ pnpm db:init
 - User / password: `postgres` / `postgres`
 - Next.js: `apps/web/.env.local` 中的 `DATABASE_URL`
 
-`pnpm db:init` 会执行首个目录迁移，然后执行 `supabase/seed.sql` 写入四个免费实验和三个付费实验包目录记录。它只用于新建的空数据库；迁移已执行后不要重复运行。已有数据库需先应用后续迁移，再重放幂等的 `supabase/seed.sql`，即可补齐或更新 `middle-ohms-law`、`middle-dc-circuits`、`middle-traveling-wave` 与 `middle-density-buoyancy` 目录记录。启用 `LOCAL_PAID_EXPERIMENT_PREVIEW=true` 时，本地目录直接读取代码内的预览数据，因此开发中的新付费实验不需要先同步远程 Supabase。
+`pnpm db:init` 会执行首个目录迁移，然后执行 `supabase/seed.sql` 写入四个免费实验和六个付费实验包目录记录。它只用于新建的空数据库；迁移已执行后不要重复运行。已有数据库需先应用后续迁移，再重放幂等的 `supabase/seed.sql`，即可补齐或更新目录记录。`20260801090000_add_optics_subject.sql` 为目录增加 `optics` subject 与 preview 约束；`middle-refraction-tir` 对应 `/experiments/refraction-total-internal-reflection`，`middle-levers-balance` 对应 `/experiments/levers-and-balance`。启用 `LOCAL_PAID_EXPERIMENT_PREVIEW=true` 时，本地目录直接读取代码内的预览数据，因此开发中的新付费实验不需要先同步远程 Supabase。
 
 生产环境不使用 `DATABASE_URL`。删除或不设置它后，应用读取 `NEXT_PUBLIC_SUPABASE_URL` 与 `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`，通过 Supabase Data API 查询同一张 `public.experiments` 表。

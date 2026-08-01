@@ -12,7 +12,9 @@
     "./dc-circuits": "./src/dc-circuits/index.ts",
     "./traveling-wave": "./src/traveling-wave/index.ts",
     "./buoyancy": "./src/buoyancy/index.ts",
-    "./momentum-collision": "./src/momentum-collision/index.ts"
+    "./momentum-collision": "./src/momentum-collision/index.ts",
+    "./ray-optics": "./src/ray-optics/index.ts",
+    "./lever-balance": "./src/lever-balance/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

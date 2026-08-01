@@ -14,6 +14,8 @@ const PACK_EXPERIMENT_PATHS = new Set([
   "/experiments/waves",
   "/experiments/density-buoyancy",
   "/experiments/momentum-collisions",
+  "/experiments/refraction-total-internal-reflection",
+  "/experiments/levers-and-balance",
 ]);
 
 function normalizeReturnTo(value: FormDataEntryValue | string | null | undefined) {

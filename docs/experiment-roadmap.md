@@ -86,7 +86,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 14. Particle Model of Matter。
 15. Gas Pressure and Temperature。
 
-Early Access 已开放，当前包含前三个实验；达到 5 个后再根据教师重复使用和付费反馈调整价格。实验包权益是内容访问权，不包含学生账户、成绩或班级管理。
+Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyancy、Momentum & Collisions、Refraction & Total Internal Reflection 和 Levers & Balance 六个实验；后续仍按教师重复使用和付费反馈决定开发顺序与价格。实验包权益是内容访问权，不包含学生账户、成绩或班级管理。
 
 ### 3.3 High School Mechanics
 
@@ -254,10 +254,12 @@ Early Access 已开放，当前包含前三个实验；达到 5 个后再根据�
 
 ### 5.7 One-dimensional Collision Lab
 
-- 模板 ID：`mechanics.collision-1d`
-- 主要学段：Middle school / High school
-- 权益：按讲解深度分别进入初中和高中包
-- 建议时长：12-15 分钟
+- 模板 ID：`mechanics.momentum-collision`
+- 主要学段：Middle school
+- 权益：Middle School Physics Foundations
+- 建议时长：15 分钟
+- 状态：第四个付费实验 MVP 已实现
+- 详细合同：[momentum-collisions.md](templates/momentum-collisions.md)
 
 教学目标：理解 momentum conservation、impulse、elastic/inelastic collision 和 kinetic-energy change。
 
@@ -307,7 +309,45 @@ Early Access 已开放，当前包含前三个实验；达到 5 个后再根据�
 
 模型边界：均匀刚性立方体在静止、均匀、不可压缩流体中做一维竖直运动；包含固定系数二次阻力和槽底支持力，不模拟波浪、飞溅、表面张力、倾覆、渗水、旋转、水平运动或不规则自由表面。
 
-### 5.10 Rotation & Torque
+### 5.10 Refraction & Total Internal Reflection
+
+- 模板 ID：`optics.refraction-tir`
+- 主要学段：Middle school
+- 权益：Middle School Physics Foundations
+- 建议时长：15 分钟
+- 状态：第五个付费实验 MVP 已实现
+- 详细合同：[refraction-total-internal-reflection.md](templates/refraction-total-internal-reflection.md)
+
+教学目标：从法线测量角度，验证反射定律和斯涅尔定律，计算临界角，并区分临界角状态与全反射。
+
+参数：入射角、两种介质的折射率、法线和角度标注开关。预设覆盖 Air to glass、Water to air 和 Glass to air。
+
+测量值：入射角、反射角、折射角、临界角、当前光路状态和两种介质中的相对光速。画面同时显示界面、法线、入射/反射/折射光线和公式面板。
+
+默认讲解：识别界面 -> 画出法线 -> 应用反射定律 -> 使用斯涅尔定律 -> 计算临界角 -> 检验全反射。
+
+模型边界：均匀各向同性介质与平面界面的几何光学；不模拟 Fresnel 能量比例、色散、偏振、吸收、透镜或多界面光路。播放只表示构图顺序，不表示光传播时间。
+
+### 5.11 Levers & Balance: Moments in Equilibrium
+
+- 模板 ID：`mechanics.lever-balance`
+- 主要学段：Middle school
+- 权益：Middle School Physics Foundations
+- 建议时长：15 分钟
+- 状态：第六个付费实验 MVP 已实现
+- 详细合同：[levers-and-balance.md](templates/levers-and-balance.md)
+
+教学目标：确定支点和垂直力臂，计算顺逆时针力矩，预测水平释放后的初始转向，并用力矩平衡原理求未知质量或距离。
+
+参数：左右质量、左右到支点距离、重力加速度，以及重力箭头和力矩箭头开关。预设覆盖平衡、左侧下沉和右侧下沉。
+
+测量值：两侧重力、随角度变化的两侧力矩、合力矩、横梁角度、角速度、方向判断、平衡所需右侧质量和平衡所需右侧距离。问题模式可隐藏右侧质量或距离，并同步遮蔽公式和测量区中的派生答案。
+
+默认讲解：确定支点 -> 标出重力 -> 测量垂直力臂 -> 计算力矩 -> 比较转向 -> 求解未知量。
+
+模型边界：分析阶段使用刚性水平横梁、中央无摩擦支点和点载荷；释放阶段按 `I alpha = sum(tau)` 固定步长积分，并在 `±12°` 完全非弹性机械限位处停止。横梁为理想轻质刚体，不模拟反弹、横梁弯曲或支点摩擦。
+
+### 5.12 Rotation & Torque
 
 - 模板 ID：`mechanics.rotation-torque`
 - 主要学段：High school
@@ -324,7 +364,7 @@ Early Access 已开放，当前包含前三个实验；达到 5 个后再根据�
 
 模型边界：单固定轴刚体；不处理三维进动、柔性结构或滚动接触。
 
-### 5.11 Mass-Spring Oscillator
+### 5.13 Mass-Spring Oscillator
 
 - 模板 ID：`mechanics.mass-spring`
 - 主要学段：High school
@@ -341,7 +381,7 @@ Early Access 已开放，当前包含前三个实验；达到 5 个后再根据�
 
 模型边界：理想线性弹簧和单自由度；阻尼模式不能继续显示无阻尼解析周期为精确结果。
 
-### 5.12 Gravity & Orbits
+### 5.14 Gravity & Orbits
 
 - 模板 ID：`mechanics.gravity-orbits`
 - 主要学段：High school
@@ -393,9 +433,10 @@ Early Access 已开放，当前包含前三个实验；达到 5 个后再根据�
 1. DC Circuits 首个付费 MVP 已完成，进入教师验证。
 2. Waves 第二个付费 MVP 已完成，进入教师验证。
 3. Density and Buoyancy 第三个付费 MVP 已完成，进入教师验证。
-4. 开发 Momentum and Collisions: Basics。
-5. 开发 Levers and Balance。
-6. 达到 5 个同包实验后，根据重复课堂使用和教师付费反馈决定下一批顺序与价格。
+4. Momentum and Collisions 第四个付费 MVP 已完成，进入教师验证。
+5. Refraction and Total Internal Reflection 第五个付费 MVP 已完成，进入教师验证。
+6. Levers and Balance 第六个付费 MVP 已完成，进入教师验证。
+7. 保持同一实验包与 `$9.90` Early Access 价格，按重复课堂使用、教师请求和付费反馈决定第七个主题。
 
 ### 阶段 3：扩展高阶实验
 

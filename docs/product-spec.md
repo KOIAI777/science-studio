@@ -56,7 +56,7 @@ Science Studio 是面向英语市场科学教师的课堂物理实验库。教�
 
 独立实验目录 `/experiments` 支持：
 
-- 当前按已有内容筛选：`All`、`Mechanics`、`Electricity`。学段显示在实验卡上；当一个新学段或主题至少有真实发布实验时，才增加对应筛选项。
+- 当前按已有内容筛选：`All`、`Mechanics`、`Electricity`、`Waves`、`Fluids`、`Optics`。学段显示在实验卡上；当一个新学段或主题至少有真实发布实验时，才增加对应筛选项。
 - 按标题、说明和概念搜索。
 - 每页展示 6 个实验，并在 URL 中保留学段、主题、关键词和页码。
 - 显示教学时长、核心概念和可用状态。
@@ -137,13 +137,13 @@ P0 不允许自由添加物体、关节或约束。
 | 产品 | 权益 | 状态 |
 |---|---|---|
 | Free Starter | 4 个基础实验和完整课堂展示 | 四个初中力学与电学实验现已开放 |
-| Middle School Physics Foundations | 计划约 15 个初中物理实验 | Early Access 已开放；DC Circuits、Waves 与 Density & Buoyancy 已发布，后续通过验证的同包实验继续加入 |
+| Middle School Physics Foundations | 计划约 15 个初中物理实验 | Early Access 已开放；DC Circuits、Waves、Density & Buoyancy、Momentum & Collisions、Refraction & Total Internal Reflection 与 Levers & Balance 已发布，后续通过验证的同包实验继续加入 |
 | High School Mechanics | 约 8 个高中力学实验 | 后续验证 |
 | Mechanics Complete | 初中与高中力学合集 | 后续验证 |
 
 Free Starter 固定为四个实验：Inclined Plane & Friction、Energy Track、Forces & Motion 和 Ohm's Law Lab。Ohm's Law Lab 只提供一个 source、一个 resistor、一个 switch 的理想单回路；不包含串联、并联、混联、多电阻、任意布线或探针表。这些能力保留给付费旗舰 `DC Circuits: Series and Parallel`。
 
-四个免费实验保持匿名开放。教师邮箱 Magic Link、一次性 Waffo Pancake Checkout、签名 Webhook、订单与 entitlement 已接入；DC Circuits、Waves 和 Density & Buoyancy 共用教师账户的 active 实验包权益。当前不销售订阅；同包后续实验只有在完成课堂和科学验证后才加入。
+四个免费实验保持匿名开放。教师邮箱 Magic Link、一次性 Waffo Pancake Checkout、签名 Webhook、订单与 entitlement 已接入；六个付费实验共用教师账户的 active `Middle School Physics Foundations` 权益。当前不销售订阅；同包后续实验只有在完成课堂和科学验证后才加入。
 
 初步价格假设：
 
@@ -170,11 +170,11 @@ P0 不实现：
 - 学生账户、作业、提交、成绩和统计。
 - 完整教师仪表板或学校采购流程。
 
-当前已进入 P1 内容生产：`DC Circuits: Series & Parallel`、`Waves: Frequency, Wavelength & Speed` 和 `Density & Buoyancy: Float, Sink or Suspend` 是前三个付费模板。浮力实验提供同一物体的双流体对照、真实排液体积、动态受力与漂浮/悬浮/下沉过程。三个实验共用 `Middle School Physics Foundations` 权益，并使用同一 Waffo Pancake Checkout 验证教师购买闭环。
+当前已进入 P1 内容生产：`DC Circuits: Series & Parallel`、`Waves: Frequency, Wavelength & Speed`、`Density & Buoyancy: Float, Sink or Suspend`、`Momentum & Collisions`、`Refraction & Total Internal Reflection` 和 `Levers & Balance: Moments in Equilibrium` 是首批六个付费模板。光学实验明确区分临界角与全反射；杠杆实验先分析水平释放位置，再用同一求解状态积分角运动，并在明确的 `±12°` 机械限位处停止。六个实验共用 `Middle School Physics Foundations` 权益，并使用同一 Waffo Pancake Checkout 验证教师购买闭环。
 
 ## 7. 验收条件
 
-- 教师可以从主页进入目录，按 `Mechanics` 或 `Electricity` 找到四个已发布免费实验，并能通过 `Electricity` 筛选找到 Ohm's Law Lab。
+- 教师可以从主页进入目录，通过已发布的 `Mechanics`、`Electricity`、`Waves`、`Fluids` 和 `Optics` 筛选找到对应实验。
 - 搜索引擎可以获取唯一标题、说明、规范链接、Open Graph、站点地图、robots 和结构化产品信息。
 - 主页不会把未完成实验显示为可用或可购买。
 - 四个免费实验在桌面和手机宽度均可使用。
@@ -182,6 +182,8 @@ P0 不实现：
 - 同一参数和绝对时间重复采样得到相同结果。
 - 教师可以完成每个实验的引导式讲解并返回目录。
 - DC Circuits 在 single、series、parallel 三种拓扑下满足 Ohm's law、KCL、KVL 与功率守恒；目录卡明确显示实验包权益但不提供未开放的购买操作。
+- 光学实验在空气到玻璃、玻璃到空气、临界角和全反射状态下满足反射定律与斯涅尔定律；目录使用实际工作台截图，不以光线亮度暗示能量比例。
+- 杠杆实验的两侧重力、垂直力臂、顺逆时针力矩、角度和角速度来自同一求解状态；播放条明确区分分析与真实释放，平衡问题隐藏所有派生答案。
 - Density & Buoyancy 的浮力、排液体积、阻力和槽底支持力来自同一求解状态，默认水中上浮、油中下沉，受力方向与运动状态一致。
 
 ## 8. 下一步验证

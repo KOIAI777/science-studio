@@ -27,10 +27,11 @@ const subjectLabels: Record<SubjectArea, string> = {
   electricity: "Electricity",
   waves: "Waves",
   fluids: "Fluids",
+  optics: "Optics",
 };
 
 // Only expose a filter when the public library has released work in that category.
-const visibleSubjects: SubjectArea[] = ["mechanics", "electricity", "waves", "fluids"];
+const visibleSubjects: SubjectArea[] = ["mechanics", "electricity", "waves", "fluids", "optics"];
 
 function buildCatalogHref(filters: CatalogQuery, overrides: Partial<CatalogQuery>) {
   const next = {...filters, ...overrides};
@@ -75,6 +76,14 @@ const experimentPreviewImages: Record<string, {src: string; alt: string}> = {
   "momentum-collisions": {
     src: "/experiments/momentum-collisions-classroom-diagram.png",
     alt: "Actual Science Studio momentum and collisions output showing two carts and a before-after momentum ledger.",
+  },
+  "refraction-total-internal-reflection": {
+    src: "/experiments/refraction-total-internal-reflection-classroom-diagram.png",
+    alt: "Actual Science Studio refraction output showing incident, reflected, and refracted rays at a flat interface.",
+  },
+  "levers-and-balance": {
+    src: "/experiments/levers-and-balance-classroom-diagram.png",
+    alt: "Actual Science Studio lever balance output showing two loads, perpendicular arms, weight arrows, and opposing moments about a central pivot.",
   },
 };
 
@@ -137,7 +146,7 @@ export function ExperimentLibrary({catalog, filters}: {catalog: CatalogPage; fil
         <div className="library-breadcrumb"><Link href="/"><ArrowLeft size={14} />Home</Link><span>/</span><span>Experiment library</span></div>
         <section className="library-heading">
           <div><span className="section-kicker">Experiment library</span><h1>Interactive physics experiments, ready for class.</h1></div>
-          <p>Four free middle-school lessons and four paid pack experiments are ready to present. Browse mechanics, electricity, waves, and fluids; new topics appear here only when they are classroom-ready.</p>
+          <p>Four free middle-school lessons and six paid pack experiments are ready to present. Browse mechanics, electricity, waves, fluids, and optics; new topics appear here only when they are classroom-ready.</p>
         </section>
 
         <section className="library-toolbar" aria-label="Experiment filters">

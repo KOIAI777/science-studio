@@ -1,5 +1,5 @@
 export type GradeLevel = "elementary" | "middle" | "high";
-export type SubjectArea = "mechanics" | "electricity" | "waves" | "fluids";
+export type SubjectArea = "mechanics" | "electricity" | "waves" | "fluids" | "optics";
 export type ExperimentAvailability = "free" | "pack" | "planned";
 
 export interface ExperimentCatalogItem {
@@ -12,7 +12,7 @@ export interface ExperimentCatalogItem {
   availability: ExperimentAvailability;
   lessonMinutes: number;
   concepts: string[];
-  preview: "incline" | "lever" | "motion" | "energy" | "circuit" | "projectile" | "collision" | "orbit" | "waves" | "buoyancy";
+  preview: "incline" | "lever" | "motion" | "energy" | "circuit" | "projectile" | "collision" | "orbit" | "waves" | "buoyancy" | "optics";
   published?: boolean;
   sortOrder?: number;
 }
@@ -113,6 +113,30 @@ export const experimentCatalog: ExperimentCatalogItem[] = [
     lessonMinutes: 15,
     concepts: ["Momentum", "Impulse", "Collisions", "Energy Transfer"],
     preview: "collision",
+  },
+  {
+    id: "middle-refraction-tir",
+    slug: "refraction-total-internal-reflection",
+    title: "Refraction & Total Internal Reflection",
+    summary: "Construct reflected and refracted rays, apply Snell's law, and test the critical-angle condition.",
+    gradeLevel: "middle",
+    subject: "optics",
+    availability: "pack",
+    lessonMinutes: 15,
+    concepts: ["Reflection", "Refraction", "Snell's Law", "Critical Angle"],
+    preview: "optics",
+  },
+  {
+    id: "middle-levers-balance",
+    slug: "levers-and-balance",
+    title: "Levers & Balance: Moments in Equilibrium",
+    summary: "Compare opposing moments about one pivot and solve the missing mass or lever arm for balance.",
+    gradeLevel: "middle",
+    subject: "mechanics",
+    availability: "pack",
+    lessonMinutes: 15,
+    concepts: ["Moments", "Torque", "Equilibrium", "Levers"],
+    preview: "lever",
   },
 ];
 

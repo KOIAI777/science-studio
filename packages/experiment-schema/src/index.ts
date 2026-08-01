@@ -70,7 +70,7 @@ export interface ExperimentTemplateContract {
     title: string;
     summary: string;
     gradeLevel: "elementary" | "middle" | "high";
-    subject: "mechanics" | "electricity" | "waves" | "fluids";
+    subject: "mechanics" | "electricity" | "waves" | "fluids" | "optics";
     lessonMinutes: number;
     concepts: string[];
   };
