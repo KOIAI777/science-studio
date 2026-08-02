@@ -16,5 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {url: `${siteUrl}/experiments/momentum-collisions`, changeFrequency: "monthly", priority: 0.8},
     {url: `${siteUrl}/experiments/refraction-total-internal-reflection`, changeFrequency: "monthly", priority: 0.8},
     {url: `${siteUrl}/experiments/levers-and-balance`, changeFrequency: "monthly", priority: 0.8},
+    {url: `${siteUrl}/experiments/sound-waves`, changeFrequency: "monthly", priority: 0.8},
+    {url: `${siteUrl}/experiments/electrical-power-energy`, changeFrequency: "monthly", priority: 0.8},
   ];
 }

@@ -138,6 +138,30 @@ export const experimentCatalog: ExperimentCatalogItem[] = [
     concepts: ["Moments", "Torque", "Equilibrium", "Levers"],
     preview: "lever",
   },
+  {
+    id: "middle-sound-waves",
+    slug: "sound-waves",
+    title: "Sound: Pitch, Loudness & Speed",
+    summary: "Watch a longitudinal sound wave move through matter and measure its arrival at two microphones.",
+    gradeLevel: "middle",
+    subject: "waves",
+    availability: "pack",
+    lessonMinutes: 15,
+    concepts: ["Sound", "Pitch", "Sound Level", "Propagation Speed"],
+    preview: "waves",
+  },
+  {
+    id: "middle-electrical-power-energy",
+    slug: "electrical-power-energy",
+    title: "Electrical Power & Energy",
+    summary: "Compare two resistive loads and see how power sets the rate at which electrical energy is transferred.",
+    gradeLevel: "middle",
+    subject: "electricity",
+    availability: "pack",
+    lessonMinutes: 15,
+    concepts: ["Electrical Power", "Electrical Energy", "Ohm's Law", "Energy Transfer"],
+    preview: "circuit",
+  },
 ];
 
 export const EXPERIMENTS_PER_PAGE = 6;

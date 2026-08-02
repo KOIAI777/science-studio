@@ -85,6 +85,14 @@ const experimentPreviewImages: Record<string, {src: string; alt: string}> = {
     src: "/experiments/levers-and-balance-classroom-diagram.png",
     alt: "Actual Science Studio lever balance output showing two loads, perpendicular arms, weight arrows, and opposing moments about a central pivot.",
   },
+  "sound-waves": {
+    src: "/experiments/sound-waves-classroom-diagram.png",
+    alt: "Actual Science Studio sound-wave output showing a loudspeaker, longitudinal particles, two microphones, and pressure traces.",
+  },
+  "electrical-power-energy": {
+    src: "/experiments/electrical-power-energy-classroom-diagram.png",
+    alt: "Actual Science Studio electrical-power output comparing two resistive loads and their synchronized energy-time lines.",
+  },
 };
 
 function ExperimentPreview({experiment}: {experiment: ExperimentCatalogItem}) {
@@ -146,7 +154,7 @@ export function ExperimentLibrary({catalog, filters}: {catalog: CatalogPage; fil
         <div className="library-breadcrumb"><Link href="/"><ArrowLeft size={14} />Home</Link><span>/</span><span>Experiment library</span></div>
         <section className="library-heading">
           <div><span className="section-kicker">Experiment library</span><h1>Interactive physics experiments, ready for class.</h1></div>
-          <p>Four free middle-school lessons and six paid pack experiments are ready to present. Browse mechanics, electricity, waves, fluids, and optics; new topics appear here only when they are classroom-ready.</p>
+          <p>Four free middle-school lessons and eight paid pack experiments are ready to present. Browse mechanics, electricity, waves, fluids, and optics; new topics appear here only when they are classroom-ready.</p>
         </section>
 
         <section className="library-toolbar" aria-label="Experiment filters">

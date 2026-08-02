@@ -86,7 +86,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 14. Particle Model of Matter。
 15. Gas Pressure and Temperature。
 
-Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyancy、Momentum & Collisions、Refraction & Total Internal Reflection 和 Levers & Balance 六个实验；后续仍按教师重复使用和付费反馈决定开发顺序与价格。实验包权益是内容访问权，不包含学生账户、成绩或班级管理。
+Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyancy、Momentum & Collisions、Refraction & Total Internal Reflection、Levers & Balance、Sound: Pitch, Loudness & Speed 和 Electrical Power & Energy 八个实验；后续仍按教师重复使用和付费反馈决定开发顺序与价格。实验包权益是内容访问权，不包含学生账户、成绩或班级管理。
 
 ### 3.3 High School Mechanics
 
@@ -347,7 +347,45 @@ Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyanc
 
 模型边界：分析阶段使用刚性水平横梁、中央无摩擦支点和点载荷；释放阶段按 `I alpha = sum(tau)` 固定步长积分，并在 `±12°` 完全非弹性机械限位处停止。横梁为理想轻质刚体，不模拟反弹、横梁弯曲或支点摩擦。
 
-### 5.12 Rotation & Torque
+### 5.12 Sound: Pitch, Loudness & Speed
+
+- 模板 ID：`waves.sound-wave`
+- 主要学段：Middle school
+- 权益：Middle School Physics Foundations
+- 建议时长：15 分钟
+- 状态：第七个付费实验 MVP 已实现
+- 详细合同：[sound-waves.md](templates/sound-waves.md)
+
+教学目标：区分纵向粒子振动与声音传播，用频率和声压级解释音调与响度趋势，并使用两个麦克风的到达时间差测量声速。
+
+参数：声源频率、声压级、麦克风间距、介质预设和粒子显示开关。介质预设使用空气、水和钢材的固定参考声速与密度。
+
+测量值：周期、波长、声速、声压有效值、两麦克风到达时间和时间差。画面同步显示纵向疏密波、传播前沿、两麦克风和声压历史曲线。
+
+默认讲解：识别声源 -> 区分粒子振动和声音传播 -> 连接声压级与响度趋势 -> 测量麦克风延迟 -> 比较介质 -> 验证 `c = delta x / delta t = f lambda`。
+
+模型边界：均匀无损耗介质中的理想平面纵波；粒子位移放大显示，边界吸收，不模拟反射、衰减、衍射、真实音频或主观响度。
+
+### 5.13 Electrical Power & Energy
+
+- 模板 ID：`electricity.power-energy`
+- 主要学段：Middle school
+- 权益：Middle School Physics Foundations
+- 建议时长：15 分钟
+- 状态：第八个付费实验 MVP 已实现
+- 详细合同：[electrical-power-energy.md](templates/electrical-power-energy.md)
+
+教学目标：区分功率和累计电能，使用欧姆定律计算两组独立理想负载的电流与功率，并以电能-时间图验证 `E = Pt`。
+
+参数：A/B 两组电压和电阻、运行时长与常规电流动点开关。预设覆盖相同电压、电压加倍和不同参数下的相同功率。
+
+测量值：两组电流、功率、累计电能、瓦时和通过电荷量。画面同步显示两条独立回路、功率读数、能量曲线和等价公式。
+
+默认讲解：设置受控实验 -> 计算电流 -> 计算功率 -> 观察电能积累 -> 比较相同时间 -> 验证公式与单位。
+
+模型边界：独立理想直流电源与恒定欧姆电阻；不模拟电阻温升、散热、非欧姆响应、源内阻或启动瞬态。电流动点只表示常规电流方向。
+
+### 5.14 Rotation & Torque
 
 - 模板 ID：`mechanics.rotation-torque`
 - 主要学段：High school
@@ -364,7 +402,7 @@ Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyanc
 
 模型边界：单固定轴刚体；不处理三维进动、柔性结构或滚动接触。
 
-### 5.13 Mass-Spring Oscillator
+### 5.14 Mass-Spring Oscillator
 
 - 模板 ID：`mechanics.mass-spring`
 - 主要学段：High school
@@ -381,7 +419,7 @@ Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyanc
 
 模型边界：理想线性弹簧和单自由度；阻尼模式不能继续显示无阻尼解析周期为精确结果。
 
-### 5.14 Gravity & Orbits
+### 5.15 Gravity & Orbits
 
 - 模板 ID：`mechanics.gravity-orbits`
 - 主要学段：High school
@@ -436,7 +474,9 @@ Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyanc
 4. Momentum and Collisions 第四个付费 MVP 已完成，进入教师验证。
 5. Refraction and Total Internal Reflection 第五个付费 MVP 已完成，进入教师验证。
 6. Levers and Balance 第六个付费 MVP 已完成，进入教师验证。
-7. 保持同一实验包与 `$9.90` Early Access 价格，按重复课堂使用、教师请求和付费反馈决定第七个主题。
+7. Sound: Pitch, Loudness & Speed 第七个付费 MVP 已完成，进入教师验证。
+8. Electrical Power & Energy 第八个付费 MVP 已完成，进入教师验证。
+9. 保持同一实验包与 `$9.90` Early Access 价格，按重复课堂使用、教师请求和付费反馈决定第九个主题。
 
 ### 阶段 3：扩展高阶实验
 

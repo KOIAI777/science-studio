@@ -8,3 +8,5 @@ export * from "./buoyancy/index";
 export * from "./momentum-collision/index";
 export * from "./ray-optics/index";
 export * from "./lever-balance/index";
+export * from "./sound-wave/index";
+export * from "./electrical-power/index";

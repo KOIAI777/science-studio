@@ -1085,6 +1085,17 @@ a {
   .lever-outcome-label,
   .lever-formula-note,
   .lever-construction-note,
+  .sound-canvas-heading,
+  .sound-mode-badge,
+  .sound-panel-kicker,
+  .sound-panel-note,
+  .sound-tube-footnote,
+  .power-canvas-heading,
+  .power-panel-kicker,
+  .power-panel-note,
+  .power-channel-kicker,
+  .power-axis-title,
+  .power-direction-note,
   .narration-step-number,
   .narration-step-title,
   .narration-step-caption,
@@ -1115,7 +1126,17 @@ a {
   .lever-forces,
   .lever-arm-layer,
   .lever-moment-layer,
-  .lever-formula-panel
+  .lever-formula-panel,
+  .sound-direction-labels,
+  .sound-density-legend,
+  .sound-wavefront-label,
+  .sound-speaker,
+  .sound-microphone,
+  .sound-scope,
+  .sound-formula-panel,
+  .power-channel,
+  .power-recorder,
+  .power-formula-panel
 ) {
   --canvas-text-local-scale: clamp(0.9, var(--canvas-text-scale, 1), 1.25);
 }
@@ -6930,6 +6951,924 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .lever-canvas-transform,
   .lever-switch-track span {
+    transition: none;
+  }
+}
+
+/* Sound-wave longitudinal acoustics laboratory */
+.sound-pack-badge {
+  min-height: 21px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  border: 1px solid #426f74;
+  border-radius: 4px;
+  color: #acd9d7;
+  background: #1c3031;
+  font-size: 9px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.sound-canvas .canvas-eyebrow {
+  fill: #537073;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.sound-canvas .canvas-title {
+  fill: #172d30;
+  font-size: 34px;
+  font-weight: 780;
+}
+
+.sound-canvas .canvas-subtitle {
+  fill: #597073;
+  font-size: 14px;
+  font-weight: 520;
+}
+
+.sound-mode-badge rect {
+  fill: #e4eeee;
+  stroke: #adc5c5;
+}
+
+.sound-mode-badge text:first-of-type {
+  fill: #244d51;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.sound-mode-badge text:last-of-type {
+  fill: #587173;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.sound-tube-shell {
+  fill: rgb(255 255 255 / 76%);
+  stroke: #aebfc0;
+  stroke-width: 2;
+}
+
+.sound-tube.highlighted .sound-tube-shell {
+  stroke: #0f7e86;
+  stroke-width: 4;
+}
+
+.sound-distance-grid {
+  stroke: #c9d5d5;
+  stroke-width: 1;
+  stroke-dasharray: 3 7;
+}
+
+.sound-particle {
+  fill: #277a80;
+  opacity: 0.82;
+  stroke: rgb(255 255 255 / 85%);
+  stroke-width: 1.5;
+}
+
+.sound-pressure-band {
+  pointer-events: none;
+}
+
+.sound-pressure-band.compression {
+  fill: #d76a4c;
+  opacity: 0.085;
+}
+
+.sound-pressure-band.rarefaction {
+  fill: #32878d;
+  opacity: 0.065;
+}
+
+.sound-wavefront-line {
+  stroke: #bd5739;
+  stroke-width: 3;
+  stroke-dasharray: 7 5;
+}
+
+.sound-wavefront-label {
+  fill: #9e452f;
+  paint-order: stroke;
+  stroke: #f8fbfc;
+  stroke-width: 4px;
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.sound-speaker rect {
+  fill: #25383b;
+  stroke: #14282b;
+  stroke-width: 2;
+}
+
+.sound-speaker path {
+  fill: url(#sound-speaker-cone);
+  stroke: #1b3033;
+  stroke-width: 2;
+}
+
+.sound-speaker.highlighted rect {
+  stroke: #d86444;
+  stroke-width: 4;
+}
+
+.sound-speaker text {
+  fill: #344f52;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.sound-speaker text:last-of-type {
+  fill: #a94d35;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.sound-direction-labels line:first-of-type {
+  stroke: #1b777d;
+  stroke-width: 2;
+}
+
+.sound-direction-labels line:last-of-type {
+  stroke: #bd5739;
+  stroke-width: 2.5;
+}
+
+.sound-direction-labels text {
+  fill: #496568;
+  paint-order: stroke;
+  stroke: #f8fbfc;
+  stroke-width: 4px;
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.sound-density-legend text {
+  fill: #4e696b;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.sound-density-legend .compression {
+  fill: #ae4b34;
+  opacity: 0.55;
+}
+
+.sound-density-legend .rarefaction {
+  fill: #176d74;
+  opacity: 0.5;
+}
+
+.sound-microphone line {
+  stroke: #718587;
+  stroke-width: 2;
+  stroke-dasharray: 4 4;
+}
+
+.sound-microphone circle {
+  fill: #e7eeee;
+  stroke: #718587;
+  stroke-width: 3;
+}
+
+.sound-microphone path {
+  fill: none;
+  stroke: #718587;
+  stroke-width: 2;
+}
+
+.sound-microphone.active circle {
+  fill: #dff1ee;
+  stroke: #158077;
+}
+
+.sound-microphone.active path {
+  stroke: #158077;
+}
+
+.sound-microphone.highlighted circle {
+  stroke: #d86444;
+  stroke-width: 5;
+}
+
+.sound-microphone text {
+  fill: #2d4c4f;
+  paint-order: stroke;
+  stroke: #f8fbfc;
+  stroke-width: 4px;
+  font-size: 10px;
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+}
+
+.sound-microphone .sound-mic-status {
+  fill: #687d7f;
+  font-size: 8px;
+}
+
+.sound-microphone.active .sound-mic-status {
+  fill: #14746d;
+}
+
+.sound-tube-footnote {
+  fill: #60787a;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.sound-scope > rect,
+.sound-formula-panel > rect {
+  fill: #17383b;
+  stroke: #325b5e;
+}
+
+.sound-scope.highlighted > rect,
+.sound-formula-panel.highlighted > rect {
+  fill: #12484c;
+  stroke: #4d969d;
+  stroke-width: 3;
+}
+
+.sound-panel-kicker {
+  fill: #a3ccca;
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.sound-panel-note {
+  fill: #92adad;
+  font-size: 9px;
+  font-weight: 650;
+}
+
+.sound-scope-grid {
+  stroke: #31575a;
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+}
+
+.sound-scope-baseline {
+  stroke: #507174;
+  stroke-width: 1;
+}
+
+.sound-trace {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sound-trace.mic-a {
+  stroke: #67c9c0;
+}
+
+.sound-trace.mic-b {
+  stroke: #ee946c;
+}
+
+.sound-trace-label {
+  paint-order: stroke;
+  stroke: #17383b;
+  stroke-width: 4px;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.sound-trace-label.mic-a {
+  fill: #8edbd4;
+}
+
+.sound-trace-label.mic-b {
+  fill: #f3ae8e;
+}
+
+.sound-time-cursor {
+  stroke: #f1ca78;
+  stroke-width: 2;
+}
+
+.sound-time-label {
+  fill: #8ea6a7;
+  font-size: 8px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.sound-formula-primary {
+  fill: #f6f9f8;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 25px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.sound-formula-reading {
+  fill: #d2e3e1;
+  font-size: 12px;
+  font-weight: 720;
+  font-variant-numeric: tabular-nums;
+}
+
+.sound-medium-chip circle {
+  fill: #e8bd6a;
+}
+
+.sound-medium-chip text {
+  fill: #9eb8b8;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.sound-narration-overlay .narration-step-title {
+  fill: #172d30;
+}
+
+.sound-narration-overlay .narration-step-caption {
+  fill: #516a6d;
+}
+
+.sound-medium-control label {
+  display: block;
+  margin-bottom: 8px;
+  color: #d8dad4;
+  font-size: 13px;
+}
+
+.sound-medium-control select {
+  width: 100%;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #494b46;
+  border-radius: 6px;
+  color: #e7e9e3;
+  background: #292a27;
+  font-size: 12px;
+}
+
+.sound-measurements .sound-measurement-heading {
+  grid-column: 1 / -1;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 9px;
+  background: #203537;
+}
+
+.sound-measurements .sound-measurement-heading dt,
+.sound-measurements .sound-measurement-heading dd {
+  color: #86cbc6;
+}
+
+.sound-measurements .sound-measurement-heading dd {
+  font-size: 13px;
+}
+
+.sound-measurements .sound-delay-measurement {
+  grid-column: 1 / -1;
+}
+
+.sound-measurements .sound-delay-measurement dd {
+  color: #e8c176;
+}
+
+.sound-measurements .sound-mic-reading {
+  grid-column: 1 / -1;
+  min-height: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  background: #252826;
+}
+
+.sound-mic-reading dt {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sound-mic-reading dd {
+  color: #898e87;
+  font-size: 10px;
+}
+
+.sound-mic-reading.active dd {
+  color: #76c5bc;
+}
+
+.sound-lesson-speed {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #9fa49c;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+  .sound-pack-badge {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .sound-wave-workbench .stage-area {
+    min-height: 520px;
+  }
+
+  .sound-wave-workbench.ratio-landscape .stage-area {
+    height: 340px;
+    min-height: 340px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sound-wave-workbench .wave-canvas-transform,
+  .sound-wave-workbench .wave-switch-track span {
+    transition: none;
+  }
+}
+
+.power-pack-badge {
+  min-height: 21px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  border: 1px solid #4a7371;
+  border-radius: 4px;
+  color: #b0d8d3;
+  background: #1b3030;
+  font-size: 9px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.power-canvas-bg {
+  fill: #f2f7f7;
+}
+
+.electrical-power-canvas .canvas-eyebrow {
+  font-size: 16px;
+}
+
+.electrical-power-canvas .canvas-title {
+  font-size: 40px;
+}
+
+.electrical-power-canvas .canvas-subtitle {
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.power-mode-badge rect {
+  fill: #e5eeee;
+  stroke: #abc4c3;
+}
+
+.power-mode-badge text {
+  fill: #315d5d;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.electrical-power-canvas.is-portrait .canvas-title {
+  font-size: 36px;
+}
+
+.electrical-power-canvas.is-portrait .power-mode-badge text {
+  font-size: 14px;
+}
+
+.power-channel-surface {
+  fill: rgb(255 255 255 / 78%);
+  stroke: #aec0c0;
+  stroke-width: 2;
+}
+
+.power-channel.highlighted .power-channel-surface {
+  stroke-width: 4;
+}
+
+.power-channel.channel-a.highlighted .power-channel-surface {
+  stroke: #17858b;
+}
+
+.power-channel.channel-b.highlighted .power-channel-surface {
+  stroke: #c65e42;
+}
+
+.power-channel-tab {
+  stroke-width: 0;
+}
+
+.power-channel.channel-a .power-channel-tab {
+  fill: #17858b;
+}
+
+.power-channel.channel-b .power-channel-tab {
+  fill: #c65e42;
+}
+
+.power-channel-name {
+  fill: #fff;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.power-channel-kicker {
+  fill: #5d7374;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.power-wire {
+  fill: none;
+  stroke: #475d5e;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.power-current-markers {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 1 10;
+}
+
+.channel-a .power-current-markers {
+  stroke: #22a0a4;
+}
+
+.channel-b .power-current-markers {
+  stroke: #dd7658;
+}
+
+.power-battery line:first-of-type {
+  stroke: #283e40;
+  stroke-width: 5;
+}
+
+.power-battery line:nth-of-type(2) {
+  stroke: #536b6c;
+  stroke-width: 3;
+}
+
+.power-battery text {
+  fill: #425b5d;
+  font-size: 16px;
+  font-weight: 850;
+}
+
+.power-resistor {
+  fill: none;
+  stroke: #d29d39;
+  stroke-width: 5;
+  stroke-linejoin: round;
+}
+
+.power-component-label {
+  fill: #536b6d;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.power-component-value {
+  fill: #1e3c3f;
+  font-size: 18px;
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+}
+
+.power-channel-current {
+  fill: #304e50;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 4px;
+  font-size: 16px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.power-watt-readout rect {
+  fill: #173f42;
+}
+
+.power-watt-readout text {
+  fill: #f5f8f7;
+  font-size: 17px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.power-recorder > rect,
+.power-formula-panel > rect {
+  fill: #173f42;
+  stroke: #315f61;
+}
+
+.power-recorder.highlighted > rect,
+.power-formula-panel.highlighted > rect {
+  fill: #124c50;
+  stroke: #62a8a8;
+  stroke-width: 3;
+}
+
+.power-panel-kicker {
+  fill: #a9d4d0;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.power-panel-note {
+  fill: #97b7b6;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.power-chart-grid {
+  stroke: #315a5c;
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+}
+
+.power-axis {
+  stroke: #6a8a8b;
+  stroke-width: 1.5;
+}
+
+.power-projection {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 5;
+  opacity: 0.45;
+}
+
+.power-energy-line {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.power-projection.channel-a,
+.power-energy-line.channel-a {
+  stroke: #58d1cb;
+}
+
+.power-projection.channel-b,
+.power-energy-line.channel-b {
+  stroke: #f18d68;
+}
+
+.power-energy-point.channel-a,
+.power-inline-readings .channel-a {
+  fill: #58d1cb;
+}
+
+.power-energy-point.channel-b,
+.power-inline-readings .channel-b {
+  fill: #f18d68;
+}
+
+.power-time-cursor {
+  stroke: #e2b84d;
+  stroke-width: 2;
+}
+
+.power-axis-label {
+  fill: #9ab4b3;
+  paint-order: stroke;
+  stroke: #173f42;
+  stroke-width: 4px;
+  font-size: 13px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.power-axis-title {
+  fill: #9fbdbc;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.power-formula-primary {
+  fill: #f4f7f6;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.stage-area svg .power-formula-panel {
+  --canvas-text-local-scale: clamp(0.9, var(--canvas-text-scale, 1), 1.3);
+}
+
+.power-formula-primary.secondary {
+  fill: #f2cf82;
+  font-size: 31px;
+}
+
+.power-formula-divider {
+  stroke: #42696a;
+}
+
+.power-inline-readings text {
+  fill: #dce9e7;
+  font-size: 14px;
+  font-weight: 780;
+  font-variant-numeric: tabular-nums;
+}
+
+.power-comparison-result {
+  fill: #f2cf82;
+  font-size: 16px;
+  font-weight: 850;
+}
+
+.power-direction-note {
+  fill: #91aaaa;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.electrical-power-canvas :is(
+  .power-channel-name,
+  .power-battery text,
+  .power-component-label,
+  .power-component-value,
+  .power-channel-current,
+  .power-watt-readout text,
+  .power-axis-label
+) {
+  --canvas-text-local-scale: clamp(1, var(--canvas-text-scale, 1), 1.5);
+}
+
+.electrical-power-canvas :is(
+  .power-mode-badge text,
+  .power-channel-kicker,
+  .power-panel-kicker,
+  .power-panel-note,
+  .power-axis-title,
+  .power-direction-note
+) {
+  --canvas-text-local-scale: clamp(1, var(--canvas-text-scale, 1), 1.2);
+}
+
+.electrical-power-canvas :is(
+  .power-inline-readings text,
+  .power-comparison-result
+) {
+  --canvas-text-local-scale: clamp(1, var(--canvas-text-scale, 1), 1.35);
+}
+
+.electrical-power-canvas.is-landscape .power-formula-panel {
+  --canvas-text-local-scale: clamp(0.9, var(--canvas-text-scale, 1), 1.1);
+}
+
+.electrical-power-canvas.is-landscape .power-formula-primary {
+  font-size: 25px;
+}
+
+.electrical-power-canvas.is-landscape .power-formula-primary.secondary {
+  font-size: 29px;
+}
+
+.electrical-power-canvas.is-landscape .power-inline-readings text,
+.electrical-power-canvas.is-landscape .power-comparison-result {
+  --canvas-text-local-scale: clamp(0.9, var(--canvas-text-scale, 1), 1.1);
+  font-size: 12px;
+}
+
+.electrical-power-canvas.is-landscape .power-direction-note {
+  --canvas-text-local-scale: 1;
+  font-size: 10px;
+}
+
+.power-narration-overlay .narration-step-title {
+  fill: #172d30;
+}
+
+.power-narration-overlay .narration-step-caption {
+  fill: #516a6d;
+}
+
+.power-control-label {
+  display: block;
+  margin-bottom: 9px;
+  color: #dfe1db;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.power-preset-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3px;
+}
+
+.power-preset-buttons button {
+  min-height: 33px;
+  padding: 4px 5px;
+  border: 1px solid #4b4e48;
+  border-radius: 5px;
+  color: #b9bdb5;
+  background: #252624;
+  font-size: 10px;
+}
+
+.power-preset-buttons button.active {
+  border-color: #4c8886;
+  color: #dff3ef;
+  background: #1c3939;
+}
+
+.parameter-control.channel-a-control {
+  box-shadow: inset 3px 0 #17858b;
+}
+
+.parameter-control.channel-b-control {
+  box-shadow: inset 3px 0 #c65e42;
+}
+
+.power-measurements .power-measurement-heading {
+  grid-column: 1 / -1;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 9px;
+}
+
+.power-measurements .power-measurement-heading.channel-a {
+  background: #203b3c;
+}
+
+.power-measurements .power-measurement-heading.channel-b {
+  background: #3c2b25;
+}
+
+.power-measurements .power-measurement-heading.channel-a dt,
+.power-measurements .power-measurement-heading.channel-a dd {
+  color: #79ccc7;
+}
+
+.power-measurements .power-measurement-heading.channel-b dt,
+.power-measurements .power-measurement-heading.channel-b dd {
+  color: #e7a182;
+}
+
+.power-measurements .power-measurement-heading dd {
+  font-size: 13px;
+}
+
+.power-measurements .power-charge-measurement {
+  grid-column: 1 / -1;
+}
+
+.power-measurements .power-charge-measurement dd {
+  color: #e8c176;
+}
+
+.power-footer-law {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #b7bcb4;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+  .power-pack-badge {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .electrical-power-workbench .stage-area {
+    min-height: 520px;
+  }
+
+  .electrical-power-workbench.ratio-landscape .stage-area {
+    height: 340px;
+    min-height: 340px;
+  }
+
+  .power-footer-law {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .electrical-power-workbench .wave-canvas-transform,
+  .electrical-power-workbench .wave-switch-track span {
     transition: none;
   }
 }
