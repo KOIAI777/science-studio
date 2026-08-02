@@ -86,7 +86,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 14. Particle Model of Matter。
 15. Gas Pressure and Temperature。
 
-Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyancy、Momentum & Collisions、Refraction & Total Internal Reflection、Levers & Balance、Sound: Pitch, Loudness & Speed、Electrical Power & Energy 和 Electromagnets 九个实验；后续仍按教师重复使用和付费反馈决定开发顺序与价格。实验包权益是内容访问权，不包含学生账户、成绩或班级管理。
+Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyancy、Momentum & Collisions、Refraction & Total Internal Reflection、Levers & Balance、Sound: Pitch, Loudness & Speed、Electrical Power & Energy、Electromagnets 和 Lenses & Image Formation 十个实验；后续仍按教师重复使用和付费反馈决定开发顺序与价格。实验包权益是内容访问权，不包含学生账户、成绩或班级管理。
 
 ### 3.3 High School Mechanics
 
@@ -404,7 +404,26 @@ Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyanc
 
 模型边界：固定半径的有限长均匀螺线管和稳恒直流；铁芯使用恒定有效相对磁导率，不模拟发热、磁滞、剩磁、涡流、饱和或开关瞬态。磁力线为方向示意，不是数值场图。
 
-### 5.15 Rotation & Torque
+### 5.15 Lenses & Image Formation
+
+- 模板 ID：`optics.thin-lens`
+- 主要学段：Middle school
+- 权益：Middle School Physics Foundations
+- 建议时长：15 分钟
+- 状态：第十个付费实验 MVP 已实现
+- 详细合同：[lenses-image-formation.md](templates/lenses-image-formation.md)
+
+教学目标：用三条特殊光线和薄透镜公式确定像的位置、正倒与大小，区分实像、虚像和焦点处的平行出射状态。
+
+参数：会聚/发散透镜、焦距绝对值、物距、物高、光具座标注和特殊光线开关。预设覆盖物在 `2F` 外、物在 `2F`、物在 `F` 内和发散透镜。
+
+测量值：带符号焦距、物距、像距、物高、像高、放大率、实/虚、正/倒和缩小/等大/放大。画面同步显示同一比例光具座、`F/2F`、物像箭头、三条特殊光线和虚像反向延长线。
+
+默认讲解：设置光具座 -> 画平行光线 -> 画光心光线 -> 画焦点光线 -> 确定像 -> 验证公式。
+
+模型边界：理想薄透镜和近轴几何光学；不模拟透镜厚度、像差、衍射、色散、折射率求解或亮度。播放条只表示作图顺序。
+
+### 5.16 Rotation & Torque
 
 - 模板 ID：`mechanics.rotation-torque`
 - 主要学段：High school
@@ -421,7 +440,7 @@ Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyanc
 
 模型边界：单固定轴刚体；不处理三维进动、柔性结构或滚动接触。
 
-### 5.16 Mass-Spring Oscillator
+### 5.17 Mass-Spring Oscillator
 
 - 模板 ID：`mechanics.mass-spring`
 - 主要学段：High school
@@ -438,7 +457,7 @@ Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyanc
 
 模型边界：理想线性弹簧和单自由度；阻尼模式不能继续显示无阻尼解析周期为精确结果。
 
-### 5.17 Gravity & Orbits
+### 5.18 Gravity & Orbits
 
 - 模板 ID：`mechanics.gravity-orbits`
 - 主要学段：High school
@@ -496,7 +515,8 @@ Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyanc
 7. Sound: Pitch, Loudness & Speed 第七个付费 MVP 已完成，进入教师验证。
 8. Electrical Power & Energy 第八个付费 MVP 已完成，进入教师验证。
 9. Electromagnets 第九个付费 MVP 已完成，进入教师验证。
-10. 保持同一实验包与 `$9.90` Early Access 价格，下一主题开发 Lenses & Image Formation。
+10. Lenses & Image Formation 第十个付费 MVP 已完成，进入教师验证。
+11. 保持同一实验包与 `$9.90` Early Access 价格；下一主题由教师重复使用、请求和付费反馈决定。
 
 ### 阶段 3：扩展高阶实验
 

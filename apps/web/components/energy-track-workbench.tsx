@@ -28,7 +28,7 @@ import {
   SkipForward,
   Undo2,
 } from "lucide-react";
-import Link from "next/link";
+import {ExperimentLibraryBackLink} from "./experiment-library-back-link";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {workbenchCopy, type Locale} from "../lib/i18n";
 import {
@@ -706,7 +706,7 @@ export function EnergyTrackWorkbench() {
     <main className={`workbench-shell energy-workbench ${mode === "narration" ? "narration-mode" : ""}`}>
       <header className="topbar">
         <div className="project-identity">
-          <Link className="back-to-library" href="/experiments" aria-label={locale === "en" ? "Back to experiment library" : "返回实验目录"} title={locale === "en" ? "Back to experiment library" : "返回实验目录"}><ArrowLeft size={16} /></Link>
+          <ExperimentLibraryBackLink className="back-to-library" aria-label={locale === "en" ? "Back to experiment library" : "返回实验目录"} title={locale === "en" ? "Back to experiment library" : "返回实验目录"}><ArrowLeft size={16} /></ExperimentLibraryBackLink>
           <span className="brand-mark"><FlaskConical size={17} /></span>
           <span className="brand-name">Science Studio</span>
           <span className="topbar-divider" />

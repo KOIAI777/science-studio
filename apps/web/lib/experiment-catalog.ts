@@ -174,6 +174,18 @@ export const experimentCatalog: ExperimentCatalogItem[] = [
     concepts: ["Electromagnets", "Magnetic Fields", "Polarity", "Right-hand Rule"],
     preview: "circuit",
   },
+  {
+    id: "middle-lenses-image-formation",
+    slug: "lenses-image-formation",
+    title: "Lenses & Image Formation",
+    summary: "Construct three principal rays and predict real or virtual images for converging and diverging lenses.",
+    gradeLevel: "middle",
+    subject: "optics",
+    availability: "pack",
+    lessonMinutes: 15,
+    concepts: ["Thin Lenses", "Principal Rays", "Focal Length", "Magnification"],
+    preview: "optics",
+  },
 ];
 
 export const EXPERIMENTS_PER_PAGE = 6;

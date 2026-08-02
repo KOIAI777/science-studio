@@ -39,7 +39,7 @@ import {
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
-import Link from "next/link";
+import {ExperimentLibraryBackLink} from "./experiment-library-back-link";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {workbenchCopy, type Locale} from "../lib/i18n";
 import {getNarrationDuration, getNarrationStepStart, resolveNarrationFrame} from "../lib/narration";
@@ -577,7 +577,7 @@ export function TravelingWaveWorkbench() {
   return <main className={`workbench-shell traveling-wave-workbench ${mode === "narration" ? "narration-mode" : ""} ${aspectRatio === "16:9" ? "ratio-landscape" : "ratio-portrait"}`} ref={workbenchRef}>
     <header className="topbar">
       <div className="project-identity">
-        <Link className="back-to-library" href="/experiments" aria-label={locale === "en" ? "Back to experiment library" : "返回实验目录"}><ArrowLeft size={16} /></Link>
+        <ExperimentLibraryBackLink className="back-to-library" aria-label={locale === "en" ? "Back to experiment library" : "返回实验目录"}><ArrowLeft size={16} /></ExperimentLibraryBackLink>
         <span className="brand-mark"><FlaskConical size={17} /></span><span className="brand-name">Science Studio</span><span className="topbar-divider" /><span className="project-name">{copy.projectName}</span><span className="wave-pack-badge"><LockKeyhole size={11} />{copy.packName}</span>
       </div>
       <nav className="mode-switch" aria-label={commonCopy.modeLabel}>

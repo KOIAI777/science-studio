@@ -17,7 +17,8 @@
     "./lever-balance": "./src/lever-balance/index.ts",
     "./sound-wave": "./src/sound-wave/index.ts",
     "./electrical-power": "./src/electrical-power/index.ts",
-    "./electromagnet": "./src/electromagnet/index.ts"
+    "./electromagnet": "./src/electromagnet/index.ts",
+    "./thin-lens": "./src/thin-lens/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

@@ -55,7 +55,7 @@ Science Studio
 
 验证版使用标准产品主页，开放斜面、能量轨道、力和运动与 Ohm's Law Lab 四个免费实验。Ohm's Law Lab 固定为单电源、单电阻、单开关的理想直流回路；串联、并联、混联、自由布线、多电阻和探针表不进入免费层。未完成模板不进入实验目录，只在路线与实验包文案中说明。当前创建教师 Magic Link 登录和基础账户页，不创建账单、学生课堂或数据分析页面；免费实验不要求登录。
 
-P1 付费内容由同一个 `Middle School Physics Foundations` 权益打开。DC Circuits、Waves、Density & Buoyancy、Momentum & Collisions、Refraction & Total Internal Reflection、Levers & Balance、Sound、Electrical Power & Energy 与 Electromagnets 已发布；目录卡使用各自真实画布封面并显示 `Included in Middle School Pack`。未购教师看到可索引的实验介绍和实验包购买入口，已购教师直接进入完整工作台。付费画布必须用真实对照、测量和讲解能力体现价值，不使用金色装饰或营销式视觉代替功能。
+P1 付费内容由同一个 `Middle School Physics Foundations` 权益打开。DC Circuits、Waves、Density & Buoyancy、Momentum & Collisions、Refraction & Total Internal Reflection、Levers & Balance、Sound、Electrical Power & Energy、Electromagnets 与 Lenses & Image Formation 已发布；目录卡使用各自真实画布封面并显示 `Included in Middle School Pack`。未购教师看到可索引的实验介绍和实验包购买入口，已购教师直接进入完整工作台。付费画布必须用真实对照、测量和讲解能力体现价值，不使用金色装饰或营销式视觉代替功能。
 
 ## 3. 页面定义
 
@@ -127,7 +127,7 @@ P1 付费内容由同一个 `Middle School Physics Foundations` 权益打开。D
 - 画布工具栏提供 `50%-250%` 缩放（步长 `25%`）、移动、`Fit` 和浏览器全屏。缩放超过 `100%` 后才启用移动，移动同时支持指针拖动和方向键。
 - `Fit` 恢复 `100%` 并居中；切换画幅同样恢复 `Fit`，但保留实验参数、当前模拟时间、实验/讲解模式和讲解内容。全屏状态下保留画布工具栏和完整播放时间轴，隐藏顶部导航与参数面板。
 - 画布字体可在 `75%-200%` 调整。数据读数和角度随设置放大；标题、状态徽标和密集公式面板使用局部上限，`200%` 时不得互相遮挡或超出画布。
-- 光学实验播放条明确表示光路构图顺序，不使用秒数暗示真实光传播时间；光线亮度只作路径区分，不表示 Fresnel 能量比例。
+- 折射/全反射实验的播放条只表示光路构图顺序，不使用秒数暗示真实光传播时间，光线亮度只作路径区分，不表示 Fresnel 能量比例。透镜实验在实验模式直接显示完整静态光路，不显示播放条；讲解模式才保留步骤时间轴。透镜实线表示实际光路，虚线只表示反向延长线，焦点状态不得绘制有限位置的像。
 - 杠杆实验播放条明确分为受力分析和释放两段；释放后横梁按物理求解状态转动，重力箭头保持竖直，垂直力臂和力矩随角度更新，碰到 `±12°` 机械限位后停止。问题模式隐藏未知量时，公式、箭头标签和测量区中的派生答案必须同步隐藏；字号放大到 `200%` 时公式标签、数值和比较条不得重叠。
 - 轨迹、力、速度和加速度使用固定语义色。
 - 标签、箭头和选择目标随输出画幅保持同一坐标关系并同步缩放；画布工具栏和参数面板不参与缩放。

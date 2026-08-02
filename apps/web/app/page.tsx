@@ -4,7 +4,7 @@ export default function HomePage() {
   const faqItems = [
     ["Is Science Studio a replacement for physical labs?", "No. It is a classroom explanation and demonstration tool that makes forces, motion, equations, and model assumptions visible before or after hands-on work."],
     ["Do students need accounts?", "No. The first version is teacher-led and designed for projectors, interactive whiteboards, and shared screens."],
-    ["Which grade levels are supported?", "All 13 released experiments currently target middle-school physics. Elementary and high-school lessons will appear after they are classroom-ready."],
+    ["Which grade levels are supported?", "All 14 released experiments currently target middle-school physics. Elementary and high-school lessons will appear after they are classroom-ready."],
     ["Are the calculations scientifically verified?", "Released experiments use deterministic solvers, explicit SI units, documented assumptions, parameter validation, and automated tests."],
     ["What can I use for free?", "Inclined Plane and Friction, Energy Track, Forces and Motion, and Ohm's Law Lab are free, including parameter controls, measurements, science checks, and guided explanation steps."],
   ];

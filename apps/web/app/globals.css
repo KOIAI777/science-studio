@@ -8438,3 +8438,475 @@ a {
     transition: none;
   }
 }
+
+/* Thin-lens optical bench */
+.thin-lens-pack-badge {
+  min-height: 21px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  border: 1px solid #477678;
+  border-radius: 4px;
+  color: #b7d9d6;
+  background: #1c3031;
+  font-size: 9px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.thin-lens-canvas-bg {
+  fill: #eef2ef;
+}
+
+.thin-lens-canvas-grid {
+  pointer-events: none;
+}
+
+.thin-lens-heading .canvas-eyebrow {
+  fill: #536b69;
+}
+
+.thin-lens-heading .canvas-title {
+  fill: #182f31;
+}
+
+.thin-lens-heading .canvas-subtitle {
+  fill: #617270;
+}
+
+.thin-lens-panel {
+  fill: #f8faf7;
+  stroke: #b8c5c1;
+  stroke-width: 2;
+}
+
+.thin-lens-apparatus.highlighted .thin-lens-panel {
+  stroke: #d69944;
+  stroke-width: 4;
+}
+
+.thin-lens-panel-kicker {
+  fill: #607674;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.thin-lens-axis {
+  stroke: #526563;
+  stroke-width: 2;
+}
+
+.thin-lens-axis-label {
+  fill: #6e807d;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.thin-lens-ruler rect {
+  fill: #d5c6a5;
+  stroke: #a79369;
+  stroke-width: 1.5;
+}
+
+.thin-lens-ruler line {
+  stroke: #766947;
+  stroke-width: 1.2;
+}
+
+.thin-lens-focus-marks circle {
+  fill: #bd7930;
+}
+
+.thin-lens-focus-marks line {
+  stroke: #a8662b;
+  stroke-width: 2;
+}
+
+.thin-lens-focus-marks text {
+  fill: #8a551f;
+  paint-order: stroke;
+  stroke: #f8faf7;
+  stroke-width: 4px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.thin-lens-body path {
+  fill: url(#thin-lens-glass);
+  stroke: #278e8b;
+  stroke-width: 3;
+}
+
+.thin-lens-body > line {
+  stroke: #197d7b;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 5;
+}
+
+.thin-lens-body > text {
+  fill: #246d6c;
+  paint-order: stroke;
+  stroke: #f8faf7;
+  stroke-width: 5px;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.thin-lens-body.highlighted path {
+  stroke: #e0a03f;
+  stroke-width: 5;
+}
+
+.lens-image-arrow line,
+.lens-image-arrow path {
+  fill: none;
+  stroke: #cf654c;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lens-image-arrow text {
+  fill: #a54234;
+  paint-order: stroke;
+  stroke: #f8faf7;
+  stroke-width: 5px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.thin-lens-image .lens-image-arrow line,
+.thin-lens-image .lens-image-arrow path {
+  stroke: #397fbd;
+}
+
+.thin-lens-image .lens-image-arrow.virtual line,
+.thin-lens-image .lens-image-arrow.virtual path {
+  stroke-dasharray: 6 5;
+}
+
+.thin-lens-image .lens-image-arrow text {
+  fill: #2b6da9;
+}
+
+.thin-lens-object.highlighted .lens-image-arrow line,
+.thin-lens-object.highlighted .lens-image-arrow path,
+.thin-lens-image.highlighted .lens-image-arrow line,
+.thin-lens-image.highlighted .lens-image-arrow path {
+  stroke-width: 8;
+}
+
+.thin-lens-ray {
+  transition: opacity 100ms linear;
+}
+
+.thin-lens-ray line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.thin-lens-ray .incident {
+  stroke: #d58b2d;
+  stroke-width: 3.5;
+}
+
+.thin-lens-ray .refracted {
+  stroke: #138c89;
+  stroke-width: 3.5;
+}
+
+.thin-lens-ray.center .incident,
+.thin-lens-ray.center .refracted {
+  stroke-width: 2.5;
+}
+
+.thin-lens-ray text {
+  fill: #4d6462;
+  paint-order: stroke;
+  stroke: #f8faf7;
+  stroke-width: 5px;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.thin-lens-ray.highlighted line {
+  stroke-width: 6;
+  filter: drop-shadow(0 0 4px rgb(219 155 60 / 40%));
+}
+
+.thin-lens-extensions {
+  transition: opacity 100ms linear;
+}
+
+.thin-lens-extensions line {
+  stroke: #718d8b;
+  stroke-width: 2;
+  stroke-dasharray: 7 6;
+}
+
+.thin-lens-extensions text {
+  fill: #667d7b;
+  paint-order: stroke;
+  stroke: #f8faf7;
+  stroke-width: 5px;
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.thin-lens-extensions.highlighted line {
+  stroke: #d28b35;
+  stroke-width: 4;
+}
+
+.thin-lens-infinity-banner rect {
+  fill: #fff3d9;
+  stroke: #d6a04b;
+  stroke-width: 2;
+}
+
+.thin-lens-infinity-banner text {
+  fill: #7d531c;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.thin-lens-readings > rect {
+  fill: #183c3f;
+  stroke: #356063;
+  stroke-width: 2;
+}
+
+.thin-lens-readings.highlighted > rect {
+  fill: #174b4d;
+  stroke: #69aaa8;
+  stroke-width: 4;
+}
+
+.thin-lens-readings .thin-lens-panel-kicker {
+  fill: #a7d1ce;
+}
+
+.thin-lens-readings > line {
+  stroke: #496d6e;
+  stroke-width: 1.5;
+}
+
+.thin-lens-formula {
+  fill: #f5f7f6;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 26px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.thin-lens-formula.secondary {
+  fill: #f0c979;
+  font-size: 21px;
+}
+
+.thin-lens-result {
+  fill: #f1c979;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.thin-lens-reading-row text:first-of-type {
+  fill: #9cb8b6;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 800;
+}
+
+.thin-lens-reading-row text:last-of-type {
+  fill: #f1f5f4;
+  font-size: 14px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.thin-lens-reading-row.accent text:last-of-type {
+  fill: #f1c979;
+}
+
+.thin-lens-sign-note {
+  fill: #a7c5c2;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.thin-lens-model-note {
+  fill: #89a3a1;
+  font-size: 9px;
+  font-weight: 650;
+}
+
+.thin-lens-narration-overlay .narration-step-title {
+  fill: #183234;
+}
+
+.thin-lens-narration-overlay .narration-step-caption {
+  fill: #536b69;
+}
+
+.thin-lens-canvas :is(
+  .thin-lens-heading,
+  .thin-lens-panel-kicker,
+  .thin-lens-axis-label,
+  .thin-lens-body > text,
+  .thin-lens-infinity-banner text,
+  .thin-lens-sign-note,
+  .thin-lens-model-note
+) {
+  --canvas-text-local-scale: 1;
+}
+
+.thin-lens-canvas :is(
+  .thin-lens-focus-marks text,
+  .lens-image-arrow text,
+  .thin-lens-reading-row text
+) {
+  --canvas-text-local-scale: clamp(0.9, var(--canvas-text-scale, 1), 1.35);
+}
+
+.thin-lens-canvas :is(
+  .thin-lens-ray text,
+  .thin-lens-extensions text,
+  .thin-lens-result
+) {
+  --canvas-text-local-scale: clamp(0.9, var(--canvas-text-scale, 1), 1.1);
+}
+
+.thin-lens-formula {
+  --canvas-text-local-scale: clamp(0.9, var(--canvas-text-scale, 1), 1.1);
+}
+
+.thin-lens-canvas.is-portrait .thin-lens-formula {
+  font-size: 22px;
+}
+
+.thin-lens-canvas.is-portrait .thin-lens-formula.secondary {
+  font-size: 18px;
+}
+
+.thin-lens-canvas.is-portrait .thin-lens-reading-row text:last-of-type {
+  font-size: 12px;
+}
+
+.thin-lens-control-label {
+  display: block;
+  margin-bottom: 9px;
+  color: #dfe1db;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.thin-lens-preset-buttons,
+.thin-lens-segmented {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.thin-lens-preset-buttons button,
+.thin-lens-segmented button {
+  min-width: 0;
+  min-height: 32px;
+  padding: 5px 6px;
+  border: 1px solid #4b4e48;
+  border-radius: 5px;
+  color: #b9bdb5;
+  background: #252624;
+  font-size: 10px;
+  line-height: 1.15;
+}
+
+.thin-lens-preset-buttons button.active,
+.thin-lens-segmented button.active {
+  border-color: #b77a35;
+  color: #f1d1a0;
+  background: #3b3023;
+}
+
+.thin-lens-measurements .thin-lens-measurement-heading {
+  grid-column: 1 / -1;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 9px;
+  background: #273d3e;
+}
+
+.thin-lens-measurement-heading dt,
+.thin-lens-measurement-heading dd {
+  color: #a7d3cf;
+}
+
+.thin-lens-footer-law {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #bdc2ba;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.thin-lens-workbench:not(.narration-mode) {
+  grid-template-rows: 48px minmax(0, 1fr);
+}
+
+.thin-lens-workbench:not(.narration-mode):fullscreen {
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.thin-lens-workbench .playback-bar {
+  grid-template-columns: auto 112px minmax(120px, 1fr) auto;
+  gap: 14px;
+  padding-right: 24px;
+  padding-left: 24px;
+}
+
+@media (max-width: 1100px) {
+  .thin-lens-pack-badge {
+    display: none;
+  }
+
+  .thin-lens-workbench .playback-bar {
+    grid-template-columns: auto 112px minmax(120px, 1fr);
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .thin-lens-footer-law {
+    display: none;
+  }
+}
+
+@media (max-width: 820px) {
+  .thin-lens-workbench .playback-bar {
+    grid-template-columns: auto minmax(100px, 1fr) auto;
+  }
+}
+
+@media (max-width: 540px) {
+  .thin-lens-workbench .stage-area {
+    min-height: 520px;
+  }
+
+  .thin-lens-workbench.ratio-landscape .stage-area {
+    height: 340px;
+    min-height: 340px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thin-lens-workbench .wave-canvas-transform,
+  .thin-lens-workbench .wave-switch-track span,
+  .thin-lens-ray,
+  .thin-lens-extensions {
+    transition: none;
+  }
+}

@@ -85,7 +85,7 @@ const copy = {
     faq: [
       {q: "Is Science Studio a replacement for physical labs?", a: "No. It is a classroom explanation and demonstration tool. It helps teachers make forces, motion, equations, and model assumptions visible before or after hands-on work."},
       {q: "Do students need accounts?", a: "No. The first version is teacher-led. A teacher opens the experiment and presents it on a projector, interactive whiteboard, or shared screen."},
-      {q: "Which grade levels are supported?", a: "All 13 released experiments currently target middle-school physics. Elementary and high-school lessons will appear only after they are classroom-ready."},
+      {q: "Which grade levels are supported?", a: "All 14 released experiments currently target middle-school physics. Elementary and high-school lessons will appear only after they are classroom-ready."},
       {q: "Are the calculations scientifically verified?", a: "Each released experiment uses a deterministic solver, explicit SI units, documented assumptions, parameter validation, and automated tests. It is educational modeling, not engineering certification software."},
       {q: "Does it work on classroom displays?", a: "Yes. The interface is designed around teacher projection and common classroom screens, with large diagram labels and a focused presentation workflow."},
       {q: "What can I use for free?", a: "Inclined Plane & Friction, Energy Track, Forces & Motion, and Ohm's Law Lab are free now, including parameter controls, synchronized measurements, science checks, and guided explanation steps."},
@@ -160,7 +160,7 @@ const copy = {
     faq: [
       {q: "它会替代真实物理实验吗？", a: "不会。它是课堂解释与演示工具，帮助教师在动手实验前后把受力、运动、公式和模型假设讲清楚。"},
       {q: "学生需要注册账号吗？", a: "不需要。首版由教师打开实验，并通过投影仪、交互白板或屏幕共享进行展示。"},
-      {q: "支持哪些学段？", a: "目前发布的 13 个实验都面向初中物理。小学和高中实验会在达到课堂可用标准后再加入目录。"},
+      {q: "支持哪些学段？", a: "目前发布的 14 个实验都面向初中物理。小学和高中实验会在达到课堂可用标准后再加入目录。"},
       {q: "计算经过科学验证吗？", a: "每个正式实验都使用确定性求解器、明确的 SI 单位和模型假设，并包含参数验证与自动化测试。它是教育模型，不是工程认证软件。"},
       {q: "适合课堂大屏吗？", a: "适合。界面以教师投屏为中心，示意图标注较大，并提供聚焦的课堂讲解流程。"},
       {q: "目前哪些内容免费？", a: "斜面与摩擦、能量轨道、力与运动和欧姆定律实验当前免费，均包含参数控制、同步测量、科学检查和引导式讲解流程。"},

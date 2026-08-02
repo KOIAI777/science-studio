@@ -43,7 +43,7 @@ import {
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
-import Link from "next/link";
+import {ExperimentLibraryBackLink} from "./experiment-library-back-link";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {workbenchCopy, type Locale} from "../lib/i18n";
 import {getNarrationDuration, getNarrationStepStart, resolveNarrationFrame} from "../lib/narration";
@@ -616,7 +616,7 @@ export function SoundWaveWorkbench() {
 
   return <main className={`workbench-shell traveling-wave-workbench sound-wave-workbench ${mode === "narration" ? "narration-mode" : ""} ${aspectRatio === "16:9" ? "ratio-landscape" : "ratio-portrait"}`} ref={workbenchRef}>
     <header className="topbar">
-      <div className="project-identity"><Link className="back-to-library" href="/experiments" aria-label={locale === "en" ? "Back to experiment library" : "返回实验目录"}><ArrowLeft size={16} /></Link><span className="brand-mark"><FlaskConical size={17} /></span><span className="brand-name">Science Studio</span><span className="topbar-divider" /><span className="project-name">{copy.projectName}</span><span className="sound-pack-badge"><LockKeyhole size={11} />{copy.packName}</span></div>
+      <div className="project-identity"><ExperimentLibraryBackLink className="back-to-library" aria-label={locale === "en" ? "Back to experiment library" : "返回实验目录"}><ArrowLeft size={16} /></ExperimentLibraryBackLink><span className="brand-mark"><FlaskConical size={17} /></span><span className="brand-name">Science Studio</span><span className="topbar-divider" /><span className="project-name">{copy.projectName}</span><span className="sound-pack-badge"><LockKeyhole size={11} />{copy.packName}</span></div>
       <nav className="mode-switch" aria-label={commonCopy.modeLabel}><button className={`mode-button ${mode === "experiment" ? "active" : ""}`} type="button" aria-pressed={mode === "experiment"} onClick={() => {setMode("experiment"); setIsPlaying(false);}}>{commonCopy.modes.experiment}</button><button className={`mode-button ${mode === "narration" ? "active" : ""}`} type="button" aria-pressed={mode === "narration"} onClick={() => {setMode("narration"); setIsPlaying(false);}}>{commonCopy.modes.narration}</button><button className="mode-button" type="button" disabled>{commonCopy.modes.export}</button></nav>
       <div className="topbar-actions"><button className="locale-button" type="button" onClick={toggleLocale} aria-label={commonCopy.actions.switchLanguage}><Languages size={15} /><span>{locale === "en" ? "EN" : "中文"}</span></button><button className="icon-button" type="button" aria-label={commonCopy.actions.undo} disabled><Undo2 /></button><button className="icon-button" type="button" aria-label={commonCopy.actions.redo} disabled><Redo2 /></button></div>
     </header>

@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type {CatalogPage, CatalogQuery} from "../lib/experiment-catalog-data";
 import type {ExperimentAvailability, ExperimentCatalogItem, GradeLevel, SubjectArea} from "../lib/experiment-catalog";
+import {ExperimentLibraryScrollMemory} from "./experiment-library-scroll-memory";
 
 const gradeLabels: Record<GradeLevel, string> = {
   elementary: "Elementary",
@@ -97,6 +98,10 @@ const experimentPreviewImages: Record<string, {src: string; alt: string}> = {
     src: "/experiments/electromagnets-classroom-diagram.png",
     alt: "Actual Science Studio electromagnet output showing a current-carrying coil, magnetic field lines, labeled poles, and a compass probe.",
   },
+  "lenses-image-formation": {
+    src: "/experiments/lenses-image-formation-classroom-diagram.png",
+    alt: "Actual Science Studio optical bench showing a converging lens, focal markers, an object, a real image, and three principal rays.",
+  },
 };
 
 function ExperimentPreview({experiment}: {experiment: ExperimentCatalogItem}) {
@@ -141,6 +146,7 @@ export function ExperimentLibrary({catalog, filters}: {catalog: CatalogPage; fil
 
   return (
     <div className="library-page">
+      <ExperimentLibraryScrollMemory locationKey={buildCatalogHref(filters, {})} />
       <header className="site-header">
         <div className="site-header-inner">
           <Link className="site-brand" href="/" aria-label="Science Studio home"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link>
@@ -158,7 +164,7 @@ export function ExperimentLibrary({catalog, filters}: {catalog: CatalogPage; fil
         <div className="library-breadcrumb"><Link href="/"><ArrowLeft size={14} />Home</Link><span>/</span><span>Experiment library</span></div>
         <section className="library-heading">
           <div><span className="section-kicker">Experiment library</span><h1>Interactive physics experiments, ready for class.</h1></div>
-          <p>Four free middle-school lessons and nine paid pack experiments are ready to present. Browse mechanics, electricity, waves, fluids, and optics; new topics appear here only when they are classroom-ready.</p>
+          <p>Four free middle-school lessons and ten paid pack experiments are ready to present. Browse mechanics, electricity, waves, fluids, and optics; new topics appear here only when they are classroom-ready.</p>
         </section>
 
         <section className="library-toolbar" aria-label="Experiment filters">

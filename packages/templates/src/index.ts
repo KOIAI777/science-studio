@@ -11,3 +11,4 @@ export * from "./lever-balance/index";
 export * from "./sound-wave/index";
 export * from "./electrical-power/index";
 export * from "./electromagnet/index";
+export * from "./thin-lens/index";
