@@ -18,6 +18,7 @@ const PACK_EXPERIMENT_PATHS = new Set([
   "/experiments/levers-and-balance",
   "/experiments/sound-waves",
   "/experiments/electrical-power-energy",
+  "/experiments/electromagnets",
 ]);
 
 function normalizeReturnTo(value: FormDataEntryValue | string | null | undefined) {

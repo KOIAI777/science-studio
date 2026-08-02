@@ -18,5 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {url: `${siteUrl}/experiments/levers-and-balance`, changeFrequency: "monthly", priority: 0.8},
     {url: `${siteUrl}/experiments/sound-waves`, changeFrequency: "monthly", priority: 0.8},
     {url: `${siteUrl}/experiments/electrical-power-energy`, changeFrequency: "monthly", priority: 0.8},
+    {url: `${siteUrl}/experiments/electromagnets`, changeFrequency: "monthly", priority: 0.8},
   ];
 }

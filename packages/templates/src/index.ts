@@ -10,3 +10,4 @@ export * from "./ray-optics/index";
 export * from "./lever-balance/index";
 export * from "./sound-wave/index";
 export * from "./electrical-power/index";
+export * from "./electromagnet/index";

@@ -1,6 +1,6 @@
 # Science Studio 功能定义 v0.6
 
-更新日期：2026-07-31
+更新日期：2026-08-02
 
 ## 1. 产品定义
 
@@ -137,13 +137,13 @@ P0 不允许自由添加物体、关节或约束。
 | 产品 | 权益 | 状态 |
 |---|---|---|
 | Free Starter | 4 个基础实验和完整课堂展示 | 四个初中力学与电学实验现已开放 |
-| Middle School Physics Foundations | 计划约 15 个初中物理实验 | Early Access 已开放；八个付费实验已发布，后续通过验证的同包实验继续加入 |
+| Middle School Physics Foundations | 计划约 15 个初中物理实验 | Early Access 已开放；九个付费实验已发布，后续通过验证的同包实验继续加入 |
 | High School Mechanics | 约 8 个高中力学实验 | 后续验证 |
 | Mechanics Complete | 初中与高中力学合集 | 后续验证 |
 
 Free Starter 固定为四个实验：Inclined Plane & Friction、Energy Track、Forces & Motion 和 Ohm's Law Lab。Ohm's Law Lab 只提供一个 source、一个 resistor、一个 switch 的理想单回路；不包含串联、并联、混联、多电阻、任意布线或探针表。这些能力保留给付费旗舰 `DC Circuits: Series and Parallel`。
 
-四个免费实验保持匿名开放。教师邮箱 Magic Link、一次性 Waffo Pancake Checkout、签名 Webhook、订单与 entitlement 已接入；八个付费实验共用教师账户的 active `Middle School Physics Foundations` 权益。当前不销售订阅；同包后续实验只有在完成课堂和科学验证后才加入。
+四个免费实验保持匿名开放。教师邮箱 Magic Link、一次性 Waffo Pancake Checkout、签名 Webhook、订单与 entitlement 已接入；九个付费实验共用教师账户的 active `Middle School Physics Foundations` 权益。当前不销售订阅；同包后续实验只有在完成课堂和科学验证后才加入。
 
 初步价格假设：
 
@@ -170,7 +170,7 @@ P0 不实现：
 - 学生账户、作业、提交、成绩和统计。
 - 完整教师仪表板或学校采购流程。
 
-当前已进入 P1 内容生产：`DC Circuits: Series & Parallel`、`Waves: Frequency, Wavelength & Speed`、`Density & Buoyancy: Float, Sink or Suspend`、`Momentum & Collisions`、`Refraction & Total Internal Reflection`、`Levers & Balance: Moments in Equilibrium`、`Sound: Pitch, Loudness & Speed` 和 `Electrical Power & Energy` 是首批八个付费模板。光学实验明确区分临界角与全反射；杠杆实验使用同一求解状态积分角运动；声音实验使用纵波、传播前沿与双麦克风延迟测量；电功率实验用两组独立理想负载和同一物理时钟区分功率与累计电能。八个实验共用 `Middle School Physics Foundations` 权益，并使用同一 Waffo Pancake Checkout 验证教师购买闭环。
+当前已进入 P1 内容生产：`DC Circuits: Series & Parallel`、`Waves: Frequency, Wavelength & Speed`、`Density & Buoyancy: Float, Sink or Suspend`、`Momentum & Collisions`、`Refraction & Total Internal Reflection`、`Levers & Balance: Moments in Equilibrium`、`Sound: Pitch, Loudness & Speed`、`Electrical Power & Energy` 和 `Electromagnets: Current, Coils & Polarity` 是首批九个付费模板。光学实验明确区分临界角与全反射；杠杆实验使用同一求解状态积分角运动；声音实验使用纵波、传播前沿与双麦克风延迟测量；电功率实验用两组独立理想负载和同一物理时钟区分功率与累计电能；电磁铁实验用有限长螺线管模型、右手螺旋定则和轴线指南针连接电流、场强与磁极。九个实验共用 `Middle School Physics Foundations` 权益，并使用同一 Waffo Pancake Checkout 验证教师购买闭环。
 
 ## 7. 验收条件
 

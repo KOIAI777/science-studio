@@ -7872,3 +7872,569 @@ a {
     transition: none;
   }
 }
+
+/* Electromagnet field and polarity laboratory */
+.electromagnet-pack-badge {
+  min-height: 21px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  border: 1px solid #6f6651;
+  border-radius: 4px;
+  color: #e4cf9d;
+  background: #342f24;
+  font-size: 9px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.electromagnet-canvas-bg {
+  fill: #f3f7f5;
+}
+
+.electromagnet-canvas .canvas-eyebrow {
+  fill: #627775;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.electromagnet-canvas .canvas-title {
+  fill: #1a3032;
+  font-size: 38px;
+  font-weight: 800;
+}
+
+.electromagnet-canvas .canvas-subtitle {
+  fill: #5c706f;
+  font-size: 16px;
+  font-weight: 580;
+}
+
+.electromagnet-canvas.is-portrait .canvas-title {
+  font-size: 34px;
+}
+
+.electromagnet-rule-badge rect {
+  fill: #ede8db;
+  stroke: #c9b98c;
+}
+
+.electromagnet-rule-badge text {
+  fill: #65562f;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.electromagnet-panel-surface {
+  fill: rgb(255 255 255 / 72%);
+  stroke: #b2c1bd;
+  stroke-width: 2;
+}
+
+.electromagnet-apparatus.highlighted .electromagnet-panel-surface {
+  stroke: #3f898a;
+  stroke-width: 4;
+}
+
+.electromagnet-panel-kicker {
+  fill: #56706e;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.electromagnet-source rect {
+  fill: #263b3d;
+  stroke: #466366;
+  stroke-width: 2;
+}
+
+.electromagnet-source.highlighted rect {
+  stroke: #de8a51;
+  stroke-width: 4;
+}
+
+.electromagnet-source text:first-of-type {
+  fill: #a9c2c0;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.electromagnet-source text:last-of-type {
+  fill: #f0d18d;
+  font-size: 19px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.electromagnet-source line:first-of-type {
+  stroke: #f2f5f3;
+  stroke-width: 5;
+}
+
+.electromagnet-source line:last-of-type {
+  stroke: #a8b8b6;
+  stroke-width: 3;
+}
+
+.electromagnet-circuit-wire {
+  fill: none;
+  stroke: #899695;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.electromagnet-circuit-wire.active {
+  stroke: #bb7047;
+}
+
+.electromagnet-switch circle {
+  fill: #f3f7f5;
+  stroke: #586d6c;
+  stroke-width: 3;
+}
+
+.electromagnet-switch line {
+  stroke: #b66c43;
+  stroke-width: 4;
+  stroke-linecap: round;
+  transform-origin: left center;
+  transition: y2 160ms ease;
+}
+
+.electromagnet-switch text {
+  fill: #687b79;
+  paint-order: stroke;
+  stroke: #f3f7f5;
+  stroke-width: 5px;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.electromagnet-field-line,
+.electromagnet-field-axis {
+  fill: none;
+  stroke: #377e84;
+  stroke-width: 3;
+  stroke-linecap: round;
+  opacity: 0.72;
+}
+
+.electromagnet-field-axis {
+  stroke-width: 4;
+  opacity: 0.9;
+}
+
+.electromagnet-canvas marker path {
+  fill: #377e84;
+}
+
+.electromagnet-coil-back path,
+.electromagnet-coil-front path {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.electromagnet-coil-back path {
+  stroke: #71391f;
+  stroke-width: 5;
+  opacity: 0.48;
+}
+
+.electromagnet-coil-front path {
+  stroke: url(#electromagnet-copper-gradient);
+  stroke-width: 6;
+}
+
+.electromagnet-coil-front path:nth-child(2n) {
+  stroke-width: 5.5;
+}
+
+.electromagnet-coil.highlighted :is(.electromagnet-coil-back path, .electromagnet-coil-front path) {
+  stroke-width: 8;
+}
+
+.electromagnet-core-assembly .electromagnet-core-body,
+.electromagnet-core-assembly .electromagnet-core-end {
+  stroke-width: 3;
+}
+
+.electromagnet-core-assembly.air .electromagnet-core-body,
+.electromagnet-core-assembly.air .electromagnet-core-end {
+  fill: rgb(238 245 243 / 78%);
+  stroke: #8fa4a1;
+  stroke-dasharray: 7 6;
+}
+
+.electromagnet-core-assembly.iron .electromagnet-core-body,
+.electromagnet-core-assembly.iron .electromagnet-core-end {
+  fill: url(#electromagnet-core-gradient);
+  stroke: #34494d;
+}
+
+.electromagnet-core-assembly .electromagnet-core-end.finish {
+  opacity: 0.92;
+}
+
+.electromagnet-core-highlight {
+  fill: none;
+  stroke: rgb(255 255 255 / 48%);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.electromagnet-current-marker path {
+  fill: #f4cf69;
+  stroke: #6f431e;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+}
+
+.electromagnet-current-marker.is-back {
+  opacity: 0.55;
+}
+
+.electromagnet-current-marker.is-back path {
+  fill: #d7aa5a;
+  stroke: #593b26;
+}
+
+.electromagnet-coil-label {
+  fill: #8c4d2c;
+  paint-order: stroke;
+  stroke: #f3f7f5;
+  stroke-width: 6px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.electromagnet-core-label {
+  fill: #29494c;
+  paint-order: stroke;
+  stroke: rgb(245 248 246 / 85%);
+  stroke-width: 4px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.electromagnet-pole rect {
+  stroke-width: 3;
+}
+
+.electromagnet-pole.north rect {
+  fill: #c65348;
+  stroke: #8f302a;
+}
+
+.electromagnet-pole.south rect {
+  fill: #287e85;
+  stroke: #1a5c62;
+}
+
+.electromagnet-pole.none rect {
+  fill: #a1aaa7;
+  stroke: #77817f;
+}
+
+.electromagnet-poles.highlighted .electromagnet-pole rect {
+  stroke: #e8b95d;
+  stroke-width: 5;
+}
+
+.electromagnet-pole text {
+  fill: #fff;
+  font-size: 25px;
+  font-weight: 950;
+}
+
+.electromagnet-current-label {
+  fill: #5b6f6e;
+  paint-order: stroke;
+  stroke: #f3f7f5;
+  stroke-width: 5px;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.electromagnet-compass > circle:first-of-type {
+  fill: #fff;
+  stroke: #617675;
+  stroke-width: 4;
+}
+
+.electromagnet-compass.highlighted > circle:first-of-type {
+  stroke: #d69a48;
+  stroke-width: 6;
+}
+
+.electromagnet-compass .earth-axis {
+  stroke: #aab7b5;
+  stroke-width: 2;
+  stroke-dasharray: 4 5;
+}
+
+.electromagnet-compass .earth-label,
+.electromagnet-compass .compass-label {
+  fill: #5d706e;
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.electromagnet-compass .compass-reading {
+  fill: #9a6624;
+  font-size: 13px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.electromagnet-compass .compass-north {
+  fill: #c65348;
+}
+
+.electromagnet-compass .compass-south {
+  fill: #287e85;
+}
+
+.electromagnet-compass > circle:last-of-type {
+  fill: #273c3e;
+}
+
+.electromagnet-probe-distance {
+  stroke: #9aa9a6;
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+}
+
+.electromagnet-probe-label {
+  fill: #687b79;
+  font-size: 10px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.electromagnet-readings > rect {
+  fill: #183c3f;
+  stroke: #366165;
+  stroke-width: 2;
+}
+
+.electromagnet-readings.highlighted > rect {
+  fill: #15494d;
+  stroke: #67aaa8;
+  stroke-width: 4;
+}
+
+.electromagnet-readings .electromagnet-panel-kicker {
+  fill: #a5ccca;
+}
+
+.electromagnet-readings > line {
+  stroke: #466a6c;
+  stroke-width: 1.5;
+}
+
+.electromagnet-formula {
+  fill: #f5f8f7;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.electromagnet-reading-row text:first-of-type {
+  fill: #94b0ae;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.electromagnet-reading-row text:last-of-type {
+  fill: #f3f6f4;
+  font-size: 13px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.electromagnet-reading-row.accent text:last-of-type {
+  fill: #f1ca79;
+}
+
+.electromagnet-strength-meter rect:first-of-type {
+  fill: #2b5558;
+}
+
+.electromagnet-strength-meter rect:last-of-type {
+  fill: #e2b95f;
+}
+
+.electromagnet-rule-note {
+  fill: #f0cb7c;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.electromagnet-model-note {
+  fill: #8ea9a7;
+  font-size: 9px;
+  font-weight: 650;
+}
+
+.electromagnet-narration-overlay .narration-step-title {
+  fill: #193234;
+}
+
+.electromagnet-narration-overlay .narration-step-caption {
+  fill: #536b69;
+}
+
+.electromagnet-canvas :is(
+  .electromagnet-heading,
+  .electromagnet-panel-kicker,
+  .electromagnet-source,
+  .electromagnet-switch,
+  .electromagnet-coil-label,
+  .electromagnet-core-label,
+  .electromagnet-current-label,
+  .electromagnet-compass,
+  .electromagnet-probe-label,
+  .electromagnet-rule-note,
+  .electromagnet-model-note
+) {
+  --canvas-text-local-scale: 1;
+}
+
+.electromagnet-canvas :is(
+  .electromagnet-pole text,
+  .electromagnet-reading-row text
+) {
+  --canvas-text-local-scale: clamp(0.9, var(--canvas-text-scale, 1), 1.25);
+}
+
+.electromagnet-formula {
+  --canvas-text-local-scale: clamp(0.9, var(--canvas-text-scale, 1), 1.05);
+}
+
+.electromagnet-control-label {
+  display: block;
+  margin-bottom: 9px;
+  color: #dfe1db;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.electromagnet-preset-buttons,
+.electromagnet-segmented {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.electromagnet-preset-buttons button,
+.electromagnet-segmented button {
+  min-width: 0;
+  min-height: 32px;
+  padding: 5px 6px;
+  border: 1px solid #4b4e48;
+  border-radius: 5px;
+  color: #b9bdb5;
+  background: #252624;
+  font-size: 10px;
+  line-height: 1.15;
+}
+
+.electromagnet-preset-buttons button.active,
+.electromagnet-segmented button.active {
+  border-color: #a46d46;
+  color: #f0d1b9;
+  background: #3a2d24;
+}
+
+.electromagnet-measurements .electromagnet-measurement-heading {
+  grid-column: 1 / -1;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 9px;
+  background: #273c3d;
+}
+
+.electromagnet-measurement-heading dt,
+.electromagnet-measurement-heading dd {
+  color: #9fd2ce;
+}
+
+.electromagnet-deflection-measurement {
+  grid-column: 1 / -1;
+}
+
+.electromagnet-deflection-measurement dt {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.electromagnet-deflection-measurement dd {
+  color: #e9c77d;
+}
+
+.electromagnet-footer-law {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #bdc2ba;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.electromagnet-workbench .playback-bar {
+  grid-template-columns: auto 112px minmax(120px, 1fr) auto auto;
+  gap: 14px;
+  padding-right: 24px;
+  padding-left: 24px;
+}
+
+@media (max-width: 1100px) {
+  .electromagnet-pack-badge {
+    display: none;
+  }
+
+  .electromagnet-workbench .playback-bar {
+    grid-template-columns: auto 112px minmax(120px, 1fr) auto;
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .electromagnet-footer-law {
+    display: none;
+  }
+}
+
+@media (max-width: 820px) {
+  .electromagnet-workbench .playback-bar {
+    grid-template-columns: auto minmax(100px, 1fr) auto;
+  }
+}
+
+@media (max-width: 540px) {
+  .electromagnet-workbench .stage-area {
+    min-height: 520px;
+  }
+
+  .electromagnet-workbench.ratio-landscape .stage-area {
+    height: 340px;
+    min-height: 340px;
+  }
+
+  .electromagnet-footer-law {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .electromagnet-workbench .wave-canvas-transform,
+  .electromagnet-workbench .wave-switch-track span,
+  .electromagnet-switch line {
+    transition: none;
+  }
+}

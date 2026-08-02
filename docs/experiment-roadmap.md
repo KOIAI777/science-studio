@@ -86,7 +86,7 @@ Forces & Motion 的总体课程需求最高，但当前斜面实验已经覆盖�
 14. Particle Model of Matter。
 15. Gas Pressure and Temperature。
 
-Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyancy、Momentum & Collisions、Refraction & Total Internal Reflection、Levers & Balance、Sound: Pitch, Loudness & Speed 和 Electrical Power & Energy 八个实验；后续仍按教师重复使用和付费反馈决定开发顺序与价格。实验包权益是内容访问权，不包含学生账户、成绩或班级管理。
+Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyancy、Momentum & Collisions、Refraction & Total Internal Reflection、Levers & Balance、Sound: Pitch, Loudness & Speed、Electrical Power & Energy 和 Electromagnets 九个实验；后续仍按教师重复使用和付费反馈决定开发顺序与价格。实验包权益是内容访问权，不包含学生账户、成绩或班级管理。
 
 ### 3.3 High School Mechanics
 
@@ -385,7 +385,26 @@ Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyanc
 
 模型边界：独立理想直流电源与恒定欧姆电阻；不模拟电阻温升、散热、非欧姆响应、源内阻或启动瞬态。电流动点只表示常规电流方向。
 
-### 5.14 Rotation & Torque
+### 5.14 Electromagnets: Current, Coils & Polarity
+
+- 模板 ID：`electricity.electromagnet`
+- 主要学段：Middle school
+- 权益：Middle School Physics Foundations
+- 建议时长：15 分钟
+- 状态：第九个付费实验 MVP 已实现
+- 详细合同：[electromagnets.md](templates/electromagnets.md)
+
+教学目标：连接线圈电流与磁场，比较电流、匝数、线圈长度和铁芯材料对场强的影响，并用右手螺旋定则与指南针探针验证磁极方向。
+
+参数：电流、线圈匝数、线圈长度、探针距离、空气/线性铁芯、从右端观察的电流方向和电路开关。预设覆盖基准、增加匝数、加入铁芯和反向电流。
+
+测量值：中心磁场、探针磁场、安匝数、匝密度、左右磁极和指南针偏转。画面同步显示电路、线圈、方向性磁力线、N/S 极和轴线指南针。
+
+默认讲解：闭合电路 -> 计算匝密度 -> 计算磁场 -> 判断磁极 -> 比较铁芯 -> 读取指南针。
+
+模型边界：固定半径的有限长均匀螺线管和稳恒直流；铁芯使用恒定有效相对磁导率，不模拟发热、磁滞、剩磁、涡流、饱和或开关瞬态。磁力线为方向示意，不是数值场图。
+
+### 5.15 Rotation & Torque
 
 - 模板 ID：`mechanics.rotation-torque`
 - 主要学段：High school
@@ -402,7 +421,7 @@ Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyanc
 
 模型边界：单固定轴刚体；不处理三维进动、柔性结构或滚动接触。
 
-### 5.14 Mass-Spring Oscillator
+### 5.16 Mass-Spring Oscillator
 
 - 模板 ID：`mechanics.mass-spring`
 - 主要学段：High school
@@ -419,7 +438,7 @@ Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyanc
 
 模型边界：理想线性弹簧和单自由度；阻尼模式不能继续显示无阻尼解析周期为精确结果。
 
-### 5.15 Gravity & Orbits
+### 5.17 Gravity & Orbits
 
 - 模板 ID：`mechanics.gravity-orbits`
 - 主要学段：High school
@@ -476,7 +495,8 @@ Early Access 已开放，当前已发布 DC Circuits、Waves、Density & Buoyanc
 6. Levers and Balance 第六个付费 MVP 已完成，进入教师验证。
 7. Sound: Pitch, Loudness & Speed 第七个付费 MVP 已完成，进入教师验证。
 8. Electrical Power & Energy 第八个付费 MVP 已完成，进入教师验证。
-9. 保持同一实验包与 `$9.90` Early Access 价格，按重复课堂使用、教师请求和付费反馈决定第九个主题。
+9. Electromagnets 第九个付费 MVP 已完成，进入教师验证。
+10. 保持同一实验包与 `$9.90` Early Access 价格，下一主题开发 Lenses & Image Formation。
 
 ### 阶段 3：扩展高阶实验
 

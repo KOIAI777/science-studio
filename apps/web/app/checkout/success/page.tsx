@@ -18,7 +18,7 @@ function first(value: string | string[] | undefined) {
 }
 
 function experimentPath(value: string | undefined) {
-  return value === "/experiments/waves" || value === "/experiments/density-buoyancy" || value === "/experiments/momentum-collisions" || value === "/experiments/refraction-total-internal-reflection" || value === "/experiments/levers-and-balance" || value === "/experiments/sound-waves" || value === "/experiments/electrical-power-energy"
+  return value === "/experiments/waves" || value === "/experiments/density-buoyancy" || value === "/experiments/momentum-collisions" || value === "/experiments/refraction-total-internal-reflection" || value === "/experiments/levers-and-balance" || value === "/experiments/sound-waves" || value === "/experiments/electrical-power-energy" || value === "/experiments/electromagnets"
     ? value
     : "/experiments/dc-circuits";
 }
@@ -31,6 +31,7 @@ function experimentLabel(path: string) {
   if (path === "/experiments/levers-and-balance") return "Open Levers & Balance";
   if (path === "/experiments/sound-waves") return "Open Sound Waves";
   if (path === "/experiments/electrical-power-energy") return "Open Electrical Power & Energy";
+  if (path === "/experiments/electromagnets") return "Open Electromagnets";
   return "Open DC Circuits";
 }
 

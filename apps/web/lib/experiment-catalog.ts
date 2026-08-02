@@ -162,6 +162,18 @@ export const experimentCatalog: ExperimentCatalogItem[] = [
     concepts: ["Electrical Power", "Electrical Energy", "Ohm's Law", "Energy Transfer"],
     preview: "circuit",
   },
+  {
+    id: "middle-electromagnets",
+    slug: "electromagnets",
+    title: "Electromagnets: Current, Coils & Polarity",
+    summary: "Change current, turns, core material, and direction to predict magnetic field strength and polarity.",
+    gradeLevel: "middle",
+    subject: "electricity",
+    availability: "pack",
+    lessonMinutes: 15,
+    concepts: ["Electromagnets", "Magnetic Fields", "Polarity", "Right-hand Rule"],
+    preview: "circuit",
+  },
 ];
 
 export const EXPERIMENTS_PER_PAGE = 6;

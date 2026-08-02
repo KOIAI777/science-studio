@@ -16,7 +16,8 @@
     "./ray-optics": "./src/ray-optics/index.ts",
     "./lever-balance": "./src/lever-balance/index.ts",
     "./sound-wave": "./src/sound-wave/index.ts",
-    "./electrical-power": "./src/electrical-power/index.ts"
+    "./electrical-power": "./src/electrical-power/index.ts",
+    "./electromagnet": "./src/electromagnet/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

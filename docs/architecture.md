@@ -1,8 +1,8 @@
 # Science Studio 技术架构 v0.3
 
-更新日期：2026-07-30
+更新日期：2026-08-02
 
-> 当前产品边界以 [product-spec.md](product-spec.md) 为准：教师直接在网页中匿名使用四个免费实验；Middle School Physics Foundations 已发布 DC Circuits、Waves、Density & Buoyancy、Momentum & Collisions、Refraction & Total Internal Reflection、Levers & Balance、Sound 和 Electrical Power & Energy 八个 Early Access 实验。Waffo Pancake 测试 Checkout、签名 Webhook、订单和线上权益校验已实现；视频导出、云渲染和生产支付发布仍未实现。
+> 当前产品边界以 [product-spec.md](product-spec.md) 为准：教师直接在网页中匿名使用四个免费实验；Middle School Physics Foundations 已发布 DC Circuits、Waves、Density & Buoyancy、Momentum & Collisions、Refraction & Total Internal Reflection、Levers & Balance、Sound、Electrical Power & Energy 和 Electromagnets 九个 Early Access 实验。Waffo Pancake 测试 Checkout、签名 Webhook、订单和线上权益校验已实现；视频导出、云渲染和生产支付发布仍未实现。
 
 ## 1. 架构目标
 
@@ -306,7 +306,7 @@ GET    /api/entitlements
 
 ### 阶段 D：验证后扩展
 
-模板扩展遵循 [实验模板路线](experiment-roadmap.md)：Free Starter 固定为四个实验；付费内容已完成 DC Circuits、Waves、Density/Buoyancy、Momentum/Collisions、Refraction/Total Internal Reflection、Levers/Balance、Sound 与 Electrical Power/Energy 八个模板。后续根据重复课堂使用、模板请求和付费数据决定第九个主题，不预先建设通用编辑器。
+模板扩展遵循 [实验模板路线](experiment-roadmap.md)：Free Starter 固定为四个实验；付费内容已完成 DC Circuits、Waves、Density/Buoyancy、Momentum/Collisions、Refraction/Total Internal Reflection、Levers/Balance、Sound、Electrical Power/Energy 与 Electromagnets 九个模板。下一主题是 Lenses & Image Formation；仍按重复课堂使用、模板请求和付费数据控制后续顺序，不预先建设通用编辑器。
 
 ## 15. 主要风险
 

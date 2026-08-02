@@ -93,6 +93,10 @@ const experimentPreviewImages: Record<string, {src: string; alt: string}> = {
     src: "/experiments/electrical-power-energy-classroom-diagram.png",
     alt: "Actual Science Studio electrical-power output comparing two resistive loads and their synchronized energy-time lines.",
   },
+  electromagnets: {
+    src: "/experiments/electromagnets-classroom-diagram.png",
+    alt: "Actual Science Studio electromagnet output showing a current-carrying coil, magnetic field lines, labeled poles, and a compass probe.",
+  },
 };
 
 function ExperimentPreview({experiment}: {experiment: ExperimentCatalogItem}) {
@@ -154,7 +158,7 @@ export function ExperimentLibrary({catalog, filters}: {catalog: CatalogPage; fil
         <div className="library-breadcrumb"><Link href="/"><ArrowLeft size={14} />Home</Link><span>/</span><span>Experiment library</span></div>
         <section className="library-heading">
           <div><span className="section-kicker">Experiment library</span><h1>Interactive physics experiments, ready for class.</h1></div>
-          <p>Four free middle-school lessons and eight paid pack experiments are ready to present. Browse mechanics, electricity, waves, fluids, and optics; new topics appear here only when they are classroom-ready.</p>
+          <p>Four free middle-school lessons and nine paid pack experiments are ready to present. Browse mechanics, electricity, waves, fluids, and optics; new topics appear here only when they are classroom-ready.</p>
         </section>
 
         <section className="library-toolbar" aria-label="Experiment filters">
