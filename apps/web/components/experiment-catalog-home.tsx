@@ -418,7 +418,7 @@ export function ExperimentCatalogHome() {
       <footer className="site-footer">
         <div className="footer-brand"><Link className="site-brand" href="/"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link><p>{text.footerTagline}</p></div>
         <div><strong>{text.product}</strong><Link href="/experiments">{text.nav.experiments}</Link><a href="#workflow">{text.nav.workflow}</a><a href="#pricing">{text.nav.pricing}</a></div>
-        <div><strong>{text.support}</strong><Link href="/account">{text.nav.account}</Link><Link href="/contact">{text.contact}</Link><Link href="/experiments">{text.freeExperiment}</Link></div>
+        <div><strong>{text.support}</strong><Link href="/account">{text.nav.account}</Link><Link href="/contact">{text.contact}</Link><a href="mailto:support@classroomlab.online">support@classroomlab.online</a><Link href="/experiments">{text.freeExperiment}</Link></div>
         <div><strong>{text.legal}</strong><Link href="/terms">{text.terms}</Link><Link href="/privacy">{text.privacy}</Link><Link href="/refund-policy">{text.refunds}</Link></div>
         <small>© 2026 {text.rights}</small>
       </footer>
