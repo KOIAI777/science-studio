@@ -4,6 +4,7 @@ import "./globals.css";
 import "./home.css";
 import "./library.css";
 import "./auth.css";
+import "./legal.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 

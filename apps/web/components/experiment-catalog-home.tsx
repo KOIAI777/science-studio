@@ -13,6 +13,7 @@ import {
   ListChecks,
   MonitorPlay,
   Presentation,
+  RefreshCw,
   ShieldCheck,
   SlidersHorizontal,
   Sparkles,
@@ -31,7 +32,13 @@ const copy = {
     heroKicker: "Interactive physics for classroom teaching",
     heroTitle: "Interactive physics experiments, ready for class.",
     heroBody: "Adjust real lesson parameters, reveal forces and formulas step by step, and present the result on any classroom screen.",
-    heroNote: "No student accounts required. Four mechanics and electricity experiments are free.",
+    heroNote: "No student accounts required. Start with four complete experiments for free.",
+    releaseStatus: [
+      {value: "14", label: "experiments available"},
+      {value: "4", label: "free lessons"},
+      {value: "10", label: "in the Middle School Pack"},
+      {value: "Next", label: "High School support"},
+    ],
     lesson: "Live lesson preview",
     lessonStep: "03 / Resolve gravity",
     physicsStatus: "Deterministic model",
@@ -42,7 +49,7 @@ const copy = {
     trust: ["No coding", "Guided explanations", "Deterministic physics", "Classroom-ready"],
     libraryKicker: "Experiment library",
     libraryTitle: "Interactive physics experiments, ready for class.",
-    libraryBody: "Start with four free middle-school lessons across mechanics and electricity. New subjects and grade levels appear only after their lessons are classroom-ready.",
+    libraryBody: "Four free and ten paid middle-school experiments are ready now. The library keeps growing after classroom and scientific review, with High School support planned next.",
     switchLanguage: "Switch to Chinese",
     workflowKicker: "Teacher workflow",
     workflowTitle: "From lesson objective to classroom display in minutes",
@@ -62,24 +69,27 @@ const copy = {
     ],
     pricingKicker: "Experiment packs",
     pricingTitle: "Start free. Add the first teacher pack when you need it.",
-    pricingBody: "The first pack is a small early-access release; more experiments will be added only after classroom and scientific review.",
+    pricingBody: "The Middle School Pack includes ten experiments now and future reviewed additions to that pack. High School will launch later as a separate collection.",
     available: "Available now",
     earlyAccess: "Early access available",
-    future: "Future release",
+    future: "In development",
     targetPrice: "One-time price",
+    priceAtRelease: "Pricing announced at release",
     freePrice: "$0",
     freeName: "Free Starter",
     freeDesc: "Try the complete classroom workflow before deciding whether the format fits your teaching.",
     middleName: "Middle School Physics Foundations",
     middleDesc: "A focused paid pack of circuit, waves, forces, fluids, optics, energy, and magnetism lessons for middle school.",
-    highName: "High School Mechanics",
-    highDesc: "More advanced vector, projectile, collision, and orbital models for high school lessons.",
-    completeName: "Mechanics Complete",
-    completeDesc: "Middle and high school mechanics together in one expanding collection.",
-    currentAccess: "Inclined Plane, Energy Track, Forces & Motion, and Ohm's Law Lab available now",
-    expanding: "Four complete classroom experiments",
-    opensAtFive: "One-time teacher access",
-    noSubscription: "No subscription planned for validation",
+    highName: "High School Physics",
+    highDesc: "Advanced mechanics, electricity, waves, and optics experiments built for high-school teaching sequences.",
+    currentAccess: "Four complete classroom experiments",
+    expanding: "No account needed for classroom presentation",
+    opensAtFive: "Ten released experiments available now",
+    futureIncluded: "Future Middle School additions included",
+    oneTimeAccess: "One-time teacher access, no subscription",
+    highScope: "High-school curriculum and advanced models",
+    separatePack: "A separate pack when it is classroom-ready",
+    reviewedRelease: "Released only after classroom and scientific review",
     faqKicker: "FAQ",
     faqTitle: "Before you bring it into class",
     faq: [
@@ -95,6 +105,12 @@ const copy = {
     footerTagline: "Guided interactive physics experiments for classroom presentation.",
     product: "Product",
     status: "Current status",
+    support: "Support",
+    legal: "Legal",
+    contact: "Contact",
+    terms: "Terms of Service",
+    privacy: "Privacy Policy",
+    refunds: "Refund Policy",
     freeExperiment: "Free experiment library",
     curriculum: "Planned curriculum",
     rights: "Science Studio. Built for teacher-led science lessons.",
@@ -106,7 +122,13 @@ const copy = {
     heroKicker: "面向课堂讲解的交互式物理实验",
     heroTitle: "打开即可讲课的交互式物理实验。",
     heroBody: "调整真实例题参数，逐步展示受力、公式和结果，并在任何课堂屏幕上清楚呈现。",
-    heroNote: "学生无需账号。四个力学与电学实验现已免费开放。",
+    heroNote: "学生无需账号，可先免费使用四个完整课堂实验。",
+    releaseStatus: [
+      {value: "14", label: "个实验已上线"},
+      {value: "4", label: "个免费实验"},
+      {value: "10", label: "个初中付费实验"},
+      {value: "下一阶段", label: "支持高中课程"},
+    ],
     lesson: "实时课堂预览",
     lessonStep: "03 / 分解重力",
     physicsStatus: "确定性物理模型",
@@ -117,7 +139,7 @@ const copy = {
     trust: ["无需编程", "结构化讲解", "确定性计算", "适合课堂展示"],
     libraryKicker: "实验目录",
     libraryTitle: "打开即可讲课的交互式物理实验。",
-    libraryBody: "现在有四个面向初中的免费力学与电学实验。新的主题和学段只会在实验达到课堂可用标准后才显示。",
+    libraryBody: "目前有四个免费和十个付费初中实验。实验通过课堂与科学审核后会持续加入，下一阶段将支持高中课程。",
     switchLanguage: "Switch to English",
     workflowKicker: "教师使用流程",
     workflowTitle: "几分钟内从教学目标进入课堂展示",
@@ -137,24 +159,27 @@ const copy = {
     ],
     pricingKicker: "实验包",
     pricingTitle: "先免费使用，需要时再解锁教师实验包。",
-    pricingBody: "第一个实验包先以早期访问形式开放，后续实验通过课堂和科学验证后再加入。",
+    pricingBody: "初中实验包现含十个实验，并包含未来通过审核的初中新增实验。高中课程会在准备好后作为独立实验包上线。",
     available: "当前可用",
     earlyAccess: "早期访问，现已开放",
-    future: "未来版本",
+    future: "开发中",
     targetPrice: "一次性价格",
+    priceAtRelease: "上线时公布价格",
     freePrice: "$0",
     freeName: "免费入门包",
     freeDesc: "先体验完整课堂讲解流程，再判断是否适合自己的教学方式。",
     middleName: "初中物理基础包",
     middleDesc: "围绕电路、波、力学、流体、光学、能量与磁学组织的初中付费课堂实验。",
-    highName: "高中力学包",
-    highDesc: "面向高中课堂的矢量、抛体、碰撞与轨道等进阶模型。",
-    completeName: "完整力学包",
-    completeDesc: "将初中和高中力学实验合并为一个持续扩充的合集。",
-    currentAccess: "斜面、能量轨道、力和运动与欧姆定律现已开放",
-    expanding: "四个完整课堂实验",
-    opensAtFive: "一次性教师访问",
-    noSubscription: "验证阶段不做订阅",
+    highName: "高中物理实验包",
+    highDesc: "围绕高中教学顺序建设的进阶力学、电学、波动与光学实验。",
+    currentAccess: "四个完整课堂实验",
+    expanding: "课堂展示无需学生账号",
+    opensAtFive: "十个已发布实验现在可用",
+    futureIncluded: "未来新增的初中实验持续包含",
+    oneTimeAccess: "一次性教师访问，不订阅",
+    highScope: "高中课程与进阶模型",
+    separatePack: "达到课堂可用标准后独立上线",
+    reviewedRelease: "通过课堂与科学审核后再发布",
     faqKicker: "常见问题",
     faqTitle: "带进课堂前需要知道的事",
     faq: [
@@ -170,6 +195,12 @@ const copy = {
     footerTagline: "面向课堂展示的引导式交互物理实验。",
     product: "产品",
     status: "当前状态",
+    support: "支持",
+    legal: "法律信息",
+    contact: "联系我们",
+    terms: "服务条款",
+    privacy: "隐私政策",
+    refunds: "退款政策",
     freeExperiment: "免费实验目录",
     curriculum: "规划课程范围",
     rights: "Science Studio，面向教师主导的科学课堂。",
@@ -322,6 +353,9 @@ export function ExperimentCatalogHome() {
               <Link className="secondary-cta" href="/experiments">{text.explore}<ChevronRight size={16} /></Link>
             </div>
             <span className="hero-note"><Check size={14} />{text.heroNote}</span>
+            <dl className="hero-release-status" aria-label="Current curriculum release status">
+              {text.releaseStatus.map((item) => <div key={item.label}><dt>{item.value}</dt><dd>{item.label}</dd></div>)}
+            </dl>
           </div>
           <HeroExperimentPreview locale={locale} />
         </section>
@@ -365,10 +399,9 @@ export function ExperimentCatalogHome() {
         <section className="home-section pricing-section" id="pricing">
           <div className="section-heading split-heading"><div><span className="section-kicker"><FlaskConical size={15} />{text.pricingKicker}</span><h2>{text.pricingTitle}</h2></div><p>{text.pricingBody}</p></div>
           <div className="pricing-grid">
-            <article className="pricing-card current"><span className="plan-status"><Check size={13} />{text.available}</span><h3>{text.freeName}</h3><strong>{text.freePrice}</strong><p>{text.freeDesc}</p><ul><li><Check size={14} />{text.currentAccess}</li><li><Check size={14} />{text.expanding}</li><li><Check size={14} />{text.noSubscription}</li></ul><Link href="/experiments/inclined-plane">{text.tryFree}<ArrowRight size={15} /></Link></article>
-            <article className="pricing-card available-pack"><span className="plan-status"><Check size={13} />{text.earlyAccess}</span><h3>{text.middleName}</h3><strong>$9.90 <small>{text.targetPrice}</small></strong><p>{text.middleDesc}</p><ul><li><Check size={14} />{text.opensAtFive}</li><li><Check size={14} />{text.noSubscription}</li></ul><Link href="/experiments/dc-circuits">View pack<ArrowRight size={15} /></Link></article>
-            <article className="pricing-card"><span className="plan-status future"><Sparkles size={13} />{text.future}</span><h3>{text.highName}</h3><strong>$29 <small>{text.targetPrice}</small></strong><p>{text.highDesc}</p><ul><li><Check size={14} />{text.future}</li><li><Check size={14} />{text.noSubscription}</li></ul></article>
-            <article className="pricing-card"><span className="plan-status future"><Sparkles size={13} />{text.future}</span><h3>{text.completeName}</h3><strong>$39–49 <small>{text.targetPrice}</small></strong><p>{text.completeDesc}</p><ul><li><Check size={14} />{text.future}</li><li><Check size={14} />{text.noSubscription}</li></ul></article>
+            <article className="pricing-card current"><span className="plan-status"><Check size={13} />{text.available}</span><h3>{text.freeName}</h3><strong>{text.freePrice}</strong><p>{text.freeDesc}</p><ul><li><Check size={14} />{text.currentAccess}</li><li><Check size={14} />{text.expanding}</li></ul><Link href="/experiments/inclined-plane">{text.tryFree}<ArrowRight size={15} /></Link></article>
+            <article className="pricing-card available-pack"><span className="plan-status"><Check size={13} />{text.earlyAccess}</span><h3>{text.middleName}</h3><strong>$9.90 <small>{text.targetPrice}</small></strong><p>{text.middleDesc}</p><ul><li><Check size={14} />{text.opensAtFive}</li><li><RefreshCw size={14} />{text.futureIncluded}</li><li><Check size={14} />{text.oneTimeAccess}</li></ul><Link href="/experiments/dc-circuits">View pack<ArrowRight size={15} /></Link></article>
+            <article className="pricing-card"><span className="plan-status future"><Sparkles size={13} />{text.future}</span><h3>{text.highName}</h3><strong className="planned-price">{text.priceAtRelease}</strong><p>{text.highDesc}</p><ul><li><Check size={14} />{text.highScope}</li><li><Check size={14} />{text.separatePack}</li><li><ShieldCheck size={14} />{text.reviewedRelease}</li></ul></article>
           </div>
         </section>
 
@@ -385,7 +418,8 @@ export function ExperimentCatalogHome() {
       <footer className="site-footer">
         <div className="footer-brand"><Link className="site-brand" href="/"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link><p>{text.footerTagline}</p></div>
         <div><strong>{text.product}</strong><Link href="/experiments">{text.nav.experiments}</Link><a href="#workflow">{text.nav.workflow}</a><a href="#pricing">{text.nav.pricing}</a></div>
-        <div><strong>{text.status}</strong><Link href="/experiments">{text.freeExperiment}</Link><Link href="/experiments">{text.curriculum}</Link></div>
+        <div><strong>{text.support}</strong><Link href="/account">{text.nav.account}</Link><Link href="/contact">{text.contact}</Link><Link href="/experiments">{text.freeExperiment}</Link></div>
+        <div><strong>{text.legal}</strong><Link href="/terms">{text.terms}</Link><Link href="/privacy">{text.privacy}</Link><Link href="/refund-policy">{text.refunds}</Link></div>
         <small>© 2026 {text.rights}</small>
       </footer>
     </div>

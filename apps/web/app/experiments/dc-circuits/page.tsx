@@ -100,10 +100,10 @@ export default async function DcCircuitsExperimentPage({searchParams}: DcCircuit
           </div>
           <div className="pack-access-card">
             <div className="pack-price"><strong>${MIDDLE_SCHOOL_PACK_PRICE_USD}</strong><span>one-time early access</span></div>
-            <p>Unlock the Middle School Physics Foundations pack for your teacher account. Students do not need accounts when you present the experiment.</p>
+            <p>Unlock all ten released experiments in Middle School Physics Foundations, plus every classroom-ready experiment added to this pack.</p>
             {billingMessage === "configuration" ? <div className="billing-message">Billing is not configured on this server yet.</div> : billingMessage === "checkout" ? <div className="billing-message">Checkout could not be created. Please try again.</div> : billingMessage === "order" ? <div className="billing-message">We could not start the order. Please try again.</div> : null}
             {userId ? <form action="/api/billing/checkout" method="post"><input type="hidden" name="returnTo" value="/experiments/dc-circuits" /><button className="pack-checkout-button" type="submit" disabled={!isSupabaseAdminConfigured()}><CreditCard size={16} />Unlock the pack</button></form> : <Link className="pack-checkout-button" href="/login?next=%2Fexperiments%2Fdc-circuits"><UserRound size={16} />Sign in to unlock</Link>}
-            <small><ShieldCheck size={13} />No subscription. Refunds are handled by Waffo.</small>
+            <small><ShieldCheck size={13} />One-time payment by Waffo Pancake. <Link href="/refund-policy">Refund policy</Link></small>
           </div>
         </section>
         <figure className="pack-preview">

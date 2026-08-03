@@ -253,6 +253,16 @@
   line-height: 15px;
 }
 
+.auth-privacy-note a {
+  color: #b9bdb4;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.auth-privacy-note a:hover {
+  color: #fff;
+}
+
 .auth-sent-state > span {
   color: #6eb2a8;
 }
@@ -369,6 +379,125 @@
   font-size: 9px;
   font-weight: 750;
   text-transform: uppercase;
+}
+
+.account-entitlement-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 34px;
+  margin-top: 36px;
+  padding: 30px;
+  border: 1px solid #bdc8c2;
+  border-radius: 7px;
+  background: #f7f8f4;
+  box-shadow: inset 0 3px #39766d;
+}
+
+.account-entitlement-summary.free {
+  border-color: #c8cac3;
+  box-shadow: inset 0 3px #a64d39;
+}
+
+.account-entitlement-badge {
+  min-height: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  border-radius: 4px;
+  color: #285f58;
+  background: #e0ebe6;
+  font-size: 8px;
+  font-weight: 780;
+  text-transform: uppercase;
+}
+
+.account-entitlement-summary.free .account-entitlement-badge {
+  color: #8e4635;
+  background: #eee1dc;
+}
+
+.account-entitlement-heading h2 {
+  margin: 15px 0 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.account-entitlement-heading p {
+  max-width: 560px;
+  margin: 10px 0 0;
+  color: #62665e;
+  font-size: 11px;
+  line-height: 18px;
+}
+
+.account-access-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  border-top: 1px solid #d0d3ca;
+  border-bottom: 1px solid #d0d3ca;
+}
+
+.account-access-facts div {
+  min-width: 0;
+  padding: 17px 13px;
+  border-right: 1px solid #d0d3ca;
+}
+
+.account-access-facts div:first-child {
+  padding-left: 0;
+}
+
+.account-access-facts div:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.account-access-facts dt {
+  color: #252621;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.account-access-facts dd {
+  margin: 5px 0 0;
+  color: #74786f;
+  font-size: 8px;
+  line-height: 13px;
+}
+
+.account-entitlement-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 2px;
+}
+
+.account-primary-action,
+.account-secondary-action {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 13px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.account-primary-action {
+  color: #f0f2ec;
+  background: #262723;
+}
+
+.account-secondary-action {
+  border: 1px solid #bfc2b9;
+  color: #3e423b;
+  background: #eceee8;
 }
 
 .account-sections {
@@ -552,10 +681,13 @@
 }
 
 .pack-access-card > p {
-  margin: 21px 0 0;
-  color: #aeb1a9;
-  font-size: 11px;
-  line-height: 18px;
+  margin: 18px 0 0;
+  padding: 14px 14px 14px 16px;
+  border-left: 3px solid #5a9b91;
+  color: #d8dad4;
+  background: #2c2e2a;
+  font-size: 12px;
+  line-height: 19px;
 }
 
 .billing-message {
@@ -611,6 +743,16 @@ a.pack-checkout-button {
   font-size: 9px;
 }
 
+.pack-access-card small a {
+  color: #afb3aa;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pack-access-card small a:hover {
+  color: #fff;
+}
+
 .checkout-status-page {
   min-height: 100dvh;
   display: grid;
@@ -623,7 +765,7 @@ a.pack-checkout-button {
 }
 
 .checkout-status-panel {
-  width: min(540px, 100%);
+  width: min(640px, 100%);
   padding: 40px;
   border: 1px solid #484a45;
   border-radius: 7px;
@@ -653,7 +795,7 @@ a.pack-checkout-button {
   height: 48px;
   display: grid;
   place-items: center;
-  margin-top: 48px;
+  margin-top: 38px;
   border: 1px solid #4a4d46;
   border-radius: 6px;
   background: #292a26;
@@ -665,6 +807,10 @@ a.pack-checkout-button {
 
 .checkout-status-icon.pending {
   color: #e5a077;
+}
+
+.checkout-status-icon.attention {
+  color: #ef8068;
 }
 
 .checkout-status-panel .section-kicker {
@@ -684,6 +830,151 @@ a.pack-checkout-button {
   color: #aeb1a9;
   font-size: 12px;
   line-height: 20px;
+}
+
+.checkout-progress {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 28px 0 0;
+  padding: 18px 0;
+  border-top: 1px solid #444641;
+  border-bottom: 1px solid #444641;
+  list-style: none;
+}
+
+.checkout-progress li {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  padding: 0 14px;
+  border-right: 1px solid #444641;
+}
+
+.checkout-progress li:first-child {
+  padding-left: 0;
+}
+
+.checkout-progress li:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.checkout-progress li > span {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #50534c;
+  border-radius: 50%;
+  color: #7e8279;
+  background: #292a26;
+}
+
+.checkout-progress li.complete > span {
+  border-color: #426861;
+  color: #73b7ac;
+  background: #25302d;
+}
+
+.checkout-progress li.current > span {
+  border-color: #805941;
+  color: #e5a077;
+  background: #322a24;
+}
+
+.checkout-progress li.error > span {
+  border-color: #845047;
+  color: #ef8068;
+  background: #352724;
+}
+
+.checkout-progress small,
+.checkout-pack-summary small {
+  display: block;
+  color: #777b72;
+  font-size: 8px;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.checkout-progress strong {
+  display: block;
+  margin-top: 4px;
+  color: #d7d9d3;
+  font-size: 9px;
+  line-height: 14px;
+}
+
+.checkout-progress li.upcoming strong {
+  color: #858981;
+}
+
+.checkout-pack-summary {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 13px;
+  margin-top: 22px;
+  padding: 17px;
+  border: 1px solid #405d58;
+  border-radius: 6px;
+  background: #26302d;
+}
+
+.checkout-pack-summary > span {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 5px;
+  color: #73b7ac;
+  background: #1f2825;
+}
+
+.checkout-pack-summary strong {
+  display: block;
+  margin-top: 5px;
+  color: #f1f2ed;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.checkout-pack-summary p {
+  margin: 5px 0 0;
+  color: #aeb1a9;
+  font-size: 9px;
+  line-height: 15px;
+}
+
+.checkout-auto-refresh {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 18px;
+  color: #aeb1a9;
+  font-size: 9px;
+}
+
+.checkout-auto-refresh svg {
+  flex: 0 0 auto;
+  color: #e5a077;
+}
+
+.checkout-auto-refresh svg.checking {
+  animation: checkout-status-spin 1.6s linear infinite;
+}
+
+@keyframes checkout-status-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .checkout-auto-refresh svg.checking {
+    animation: none;
+  }
 }
 
 .checkout-status-actions {
@@ -712,6 +1003,51 @@ a.pack-checkout-button {
 .checkout-secondary-action {
   border: 1px solid #4a4d46;
   color: #c8cbc4;
+}
+
+.checkout-tertiary-action {
+  justify-self: center;
+  padding: 5px 0;
+  color: #969a91;
+  font-size: 9px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.checkout-order-reference {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 22px;
+  color: #72766d;
+  font-size: 8px;
+  font-variant-numeric: tabular-nums;
+  text-transform: uppercase;
+}
+
+.checkout-support-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: #777b72;
+  font-size: 9px;
+}
+
+.checkout-support-links a {
+  color: #aeb1a9;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.checkout-support-links a:hover {
+  color: #fff;
+}
+
+.checkout-support-links span {
+  color: #565951;
 }
 
 @media (max-width: 760px) {
@@ -761,6 +1097,28 @@ a.pack-checkout-button {
     font-size: 36px;
   }
 
+  .account-entitlement-summary {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 25px 22px;
+  }
+
+  .account-access-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .account-access-facts div,
+  .account-access-facts div:first-child,
+  .account-access-facts div:last-child {
+    padding: 13px 0;
+    border-right: 0;
+    border-bottom: 1px solid #d0d3ca;
+  }
+
+  .account-access-facts div:last-child {
+    border-bottom: 0;
+  }
+
   .pack-access-main {
     width: calc(100% - 32px);
   }
@@ -778,6 +1136,34 @@ a.pack-checkout-button {
   .pack-access-card,
   .checkout-status-panel {
     padding: 26px 22px;
+  }
+
+  .checkout-progress {
+    grid-template-columns: 1fr;
+    padding: 8px 0;
+  }
+
+  .checkout-progress li,
+  .checkout-progress li:first-child,
+  .checkout-progress li:last-child {
+    min-height: 54px;
+    padding: 8px 0;
+    border-right: 0;
+    border-bottom: 1px solid #444641;
+  }
+
+  .checkout-progress li:last-child {
+    border-bottom: 0;
+  }
+
+  .checkout-support-links {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .checkout-support-links span {
+    display: none;
   }
 
   .pack-preview {

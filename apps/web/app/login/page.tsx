@@ -69,7 +69,7 @@ export default async function LoginPage({searchParams}: {searchParams: Promise<R
                 <input id="email" name="email" type="email" autoComplete="email" inputMode="email" placeholder="teacher@school.org" required maxLength={254} autoFocus />
                 <button type="submit" disabled={!configured}>Email me a sign-in link<Mail size={16} /></button>
               </form>
-              <small className="auth-privacy-note">By continuing, you agree to use Science Studio as a teacher-led classroom resource.</small>
+              <small className="auth-privacy-note">By continuing, you agree to the <Link href="/terms">Terms of Service</Link> and acknowledge the <Link href="/privacy">Privacy Policy</Link>.</small>
             </>
           )}
         </div>

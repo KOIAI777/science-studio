@@ -6,7 +6,9 @@ import {
   Clock3,
   FlaskConical,
   Gauge,
+  GraduationCap,
   LockKeyhole,
+  RefreshCw,
   Search,
   Sparkles,
   UserRound,
@@ -165,6 +167,21 @@ export function ExperimentLibrary({catalog, filters}: {catalog: CatalogPage; fil
         <section className="library-heading">
           <div><span className="section-kicker">Experiment library</span><h1>Interactive physics experiments, ready for class.</h1></div>
           <p>Four free middle-school lessons and ten paid pack experiments are ready to present. Browse mechanics, electricity, waves, fluids, and optics; new topics appear here only when they are classroom-ready.</p>
+        </section>
+
+        <section className="curriculum-status" aria-label="Curriculum release status">
+          <article>
+            <span className="curriculum-status-icon current"><Check size={16} /></span>
+            <div><small>Available now</small><strong>Middle School Physics</strong><p>14 released experiments: four free and ten in the teacher pack.</p></div>
+          </article>
+          <article>
+            <span className="curriculum-status-icon updates"><RefreshCw size={16} /></span>
+            <div><small>Continuously updated</small><strong>New reviewed lessons</strong><p>Future Middle School additions are included with one-time pack access.</p></div>
+          </article>
+          <article>
+            <span className="curriculum-status-icon planned"><GraduationCap size={17} /></span>
+            <div><small>In development</small><strong>High School Physics</strong><p>A separate advanced collection will appear when it is classroom-ready.</p></div>
+          </article>
         </section>
 
         <section className="library-toolbar" aria-label="Experiment filters">

@@ -20,5 +20,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {url: `${siteUrl}/experiments/electrical-power-energy`, changeFrequency: "monthly", priority: 0.8},
     {url: `${siteUrl}/experiments/electromagnets`, changeFrequency: "monthly", priority: 0.8},
     {url: `${siteUrl}/experiments/lenses-image-formation`, changeFrequency: "monthly", priority: 0.8},
+    {url: `${siteUrl}/terms`, changeFrequency: "yearly", priority: 0.3},
+    {url: `${siteUrl}/privacy`, changeFrequency: "yearly", priority: 0.3},
+    {url: `${siteUrl}/refund-policy`, changeFrequency: "yearly", priority: 0.3},
+    {url: `${siteUrl}/contact`, changeFrequency: "yearly", priority: 0.4},
   ];
 }
