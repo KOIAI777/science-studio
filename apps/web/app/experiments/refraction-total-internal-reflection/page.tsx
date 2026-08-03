@@ -3,6 +3,7 @@ import {Activity, ArrowLeft, BookOpenCheck, CreditCard, FlaskConical, Gauge, Loc
 import Image from "next/image";
 import Link from "next/link";
 import {ExperimentStructuredData} from "../../../components/experiment-structured-data";
+import {PrimarySiteNavigation} from "../../../components/primary-site-navigation";
 import {RayOpticsWorkbench} from "../../../components/ray-optics-workbench";
 import {isSupabaseAdminConfigured} from "../../../lib/supabase/admin";
 import {isLocalPaidExperimentPreviewEnabled, isSupabaseConfigured} from "../../../lib/supabase/config";
@@ -58,7 +59,7 @@ export default async function RefractionExperimentPage({searchParams}: Refractio
   const billingMessage = first(params.billing);
   return <main className="pack-access-page">
     <ExperimentStructuredData name={pageTitle} description={description} path="/experiments/refraction-total-internal-reflection" image={previewImage.url} teaches={["Law of reflection", "Snell's law", "Refractive index", "Critical angle", "Total internal reflection"]} lessonMinutes={15} isFree={false} price={MIDDLE_SCHOOL_PACK_PRICE_USD} />
-    <header className="site-header"><div className="site-header-inner"><Link className="site-brand" href="/" aria-label="Science Studio home"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link><nav className="site-nav" aria-label="Primary navigation"><Link className="active" href="/experiments">Experiment library</Link><Link href="/#pricing">Pricing</Link></nav><div className="site-actions"><Link className="header-account-link" href="/account"><UserRound size={15} /><span>Account</span></Link></div></div></header>
+    <header className="site-header"><div className="site-header-inner"><Link className="site-brand" href="/" aria-label="Science Studio home"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link><PrimarySiteNavigation active="experiments" /><div className="site-actions"><Link className="header-account-link" href="/account"><UserRound size={15} /><span>Account</span></Link></div></div></header>
     <div className="pack-access-main">
       <div className="library-breadcrumb"><Link href="/experiments"><ArrowLeft size={14} />Experiment library</Link><span>/</span><span>Refraction &amp; Total Internal Reflection</span></div>
       <section className="pack-access-layout">

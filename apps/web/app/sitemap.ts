@@ -6,6 +6,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {url: siteUrl, changeFrequency: "weekly", priority: 1},
     {url: `${siteUrl}/experiments`, changeFrequency: "weekly", priority: 0.9},
+    {url: `${siteUrl}/teaching-guides`, changeFrequency: "weekly", priority: 0.8},
+    {url: `${siteUrl}/teaching-guides/series-and-parallel-circuits`, changeFrequency: "monthly", priority: 0.8},
     {url: `${siteUrl}/experiments/inclined-plane`, changeFrequency: "monthly", priority: 0.9},
     {url: `${siteUrl}/experiments/energy-track`, changeFrequency: "monthly", priority: 0.9},
     {url: `${siteUrl}/experiments/forces-and-motion`, changeFrequency: "monthly", priority: 0.9},

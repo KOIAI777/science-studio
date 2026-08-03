@@ -17,6 +17,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {BuoyancyWorkbench} from "../../../components/buoyancy-workbench";
 import {ExperimentStructuredData} from "../../../components/experiment-structured-data";
+import {PrimarySiteNavigation} from "../../../components/primary-site-navigation";
 import {isSupabaseAdminConfigured} from "../../../lib/supabase/admin";
 import {isLocalPaidExperimentPreviewEnabled, isSupabaseConfigured} from "../../../lib/supabase/config";
 import {createClient} from "../../../lib/supabase/server";
@@ -90,7 +91,7 @@ export default async function DensityBuoyancyExperimentPage({searchParams}: Dens
       <header className="site-header">
         <div className="site-header-inner">
           <Link className="site-brand" href="/" aria-label="Science Studio home"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link>
-          <nav className="site-nav" aria-label="Primary navigation"><Link className="active" href="/experiments">Experiment library</Link><Link href="/#pricing">Pricing</Link></nav>
+          <PrimarySiteNavigation active="experiments" />
           <div className="site-actions"><Link className="header-account-link" href="/account"><UserRound size={15} /><span>Account</span></Link></div>
         </div>
       </header>

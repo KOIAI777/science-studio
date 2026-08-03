@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import {PrimarySiteNavigation} from "./primary-site-navigation";
 import type {CatalogPage, CatalogQuery} from "../lib/experiment-catalog-data";
 import type {ExperimentAvailability, ExperimentCatalogItem, GradeLevel, SubjectArea} from "../lib/experiment-catalog";
 import {ExperimentLibraryScrollMemory} from "./experiment-library-scroll-memory";
@@ -152,12 +153,7 @@ export function ExperimentLibrary({catalog, filters}: {catalog: CatalogPage; fil
       <header className="site-header">
         <div className="site-header-inner">
           <Link className="site-brand" href="/" aria-label="Science Studio home"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link>
-          <nav className="site-nav" aria-label="Primary navigation">
-            <Link className="active" href="/experiments">Experiment library</Link>
-            <Link href="/#workflow">How it works</Link>
-            <Link href="/#pricing">Pricing</Link>
-            <Link href="/#faq">FAQ</Link>
-          </nav>
+          <PrimarySiteNavigation active="experiments" />
           <div className="site-actions"><Link className="header-account-link" href="/account" aria-label="Account" title="Account"><UserRound size={15} /><span>Account</span></Link><Link className="header-cta" href="/experiments/inclined-plane">Try a free experiment<ChevronRight size={15} /></Link></div>
         </div>
       </header>

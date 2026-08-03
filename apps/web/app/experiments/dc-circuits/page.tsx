@@ -1,9 +1,10 @@
 import type {Metadata} from "next";
-import {ArrowLeft, BookOpenCheck, CreditCard, FlaskConical, Gauge, LockKeyhole, MonitorPlay, ShieldCheck, SlidersHorizontal, UserRound} from "lucide-react";
+import {ArrowLeft, ArrowRight, BookOpenCheck, CreditCard, FlaskConical, Gauge, LockKeyhole, MonitorPlay, ShieldCheck, SlidersHorizontal, UserRound} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {DcCircuitsWorkbench} from "../../../components/dc-circuits-workbench";
 import {ExperimentStructuredData} from "../../../components/experiment-structured-data";
+import {PrimarySiteNavigation} from "../../../components/primary-site-navigation";
 import {isSupabaseAdminConfigured} from "../../../lib/supabase/admin";
 import {isLocalPaidExperimentPreviewEnabled, isSupabaseConfigured} from "../../../lib/supabase/config";
 import {createClient} from "../../../lib/supabase/server";
@@ -80,7 +81,7 @@ export default async function DcCircuitsExperimentPage({searchParams}: DcCircuit
       <header className="site-header">
         <div className="site-header-inner">
           <Link className="site-brand" href="/" aria-label="Science Studio home"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link>
-          <nav className="site-nav" aria-label="Primary navigation"><Link className="active" href="/experiments">Experiment library</Link><Link href="/#pricing">Pricing</Link></nav>
+          <PrimarySiteNavigation active="experiments" />
           <div className="site-actions"><Link className="header-account-link" href="/account"><UserRound size={15} /><span>Account</span></Link></div>
         </div>
       </header>
@@ -97,6 +98,7 @@ export default async function DcCircuitsExperimentPage({searchParams}: DcCircuit
               <li><BookOpenCheck size={15} />Six editable explanation steps for a 15-minute lesson</li>
               <li><MonitorPlay size={15} />16:9 and 9:16 canvases with zoom and fullscreen</li>
             </ul>
+            <Link className="pack-guide-link" href="/teaching-guides/series-and-parallel-circuits"><BookOpenCheck size={15} />Read the 15-minute teaching guide <ArrowRight size={14} /></Link>
           </div>
           <div className="pack-access-card">
             <div className="pack-price"><strong>${MIDDLE_SCHOOL_PACK_PRICE_USD}</strong><span>one-time early access</span></div>

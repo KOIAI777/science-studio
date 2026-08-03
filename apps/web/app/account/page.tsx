@@ -2,6 +2,7 @@ import type {Metadata} from "next";
 import {ArrowLeft, BookOpen, CheckCircle2, FlaskConical, GraduationCap, LogOut, ShieldCheck, UserRound} from "lucide-react";
 import Link from "next/link";
 import {redirect} from "next/navigation";
+import {PrimarySiteNavigation} from "../../components/primary-site-navigation";
 import {formatAccountRole} from "../../lib/auth";
 import {isSupabaseConfigured} from "../../lib/supabase/config";
 import {createClient} from "../../lib/supabase/server";
@@ -56,7 +57,7 @@ export default async function AccountPage({searchParams}: AccountPageProps) {
       <header className="site-header">
         <div className="site-header-inner">
           <Link className="site-brand" href="/" aria-label="Science Studio home"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link>
-          <nav className="site-nav" aria-label="Account navigation"><Link href="/experiments">Experiment library</Link><Link className="active" href="/account">Account</Link></nav>
+          <PrimarySiteNavigation />
           <form className="site-actions" action={signOut}><button className="header-account-link" type="submit" aria-label="Sign out" title="Sign out"><LogOut size={15} /><span>Sign out</span></button></form>
         </div>
       </header>

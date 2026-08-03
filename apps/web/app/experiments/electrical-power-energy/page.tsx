@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {ElectricalPowerWorkbench} from "../../../components/electrical-power-workbench";
 import {ExperimentStructuredData} from "../../../components/experiment-structured-data";
+import {PrimarySiteNavigation} from "../../../components/primary-site-navigation";
 import {isSupabaseAdminConfigured} from "../../../lib/supabase/admin";
 import {isLocalPaidExperimentPreviewEnabled, isSupabaseConfigured} from "../../../lib/supabase/config";
 import {createClient} from "../../../lib/supabase/server";
@@ -58,7 +59,7 @@ export default async function ElectricalPowerExperimentPage({searchParams}: Elec
   const billingMessage = first(params.billing);
   return <main className="pack-access-page">
     <ExperimentStructuredData name={pageTitle} description={description} path="/experiments/electrical-power-energy" image={previewImage.url} teaches={["Electrical power", "Electrical energy", "Ohm's law", "Energy transfer", "Watt-hours"]} lessonMinutes={15} isFree={false} price={MIDDLE_SCHOOL_PACK_PRICE_USD} />
-    <header className="site-header"><div className="site-header-inner"><Link className="site-brand" href="/" aria-label="Science Studio home"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link><nav className="site-nav" aria-label="Primary navigation"><Link className="active" href="/experiments">Experiment library</Link><Link href="/#pricing">Pricing</Link></nav><div className="site-actions"><Link className="header-account-link" href="/account"><UserRound size={15} /><span>Account</span></Link></div></div></header>
+    <header className="site-header"><div className="site-header-inner"><Link className="site-brand" href="/" aria-label="Science Studio home"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link><PrimarySiteNavigation active="experiments" /><div className="site-actions"><Link className="header-account-link" href="/account"><UserRound size={15} /><span>Account</span></Link></div></div></header>
     <div className="pack-access-main">
       <div className="library-breadcrumb"><Link href="/experiments"><ArrowLeft size={14} />Experiment library</Link><span>/</span><span>Electrical power &amp; energy</span></div>
       <section className="pack-access-layout">
