@@ -19,12 +19,13 @@
 
 ## 2. 登录流程
 
-1. 用户在 `/login` 输入邮箱。
-2. 服务端调用 Supabase `signInWithOtp` 发送 Magic Link。
-3. 免费层默认邮件模板把 PKCE `code` 带回 `/auth/confirm`；配置自有 SMTP 后，也可启用仓库中的 `TokenHash` 模板。
-4. Route Handler 分别调用 `exchangeCodeForSession` 或 `verifyOtp`，把认证会话写入 HTTP-only 相关 Cookie。
-5. Next.js `proxy.ts` 在请求期间调用 `getClaims()` 验证并刷新会话。
-6. `/account` 再调用 `getUser()` 获取当前用户，并通过 RLS 读取其 profile。
+1. 用户在 `/login` 输入邮箱并完成 Cloudflare Turnstile。
+2. 服务端通过 Siteverify 校验一次性 token、`login` action 和前端 hostname；失败时不调用 Supabase。
+3. 服务端调用 Supabase `signInWithOtp` 发送 Magic Link。
+4. 免费层默认邮件模板把 PKCE `code` 带回 `/auth/confirm`；配置自有 SMTP 后，也可启用仓库中的 `TokenHash` 模板。
+5. Route Handler 分别调用 `exchangeCodeForSession` 或 `verifyOtp`，把认证会话写入 HTTP-only 相关 Cookie。
+6. Next.js `proxy.ts` 在请求期间调用 `getClaims()` 验证并刷新会话。
+7. `/account` 再调用 `getUser()` 获取当前用户，并通过 RLS 读取其 profile。
 
 服务端授权不使用 `getSession()` 中未经重新验证的 user，也不使用用户可编辑的 `user_metadata` 判断管理员权限。
 
@@ -43,6 +44,9 @@ supabase status
 NEXT_PUBLIC_SITE_URL=http://127.0.0.1:5173
 NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<local publishable or anon key>
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=<Turnstile site key>
+TURNSTILE_SECRET=<Turnstile server-side secret>
+TURNSTILE_HOSTNAMES=localhost,127.0.0.1
 ```
 
 重启 Web 开发服务器后打开 `/login`。本地邮件不会发到真实邮箱，在 `http://127.0.0.1:54324` 的 Mailpit 中打开登录邮件。
@@ -63,6 +67,7 @@ LOCAL_PAID_EXPERIMENT_PREVIEW=true
 4. 免费层先保留 Supabase 默认 Magic Link 模板；应用回调已支持其 PKCE `code` 流程。
 5. 执行 `supabase/migrations/20260731045101_create_auth_profiles.sql`，或通过正式 migration 流程推送。
 6. 正式发送邮件前配置自有 SMTP，再启用 `supabase/templates/magic-link.html` 品牌模板；Supabase 默认邮件服务只适合低频测试。
+7. Vercel 设置 `NEXT_PUBLIC_TURNSTILE_SITE_KEY`、`TURNSTILE_SECRET` 和 `TURNSTILE_HOSTNAMES=classroomlab.online,www.classroomlab.online`；生产 hostname 白名单不得加入本地域名。
 
 ## 5. 已实现的支付边界
 

@@ -6,6 +6,7 @@ import {normalizeAuthReturnPath} from "../../lib/auth";
 import {isSupabaseConfigured} from "../../lib/supabase/config";
 import {createClient} from "../../lib/supabase/server";
 import {requestMagicLink} from "./actions";
+import {TurnstileWidget} from "./turnstile-widget";
 
 export const metadata: Metadata = {
   title: "Teacher sign in",
@@ -15,7 +16,8 @@ export const metadata: Metadata = {
 
 const errorMessages: Record<string, string> = {
   invalid_email: "Enter a valid email address.",
-  configuration: "Authentication is not connected yet. Add the Supabase project URL and publishable key to continue.",
+  configuration: "Sign-in is not configured yet. Try again later.",
+  security: "Complete the security check and try again.",
   send_failed: "We could not send the sign-in email. Wait a moment and try again.",
 };
 
@@ -24,9 +26,11 @@ export default async function LoginPage({searchParams}: {searchParams: Promise<R
   const errorKey = typeof parameters.error === "string" ? parameters.error : undefined;
   const sentTo = typeof parameters.sent === "string" ? parameters.sent : undefined;
   const next = normalizeAuthReturnPath(typeof parameters.next === "string" ? parameters.next : undefined);
-  const configured = isSupabaseConfigured();
+  const supabaseConfigured = isSupabaseConfigured();
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
+  const loginConfigured = supabaseConfigured && Boolean(turnstileSiteKey);
 
-  if (configured) {
+  if (supabaseConfigured) {
     const supabase = await createClient();
     const {data} = await supabase.auth.getClaims();
     if (data?.claims?.sub) redirect(next);
@@ -62,12 +66,13 @@ export default async function LoginPage({searchParams}: {searchParams: Promise<R
               <span className="auth-form-icon"><KeyRound size={18} /></span>
               <h2>Sign in with email</h2>
               <p>We will send you a secure one-time link.</p>
-              {(errorKey || !configured) && <div className="auth-message error" role="alert">{errorMessages[errorKey ?? "configuration"] ?? errorMessages.send_failed}</div>}
+              {(errorKey || !loginConfigured) && <div className="auth-message error" role="alert">{errorMessages[errorKey ?? "configuration"] ?? errorMessages.send_failed}</div>}
               <form action={requestMagicLink}>
                 <input type="hidden" name="next" value={next} />
                 <label htmlFor="email">Email address</label>
                 <input id="email" name="email" type="email" autoComplete="email" inputMode="email" placeholder="teacher@school.org" required maxLength={254} autoFocus />
-                <button type="submit" disabled={!configured}>Email me a sign-in link<Mail size={16} /></button>
+                {turnstileSiteKey && <TurnstileWidget siteKey={turnstileSiteKey} />}
+                <button type="submit" disabled={!loginConfigured}>Email me a sign-in link<Mail size={16} /></button>
               </form>
               <small className="auth-privacy-note">By continuing, you agree to the <Link href="/terms">Terms of Service</Link> and acknowledge the <Link href="/privacy">Privacy Policy</Link>.</small>
             </>

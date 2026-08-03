@@ -157,6 +157,15 @@
   color: #73776e;
 }
 
+.auth-turnstile {
+  width: 100%;
+  min-height: 65px;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+  margin-top: 6px;
+}
+
 .auth-form-panel button,
 .auth-error-panel > a:first-of-type {
   min-height: 44px;

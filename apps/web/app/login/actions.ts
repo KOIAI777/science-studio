@@ -1,10 +1,12 @@
 "use server";
 
 import {redirect} from "next/navigation";
+import {headers} from "next/headers";
 import {z} from "zod";
 import {normalizeAuthReturnPath} from "../../lib/auth";
 import {getSiteUrl, isSupabaseConfigured} from "../../lib/supabase/config";
 import {createClient} from "../../lib/supabase/server";
+import {verifyTurnstileToken} from "../../lib/turnstile";
 
 const emailSchema = z.string().trim().email().max(254);
 
@@ -23,6 +25,18 @@ export async function requestMagicLink(formData: FormData) {
 
   if (!isSupabaseConfigured()) {
     redirect(loginHref({error: "configuration", next}));
+  }
+
+  const requestHeaders = await headers();
+  const remoteIp = requestHeaders.get("x-forwarded-for")?.split(",", 1)[0]?.trim();
+  const securityCheckPassed = await verifyTurnstileToken({
+    token: formData.get("cf-turnstile-response"),
+    expectedAction: "login",
+    remoteIp,
+  });
+
+  if (!securityCheckPassed) {
+    redirect(loginHref({error: "security", next}));
   }
 
   const confirmationUrl = new URL("/auth/confirm", getSiteUrl());
