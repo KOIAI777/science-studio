@@ -4,17 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import {PrimarySiteNavigation} from "../../../components/primary-site-navigation";
 
-const title = "How to Teach Density and Buoyancy with an Interactive Simulation";
+const headline = "How to Teach Density and Buoyancy with an Interactive Simulation";
+const metaTitle = "Density and Buoyancy Teaching Guide";
 const description = "A 15-minute middle-school lesson for explaining floating, sinking, and suspension using density, displaced volume, force diagrams, and Archimedes' principle.";
 const path = "/teaching-guides/density-and-buoyancy";
 const previewImage = "/experiments/density-buoyancy-classroom-diagram.png";
 
 export const metadata: Metadata = {
-  title,
+  title: metaTitle,
   description,
   alternates: {canonical: path},
-  openGraph: {type: "article", title: `${title} | Science Studio`, description, url: path, images: [{url: previewImage, width: 1200, height: 676, alt: "Interactive density and buoyancy comparison in two fluids"}]},
-  twitter: {card: "summary_large_image", title, description, images: [previewImage]},
+  openGraph: {type: "article", title: `${metaTitle} | Science Studio`, description, url: path, images: [{url: previewImage, width: 1200, height: 676, alt: "Interactive density and buoyancy comparison in two fluids"}]},
+  twitter: {card: "summary_large_image", title: metaTitle, description, images: [previewImage]},
 };
 
 const lessonSteps = [
@@ -36,7 +37,7 @@ export default function DensityAndBuoyancyGuidePage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": ["Article", "LearningResource"],
-    headline: title,
+    headline,
     description,
     url: new URL(path, siteUrl).toString(),
     image: new URL(previewImage, siteUrl).toString(),

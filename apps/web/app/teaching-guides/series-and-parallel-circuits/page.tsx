@@ -4,22 +4,23 @@ import Image from "next/image";
 import Link from "next/link";
 import {PrimarySiteNavigation} from "../../../components/primary-site-navigation";
 
-const title = "How to Teach Series and Parallel Circuits with One Interactive Demo";
+const headline = "How to Teach Series and Parallel Circuits with One Interactive Demo";
+const metaTitle = "Series and Parallel Circuits Teaching Guide";
 const description = "A 15-minute middle-school physics lesson plan for teaching series and parallel circuits: predictions, procedure, observations, equations, misconceptions, and an interactive circuit demo.";
 const path = "/teaching-guides/series-and-parallel-circuits";
 
 export const metadata: Metadata = {
-  title,
+  title: metaTitle,
   description,
   alternates: {canonical: path},
   openGraph: {
-    title: `${title} | Science Studio`,
+    title: `${metaTitle} | Science Studio`,
     description,
     url: path,
     type: "article",
     images: [{url: "/experiments/dc-circuits-diagram.png", width: 1280, height: 720, alt: "Series and parallel circuit measurement comparison"}],
   },
-  twitter: {card: "summary_large_image", title, description, images: ["/experiments/dc-circuits-diagram.png"]},
+  twitter: {card: "summary_large_image", title: metaTitle, description, images: ["/experiments/dc-circuits-diagram.png"]},
 };
 
 const lessonSteps = [
@@ -43,7 +44,7 @@ export default function SeriesAndParallelCircuitsGuidePage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": ["Article", "LearningResource"],
-    headline: title,
+    headline,
     description,
     url,
     image,

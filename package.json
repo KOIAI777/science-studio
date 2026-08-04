@@ -8,6 +8,7 @@
     "build": "pnpm --filter @science-studio/web build",
     "typecheck": "pnpm -r typecheck",
     "test": "vitest run",
+    "seo:indexnow": "node scripts/submit-indexnow.mjs",
     "test:watch": "vitest",
     "db:up": "docker compose -f docker-compose.local.yml up -d",
     "db:down": "docker compose -f docker-compose.local.yml down",

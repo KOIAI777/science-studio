@@ -4,17 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import {PrimarySiteNavigation} from "../../../components/primary-site-navigation";
 
-const title = "How to Use Interactive Physics Simulations on a Classroom Projector";
+const headline = "How to Use Interactive Physics Simulations on a Classroom Projector";
+const metaTitle = "Physics Simulations for Classroom Projectors";
 const description = "A practical 15-minute teacher workflow for presenting an interactive physics simulation on a projector: setup, pacing, questions, visibility, and model limits.";
 const path = "/teaching-guides/physics-simulations-classroom-projector";
 const previewImage = "/experiments/inclined-plane-diagram.png";
 
 export const metadata: Metadata = {
-  title,
+  title: metaTitle,
   description,
   alternates: {canonical: path},
-  openGraph: {type: "article", title: `${title} | Science Studio`, description, url: path, images: [{url: previewImage, width: 1200, height: 675, alt: "Projected interactive inclined-plane physics diagram with forces and measurements"}]},
-  twitter: {card: "summary_large_image", title, description, images: [previewImage]},
+  openGraph: {type: "article", title: `${metaTitle} | Science Studio`, description, url: path, images: [{url: previewImage, width: 1200, height: 675, alt: "Projected interactive inclined-plane physics diagram with forces and measurements"}]},
+  twitter: {card: "summary_large_image", title: metaTitle, description, images: [previewImage]},
 };
 
 const lessonSteps = [
@@ -36,7 +37,7 @@ export default function PhysicsSimulationsClassroomProjectorGuidePage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": ["Article", "LearningResource"],
-    headline: title,
+    headline,
     description,
     url: new URL(path, siteUrl).toString(),
     image: new URL(previewImage, siteUrl).toString(),
