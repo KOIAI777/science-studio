@@ -34,7 +34,7 @@ export default function ContactPage() {
 
       <section id="operator">
         <h2>Operator information</h2>
-        <p>Science Studio is operated by <strong>Jia Zhenghao</strong> as an individual operator.</p>
+        <p>Science Studio is the interactive physics product of ClassroomLab and is operated by <strong>Jia Zhenghao</strong> as an individual operator.</p>
         <address>Gechuang Digital Valley<br />Xiangzhou District<br />Zhuhai, Guangdong 519000<br />China</address>
         <p>Website: <a href="https://www.classroomlab.online">www.classroomlab.online</a></p>
       </section>

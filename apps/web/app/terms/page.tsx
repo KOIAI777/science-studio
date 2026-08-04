@@ -27,7 +27,7 @@ export default function TermsPage() {
     <LegalPageShell eyebrow="Legal" title="Terms of Service" description="These terms explain the rules for using Science Studio, including free experiments, teacher accounts, and one-time experiment-pack purchases." sections={sections}>
       <section id="operator">
         <h2>Operator and acceptance</h2>
-        <p>Science Studio at <strong>classroomlab.online</strong> is operated by <strong>Jia Zhenghao</strong>, an individual operator based in Zhuhai, Guangdong, China. In these Terms, “Science Studio,” “we,” “us,” and “our” refer to this operator.</p>
+        <p>Science Studio is a ClassroomLab product available at <strong>classroomlab.online</strong>. It is operated by <strong>Jia Zhenghao</strong>, an individual operator based in Zhuhai, Guangdong, China. In these Terms, “Science Studio,” “ClassroomLab,” “we,” “us,” and “our” refer to this operator.</p>
         <p>By accessing the service, creating an account, or completing a purchase, you agree to these Terms and our <Link href="/privacy">Privacy Policy</Link>. If you do not agree, do not use the service. You must be at least 13 years old and legally able to enter into these Terms.</p>
       </section>
 

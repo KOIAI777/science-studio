@@ -50,14 +50,15 @@ export default function PhysicsSimulationsClassroomProjectorGuidePage() {
     teaches: ["Classroom simulation presentation", "Scientific modeling", "Prediction", "Controlled comparison"],
     audience: {"@type": "EducationalAudience", educationalRole: "teacher"},
     isAccessibleForFree: true,
-    author: {"@type": "Organization", name: "Science Studio"},
-    publisher: {"@type": "Organization", name: "Science Studio", url: siteUrl},
+    author: {"@id": new URL("/#organization", siteUrl).toString()},
+    publisher: {"@id": new URL("/#organization", siteUrl).toString()},
+    isPartOf: {"@id": new URL("/#website", siteUrl).toString()},
   };
 
   return (
     <div className="guide-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(structuredData)}} />
-      <header className="site-header"><div className="site-header-inner"><Link className="site-brand" href="/" aria-label="Science Studio home"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link><PrimarySiteNavigation active="guides" /><div className="site-actions"><Link className="header-account-link" href="/account"><UserRound size={15} /><span>Account</span></Link></div></div></header>
+      <header className="site-header"><div className="site-header-inner"><Link className="site-brand" href="/" aria-label="Science Studio by ClassroomLab home"><span className="brand-mark"><FlaskConical size={17} /></span><span className="brand-copy"><strong>Science Studio</strong><small>by ClassroomLab</small></span></Link><PrimarySiteNavigation active="guides" /><div className="site-actions"><Link className="header-account-link" href="/account"><UserRound size={15} /><span>Account</span></Link></div></div></header>
       <main className="guide-main">
         <div className="guide-breadcrumb"><Link href="/teaching-guides"><ArrowLeft size={14} />Teaching guides</Link><span>/</span><span>Classroom projector workflow</span></div>
         <article>

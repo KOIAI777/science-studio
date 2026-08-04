@@ -27,7 +27,7 @@
   font-size: 12px;
 }
 
-.legal-brand > span {
+.legal-brand > span:first-child {
   width: 34px;
   height: 34px;
   display: grid;
@@ -35,6 +35,10 @@
   border: 1px solid #4a4d46;
   border-radius: 5px;
   color: #ef8068;
+}
+
+.legal-brand .brand-copy small {
+  color: #989d94;
 }
 
 .legal-header nav,
@@ -404,7 +408,7 @@
 }
 
 @media (max-width: 420px) {
-  .legal-brand strong {
+  .legal-brand .brand-copy {
     display: none;
   }
 

@@ -80,7 +80,7 @@ export default async function DcCircuitsExperimentPage({searchParams}: DcCircuit
       <ExperimentStructuredData name={pageTitle} description={description} path="/experiments/dc-circuits" image={previewImage.url} teaches={["Series circuits", "Parallel circuits", "Equivalent resistance", "Ohm's law", "Kirchhoff's laws"]} lessonMinutes={15} isFree={false} price={MIDDLE_SCHOOL_PACK_PRICE_USD} />
       <header className="site-header">
         <div className="site-header-inner">
-          <Link className="site-brand" href="/" aria-label="Science Studio home"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link>
+          <Link className="site-brand" href="/" aria-label="Science Studio by ClassroomLab home"><span className="brand-mark"><FlaskConical size={17} /></span><span className="brand-copy"><strong>Science Studio</strong><small>by ClassroomLab</small></span></Link>
           <PrimarySiteNavigation active="experiments" />
           <div className="site-actions"><Link className="header-account-link" href="/account"><UserRound size={15} /><span>Account</span></Link></div>
         </div>

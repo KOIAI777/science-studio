@@ -90,7 +90,7 @@ export default async function DensityBuoyancyExperimentPage({searchParams}: Dens
       />
       <header className="site-header">
         <div className="site-header-inner">
-          <Link className="site-brand" href="/" aria-label="Science Studio home"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link>
+          <Link className="site-brand" href="/" aria-label="Science Studio by ClassroomLab home"><span className="brand-mark"><FlaskConical size={17} /></span><span className="brand-copy"><strong>Science Studio</strong><small>by ClassroomLab</small></span></Link>
           <PrimarySiteNavigation active="experiments" />
           <div className="site-actions"><Link className="header-account-link" href="/account"><UserRound size={15} /><span>Account</span></Link></div>
         </div>

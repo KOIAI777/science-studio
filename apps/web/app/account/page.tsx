@@ -56,7 +56,7 @@ export default async function AccountPage({searchParams}: AccountPageProps) {
     <div className="account-page">
       <header className="site-header">
         <div className="site-header-inner">
-          <Link className="site-brand" href="/" aria-label="Science Studio home"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link>
+          <Link className="site-brand" href="/" aria-label="Science Studio by ClassroomLab home"><span className="brand-mark"><FlaskConical size={17} /></span><span className="brand-copy"><strong>Science Studio</strong><small>by ClassroomLab</small></span></Link>
           <PrimarySiteNavigation />
           <form className="site-actions" action={signOut}><button className="header-account-link" type="submit" aria-label="Sign out" title="Sign out"><LogOut size={15} /><span>Sign out</span></button></form>
         </div>

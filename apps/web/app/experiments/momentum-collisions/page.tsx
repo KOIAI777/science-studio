@@ -59,7 +59,7 @@ export default async function MomentumCollisionsExperimentPage({searchParams}: M
   const billingMessage = first(params.billing);
   return <main className="pack-access-page">
     <ExperimentStructuredData name={pageTitle} description={description} path="/experiments/momentum-collisions" image={previewImage.url} teaches={["Momentum conservation", "Impulse", "Elastic and inelastic collisions", "Coefficient of restitution", "Kinetic-energy change"]} lessonMinutes={15} isFree={false} price={MIDDLE_SCHOOL_PACK_PRICE_USD} />
-    <header className="site-header"><div className="site-header-inner"><Link className="site-brand" href="/" aria-label="Science Studio home"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link><PrimarySiteNavigation active="experiments" /><div className="site-actions"><Link className="header-account-link" href="/account"><UserRound size={15} /><span>Account</span></Link></div></div></header>
+    <header className="site-header"><div className="site-header-inner"><Link className="site-brand" href="/" aria-label="Science Studio by ClassroomLab home"><span className="brand-mark"><FlaskConical size={17} /></span><span className="brand-copy"><strong>Science Studio</strong><small>by ClassroomLab</small></span></Link><PrimarySiteNavigation active="experiments" /><div className="site-actions"><Link className="header-account-link" href="/account"><UserRound size={15} /><span>Account</span></Link></div></div></header>
     <div className="pack-access-main">
       <div className="library-breadcrumb"><Link href="/experiments"><ArrowLeft size={14} />Experiment library</Link><span>/</span><span>Momentum &amp; Collisions</span></div>
       <section className="pack-access-layout">

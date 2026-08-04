@@ -13,6 +13,7 @@ export function ExperimentStructuredData({name, description, path, image, teache
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:5173";
   const url = new URL(path, siteUrl).toString();
   const imageUrl = new URL(image, siteUrl).toString();
+  const organizationId = new URL("/#organization", siteUrl).toString();
   const data = {
     "@context": "https://schema.org",
     "@type": ["SoftwareApplication", "LearningResource"],
@@ -22,6 +23,8 @@ export function ExperimentStructuredData({name, description, path, image, teache
     image: imageUrl,
     applicationCategory: "EducationalApplication",
     applicationSubCategory: "Interactive physics simulation",
+    brand: {"@type": "Brand", name: "Science Studio", alternateName: "Science Studio by ClassroomLab"},
+    provider: {"@id": organizationId},
     operatingSystem: "Web",
     inLanguage: "en",
     isAccessibleForFree: isFree,

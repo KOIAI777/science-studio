@@ -8,35 +8,15 @@ export default function HomePage() {
     ["Are the calculations scientifically verified?", "Released experiments use deterministic solvers, explicit SI units, documented assumptions, parameter validation, and automated tests."],
     ["What can I use for free?", "Inclined Plane and Friction, Energy Track, Forces and Motion, and Ohm's Law Lab are free, including parameter controls, measurements, science checks, and guided explanation steps."],
   ];
-  const structuredData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      name: "Science Studio",
-      url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-      description: "Guided interactive physics experiments for classroom presentation.",
-      inLanguage: "en",
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      name: "Science Studio",
-      applicationCategory: "EducationalApplication",
-      operatingSystem: "Web",
-      description: "Interactive physics experiments teachers can adjust and present step by step.",
-      audience: {"@type": "EducationalAudience", educationalRole: "teacher"},
-      offers: {"@type": "Offer", price: "0", priceCurrency: "USD", description: "Four free classroom physics experiments"},
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: faqItems.map(([name, text]) => ({
-        "@type": "Question",
-        name,
-        acceptedAnswer: {"@type": "Answer", text},
-      })),
-    },
-  ];
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map(([name, text]) => ({
+      "@type": "Question",
+      name,
+      acceptedAnswer: {"@type": "Answer", text},
+    })),
+  };
 
   return (
     <>

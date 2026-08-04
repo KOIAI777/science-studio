@@ -811,7 +811,7 @@ a.pack-checkout-button {
   font-size: 12px;
 }
 
-.checkout-status-brand > span {
+.checkout-status-brand > span:first-child {
   width: 34px;
   height: 34px;
   display: grid;
@@ -819,6 +819,10 @@ a.pack-checkout-button {
   border: 1px solid #4a4d46;
   border-radius: 5px;
   color: #ef8068;
+}
+
+.checkout-status-brand .brand-copy small {
+  color: #989d94;
 }
 
 .checkout-status-icon {

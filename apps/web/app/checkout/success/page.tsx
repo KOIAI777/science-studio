@@ -145,7 +145,7 @@ export default async function CheckoutSuccessPage({searchParams}: CheckoutSucces
   return (
     <main className="checkout-status-page">
       <div className="checkout-status-panel">
-        <Link className="checkout-status-brand" href="/"><span><FlaskConical size={17} /></span><strong>Science Studio</strong></Link>
+        <Link className="checkout-status-brand" href="/"><span><FlaskConical size={17} /></span><span className="brand-copy"><strong>Science Studio</strong><small>by ClassroomLab</small></span></Link>
         <div className={`checkout-status-icon ${content.tone}`}>{completed ? <Check size={24} /> : pending ? <Clock3 size={24} /> : <CircleAlert size={24} />}</div>
         <span className="section-kicker">{content.kicker}</span>
         <h1>{content.title}</h1>

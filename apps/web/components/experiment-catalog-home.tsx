@@ -30,7 +30,7 @@ const copy = {
     nav: {experiments: "Experiment library", guides: "Teaching guides", workflow: "How it works", pricing: "Pricing", faq: "FAQ", account: "Account"},
     tryFree: "Try a free experiment",
     explore: "Explore experiments",
-    heroKicker: "Interactive physics for classroom teaching",
+    heroKicker: "Science Studio by ClassroomLab · Interactive physics for classroom teaching",
     heroTitle: "Interactive physics experiments, ready for class.",
     heroBody: "Adjust real lesson parameters, reveal forces and formulas step by step, and present the result on any classroom screen.",
     heroNote: "No student accounts required. Start with four complete experiments for free.",
@@ -114,13 +114,13 @@ const copy = {
     refunds: "Refund Policy",
     freeExperiment: "Free experiment library",
     curriculum: "Planned curriculum",
-    rights: "Science Studio. Built for teacher-led science lessons.",
+    rights: "Science Studio by ClassroomLab. Built for teacher-led science lessons.",
   },
   "zh-CN": {
     nav: {experiments: "实验目录", guides: "教学指南", workflow: "使用方式", pricing: "实验包", faq: "常见问题", account: "账户"},
     tryFree: "试用免费实验",
     explore: "查看实验目录",
-    heroKicker: "面向课堂讲解的交互式物理实验",
+    heroKicker: "Science Studio by ClassroomLab · 面向课堂讲解的交互式物理实验",
     heroTitle: "打开即可讲课的交互式物理实验。",
     heroBody: "调整真实例题参数，逐步展示受力、公式和结果，并在任何课堂屏幕上清楚呈现。",
     heroNote: "学生无需账号，可先免费使用四个完整课堂实验。",
@@ -204,7 +204,7 @@ const copy = {
     refunds: "退款政策",
     freeExperiment: "免费实验目录",
     curriculum: "规划课程范围",
-    rights: "Science Studio，面向教师主导的科学课堂。",
+    rights: "Science Studio by ClassroomLab，面向教师主导的科学课堂。",
   },
 };
 
@@ -323,9 +323,9 @@ export function ExperimentCatalogHome() {
     <div className="home-shell">
       <header className="site-header">
         <div className="site-header-inner">
-          <Link className="site-brand" href="/" aria-label="Science Studio home">
+          <Link className="site-brand" href="/" aria-label="Science Studio by ClassroomLab home">
             <span className="brand-mark"><FlaskConical size={17} /></span>
-            <strong>Science Studio</strong>
+            <span className="brand-copy"><strong>Science Studio</strong><small>by ClassroomLab</small></span>
           </Link>
           <PrimarySiteNavigation labels={{workflow: text.nav.workflow, pricing: text.nav.pricing, faq: text.nav.faq, guides: text.nav.guides, experiments: text.nav.experiments}} />
           <div className="site-actions">
@@ -412,7 +412,7 @@ export function ExperimentCatalogHome() {
       </main>
 
       <footer className="site-footer">
-        <div className="footer-brand"><Link className="site-brand" href="/"><span className="brand-mark"><FlaskConical size={17} /></span><strong>Science Studio</strong></Link><p>{text.footerTagline}</p></div>
+        <div className="footer-brand"><Link className="site-brand" href="/"><span className="brand-mark"><FlaskConical size={17} /></span><span className="brand-copy"><strong>Science Studio</strong><small>by ClassroomLab</small></span></Link><p>{text.footerTagline}</p></div>
         <div><strong>{text.product}</strong><Link href="/experiments">{text.nav.experiments}</Link><Link href="/teaching-guides">{text.nav.guides}</Link><a href="#workflow">{text.nav.workflow}</a><a href="#pricing">{text.nav.pricing}</a></div>
         <div><strong>{text.support}</strong><Link href="/account">{text.nav.account}</Link><Link href="/contact">{text.contact}</Link><a href="mailto:support@classroomlab.online">support@classroomlab.online</a><Link href="/experiments">{text.freeExperiment}</Link></div>
         <div><strong>{text.legal}</strong><Link href="/terms">{text.terms}</Link><Link href="/privacy">{text.privacy}</Link><Link href="/refund-policy">{text.refunds}</Link></div>

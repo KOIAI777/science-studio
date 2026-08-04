@@ -8,11 +8,51 @@ import "./legal.css";
 import "./guides.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const organizationId = new URL("/#organization", siteUrl).toString();
+const websiteId = new URL("/#website", siteUrl).toString();
+const softwareId = new URL("/#science-studio", siteUrl).toString();
+
+const brandStructuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": organizationId,
+      name: "ClassroomLab",
+      url: siteUrl,
+      logo: new URL("/icon.svg", siteUrl).toString(),
+      email: "support@classroomlab.online",
+      founder: {"@type": "Person", name: "Jia Zhenghao"},
+      brand: {"@type": "Brand", name: "Science Studio", alternateName: "Science Studio by ClassroomLab"},
+    },
+    {
+      "@type": "WebSite",
+      "@id": websiteId,
+      name: "Science Studio",
+      alternateName: ["Science Studio by ClassroomLab", "ClassroomLab"],
+      url: siteUrl,
+      inLanguage: ["en", "zh-CN"],
+      publisher: {"@id": organizationId},
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": softwareId,
+      name: "Science Studio",
+      alternateName: "Science Studio by ClassroomLab",
+      url: siteUrl,
+      applicationCategory: "EducationalApplication",
+      operatingSystem: "Web",
+      description: "Interactive physics experiments teachers can adjust and present step by step.",
+      provider: {"@id": organizationId},
+      isPartOf: {"@id": websiteId},
+    },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Science Studio | Interactive Physics Experiments for Teachers",
+    default: "Science Studio by ClassroomLab | Physics Simulations",
     template: "%s | Science Studio",
   },
   description: "Guided interactive physics experiments teachers can adjust, explain step by step, and present on any classroom screen.",
@@ -24,19 +64,19 @@ export const metadata: Metadata = {
     "high school physics",
     "science teaching tools",
   ],
-  authors: [{name: "Science Studio"}],
-  creator: "Science Studio",
-  publisher: "Science Studio",
-  applicationName: "Science Studio",
+  authors: [{name: "ClassroomLab", url: "/"}],
+  creator: "ClassroomLab",
+  publisher: "ClassroomLab",
+  applicationName: "Science Studio by ClassroomLab",
   category: "education",
   alternates: {canonical: "/"},
   openGraph: {
     type: "website",
     url: "/",
-    siteName: "Science Studio",
+    siteName: "Science Studio by ClassroomLab",
     title: "Interactive physics experiments, ready for class",
     description: "Adjust real lesson parameters, reveal forces and formulas step by step, and present the result on any classroom screen.",
-    images: [{url: "/opengraph-image", width: 1200, height: 630, alt: "Science Studio interactive physics experiment"}],
+    images: [{url: "/opengraph-image", width: 1200, height: 630, alt: "Science Studio by ClassroomLab interactive physics experiment"}],
   },
   twitter: {
     card: "summary_large_image",
@@ -50,7 +90,10 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: ReactNode}) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(brandStructuredData)}} />
+        {children}
+      </body>
     </html>
   );
 }

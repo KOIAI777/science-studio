@@ -21,9 +21,9 @@ export function LegalPageShell({children, description, eyebrow, sections, title,
     <div className="legal-page">
       <header className="legal-header">
         <div className="legal-header-inner">
-          <Link className="legal-brand" href="/" aria-label="Science Studio home">
+          <Link className="legal-brand" href="/" aria-label="Science Studio by ClassroomLab home">
             <span><FlaskConical size={17} /></span>
-            <strong>Science Studio</strong>
+            <span className="brand-copy"><strong>Science Studio</strong><small>by ClassroomLab</small></span>
           </Link>
           <nav aria-label="Legal and support navigation">
             <Link href="/terms">Terms</Link>
@@ -68,7 +68,7 @@ export function LegalPageShell({children, description, eyebrow, sections, title,
       </main>
 
       <footer className="legal-footer">
-        <span>© 2026 Science Studio</span>
+        <span>© 2026 Science Studio by ClassroomLab</span>
         <nav aria-label="Footer navigation"><Link href="/experiments">Experiments</Link><Link href="/account">Account</Link><Link href="/contact">Contact</Link></nav>
       </footer>
     </div>
