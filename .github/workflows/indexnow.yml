@@ -1,0 +1,26 @@
+name: Submit IndexNow after production deployment
+
+on:
+  status:
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    if: >-
+      github.event.state == 'success' &&
+      github.event.context == 'Vercel' &&
+      contains(github.event.branches, 'main')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the deployed commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.sha }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Submit the production sitemap
+        run: node scripts/submit-indexnow.mjs
