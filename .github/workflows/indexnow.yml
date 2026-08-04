@@ -11,7 +11,7 @@ jobs:
     if: >-
       github.event.state == 'success' &&
       github.event.context == 'Vercel' &&
-      contains(github.event.branches, 'main')
+      contains(github.event.branches.*.name, 'main')
     runs-on: ubuntu-latest
     steps:
       - name: Check out the deployed commit
