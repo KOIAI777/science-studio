@@ -3,6 +3,7 @@ import {ArrowLeft, ArrowRight, BookOpenCheck, Calculator, Check, CircleHelp, Cir
 import Image from "next/image";
 import Link from "next/link";
 import {PrimarySiteNavigation} from "../../../components/primary-site-navigation";
+import {BreadcrumbStructuredData} from "../../../components/breadcrumb-structured-data";
 
 const title = "How to Teach Ohm's Law with an Interactive Circuit";
 const description = "A 10-minute middle-school Ohm's law lesson using an interactive circuit to compare voltage, resistance, and current with controlled predictions.";
@@ -57,6 +58,7 @@ export default function OhmsLawInteractiveCircuitGuidePage() {
   return (
     <div className="guide-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(structuredData)}} />
+      <BreadcrumbStructuredData items={[{name: "Home", path: "/"}, {name: "Teaching guides", path: "/teaching-guides"}, {name: title, path}]} />
       <header className="site-header"><div className="site-header-inner"><Link className="site-brand" href="/" aria-label="Science Studio by ClassroomLab home"><span className="brand-mark"><FlaskConical size={17} /></span><span className="brand-copy"><strong>Science Studio</strong><small>by ClassroomLab</small></span></Link><PrimarySiteNavigation active="guides" /><div className="site-actions"><Link className="header-account-link" href="/account"><UserRound size={15} /><span>Account</span></Link></div></div></header>
       <main className="guide-main">
         <div className="guide-breadcrumb"><Link href="/teaching-guides"><ArrowLeft size={14} />Teaching guides</Link><span>/</span><span>Ohm&apos;s law</span></div>

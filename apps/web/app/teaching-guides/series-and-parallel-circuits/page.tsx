@@ -3,6 +3,7 @@ import {ArrowLeft, ArrowRight, BookOpenCheck, Calculator, Check, CircleHelp, Cir
 import Image from "next/image";
 import Link from "next/link";
 import {PrimarySiteNavigation} from "../../../components/primary-site-navigation";
+import {BreadcrumbStructuredData} from "../../../components/breadcrumb-structured-data";
 
 const headline = "How to Teach Series and Parallel Circuits with One Interactive Demo";
 const metaTitle = "Series and Parallel Circuits Teaching Guide";
@@ -64,6 +65,7 @@ export default function SeriesAndParallelCircuitsGuidePage() {
   return (
     <div className="guide-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(structuredData)}} />
+      <BreadcrumbStructuredData items={[{name: "Home", path: "/"}, {name: "Teaching guides", path: "/teaching-guides"}, {name: metaTitle, path}]} />
       <header className="site-header">
         <div className="site-header-inner">
           <Link className="site-brand" href="/" aria-label="Science Studio by ClassroomLab home"><span className="brand-mark"><FlaskConical size={17} /></span><span className="brand-copy"><strong>Science Studio</strong><small>by ClassroomLab</small></span></Link>

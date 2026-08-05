@@ -14,8 +14,7 @@ export function ExperimentStructuredData({name, description, path, image, teache
   const url = new URL(path, siteUrl).toString();
   const imageUrl = new URL(image, siteUrl).toString();
   const organizationId = new URL("/#organization", siteUrl).toString();
-  const data = {
-    "@context": "https://schema.org",
+  const applicationData = {
     "@type": ["SoftwareApplication", "LearningResource"],
     name,
     description,
@@ -34,6 +33,20 @@ export function ExperimentStructuredData({name, description, path, image, teache
     teaches,
     audience: {"@type": "EducationalAudience", educationalRole: "teacher"},
     offers: {"@type": "Offer", price: isFree ? "0" : price, priceCurrency: "USD", availability: "https://schema.org/InStock"},
+  };
+  const data = {
+    "@context": "https://schema.org",
+    "@graph": [
+      applicationData,
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {"@type": "ListItem", position: 1, name: "Home", item: new URL("/", siteUrl).toString()},
+          {"@type": "ListItem", position: 2, name: "Experiment library", item: new URL("/experiments", siteUrl).toString()},
+          {"@type": "ListItem", position: 3, name, item: url},
+        ],
+      },
+    ],
   };
 
   return <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(data)}} />;
