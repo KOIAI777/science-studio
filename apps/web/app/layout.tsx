@@ -1,5 +1,6 @@
 import type {Metadata} from "next";
 import type {ReactNode} from "react";
+import {Analytics} from "@vercel/analytics/next";
 import "./globals.css";
 import "./home.css";
 import "./library.css";
@@ -93,6 +94,7 @@ export default function RootLayout({children}: {children: ReactNode}) {
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(brandStructuredData)}} />
         {children}
+        <Analytics />
       </body>
     </html>
   );
